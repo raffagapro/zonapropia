@@ -1,6 +1,6 @@
 <!-- Grid Item -->
 <div class="col-md-6 mb-4">
-  <a href="{{ route('proyect-detail')}}" class="grid-item-link">
+  <a href="{{ route('proyect')}}" class="grid-item-link">
     <div class="card item-main-grid">
       <img src="./assets/images/la_florida_1200.png" alt="" class="item-main-grid-img2">
       <!-- Badges -->

@@ -1,12 +1,13 @@
 @extends('layouts.app')
+@section('title', 'Proyectos')
 
 @section('content')
-  <x-proyects.banner />
+  @include('proyects.banner')
   <div class="row m-0 pl-0 pr-0">
     <!-- Left Bar -->
-    <x-proyects.leftSideBar />
+    @include('proyects.leftSideBar')
     <!-- Right Panel -->
-    <x-proyects.rightMainPanel />
+    @include('proyects.rightMainPanel')
   </div>
 @endsection
 

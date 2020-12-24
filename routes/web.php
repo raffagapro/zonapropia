@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('home'); })->name('home');
-Route::get('/proyects', function () { return view('proyects'); })->name('proyects');
-Route::get('/proyect-detail', function () { return view('proyect-detail'); })->name('proyect-detail');
+Route::get('/', function () { return view('home.index'); })->name('home');
+Route::get('/proyects', function () { return view('proyects.index'); })->name('proyects');
+Route::get('/proyect', function () { return view('proyect.index'); })->name('proyect');
 
 // We create a controler in terminal with
 // php artisan make:controller Auth\\RegisterController

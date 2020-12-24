@@ -1,5 +1,5 @@
 <div class="col-12 mb-4">
-  <a href="{{ route('proyect-detail')}}" class="grid-item-link">
+  <a href="{{ route('proyect')}}" class="grid-item-link">
     <div class="card item-main-grid">
       <div class="row align-items-center">
         <!-- IMG -->

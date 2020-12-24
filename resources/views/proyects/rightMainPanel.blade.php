@@ -1,6 +1,6 @@
 <div class="col-md-8 rightpanel">
   <!-- Mini Filter Bar -->
-  <x-proyects.miniFilterBar />
+  @include('proyects.miniFilterBar')
   <!-- Propety List -->
   <div class="row mainbody">
     <x-proyects.gridItem />

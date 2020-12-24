@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" size="16x16" href="assets/images/favicon.ico">
 
-        <title>Laravel</title>
+        <title>Zonepropia - @yield('title')</title>
 
         {{-- Fonts --}}
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,11 +22,10 @@
         {{-- @yield('scripts') --}}
     </head>
     <body class="antialiased">
-      <x-navmenu />
-      <x-currencyBar />
+      @include('navmenu')
+      @include('currencyBar')
       {{-- Page Content --}}
       @yield('content')
-      <x-footer />
-
+      @include('footer')
     </body>
 </html>
