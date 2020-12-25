@@ -57,16 +57,45 @@
         </li>
       </ul>
       {{-- Login BTNS --}}
-      <form class="form-inline my-2 my-lg-0">
+      <div class="form-inline my-2 my-lg-0">
         <button class="nbnlg-btn btn btn-success navBar-btn bg-main-color text-light">Vende con nosotros</button>
-        <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
-          <span>Iniciar sesión</span>
-          <i class="fas fa-user navBar-btn-icon"></i>
-        </button>
-      </form>
+        @guest
+          <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
+            <span>Iniciar sesión</span>
+            <i class="fas fa-user navBar-btn-icon"></i>
+          </button>
+        @endguest
+        @auth
+          <form action="{{ route('logout')}}" method="post">
+            @csrf
+            <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit">
+              <span>Terminar sesión</span>
+              <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </form>
+        @endauth
+      </div>
     </div>
   </div>
 </nav>
+
+{{-- This opens the modal if there is a validation error --}}
+@if (count($errors) > 0)
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#loginModal').modal('show');
+    });
+  </script>
+@endif
+{{-- This detects if the validation error was from the register window --}}
+@if (old('originTab') === 'register')
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#loginTabs a[href="#register"]').tab('show')
+    });
+  </script>
+@endif
+
 
 {{-- Login Modal --}}
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,7 +105,7 @@
         <div class="row login-modal-container">
           {{-- Left Panel --}}
           <div class="col-md-6">
-            <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills mb-4" id="loginTabs" role="tablist">
               {{-- Tabs --}}
               <li class="nav-item mr-3" role="presentation">
                 <a class="login-modal-tab active" id="pills-home-tab" data-toggle="pill" href="#login" role="tab" aria-controls="pills-home" aria-selected="true">Ingresar</a>
@@ -88,66 +117,12 @@
             <div class="tab-content" id="pills-tabContent">
               {{-- Login Content --}}
               <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <form>
-                  <div class="form-group">
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" id="pw" placeholder="Contraseña">
-                  </div>
-                  <div class="form-group mt-4">
-                    <div class="form-check form-check-inline">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label login-modal-fp" for="exampleCheck1">Recordar</label>
-                    </div>
-                    <div class="form-check form-check-inline float-right">
-                      <a class="login-modal-link" href="#">Olvidaste la contraseña?</a>
-                    </div>
-                  </div>
-
-                  <button type="submit" class="btn bg-main-color general-btn ">Ingresar</button>
-                </form>
-                <div class="mt-4">
-                  <h6>Ingresar Con:</h6>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-instagram-square insta"></i>
-                  </a>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-facebook-square fb"></i>
-                  </a>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-linkedin lnkd"></i>
-                  </a>
-                </div>
+                @include('auth.login')
               </div>
 
               {{-- Register Content --}}
               <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <form>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Nombre">
-                  </div>
-                  <div class="form-group">
-                    <input type="email" class="form-control" id="regEmail" aria-describedby="emailHelp" placeholder="Email">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control" id="regpw" placeholder="Contraseña">
-                  </div>
-
-                  <button type="submit" class="btn bg-main-color general-btn mt-2">Registrarse</button>
-                </form>
-                <div class="mt-4">
-                  <h6>Ingresar Con:</h6>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-instagram-square insta"></i>
-                  </a>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-facebook-square fb"></i>
-                  </a>
-                  <a href="#" class="sm-login-icons">
-                    <i class="fab fa-linkedin lnkd"></i>
-                  </a>
-                </div>
+                @include('auth.register')
               </div>
 
             </div>
