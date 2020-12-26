@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -20,3 +20,10 @@ Route::get('/', function () { return view('home.index'); })->name('home');
 Route::get('/proyects', function () { return view('proyects.index'); })->name('proyects');
 Route::get('/proyect', function () { return view('proyect.index'); })->name('proyect');
 Auth::routes();
+
+//experimental, not sure WTF i am doing!!!!!!
+Route::middleware(['auth'])->group(function (){
+    Route::prefix('admin')->group(function(){
+      Route::resource('roles', RoleController::class);
+    });
+});
