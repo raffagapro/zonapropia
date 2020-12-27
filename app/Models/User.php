@@ -45,12 +45,26 @@ class User extends Authenticatable
       return $this->belongsToMany(Role::class);
     }
     // function for detecting roles
-    public function userHasRole($role_name)
+    public function userHasRole($roles)
     {
-      foreach ($this->roles as $role) {
-        if ($role_name === $role->name) {
+      if (is_array($roles)) {
+        foreach ($roles as $role) {
+          if ($this->hasRole($roles)) {
+            return true;
+          }
+        }
+      } else {
+        if ($this->hasRole($roles)) {
           return true;
         }
+      }
+      return false;
+    }
+
+    private function hasRole($role)
+    {
+      if ($this->roles()->where('name', $role)->first()) {
+        return true;
       }
       return false;
     }

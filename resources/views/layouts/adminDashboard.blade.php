@@ -19,8 +19,7 @@
 
     </head>
     <body class="antialiased">
-      @include('navmenu')
-      @include('currencyBar')
+      @include('admin.adminNavmenu')
       {{-- Page Content --}}
       @yield('content')
       @include('footer')

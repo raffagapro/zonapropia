@@ -25,5 +25,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
     Route::prefix('admin')->group(function(){
       Route::resource('roles', RoleController::class);
+      Route::get('panel', function () { return view('admin.index'); })->name('dashboard');
+
     });
 });

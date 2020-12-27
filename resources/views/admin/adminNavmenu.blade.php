@@ -58,29 +58,15 @@
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
-        <button class="nbnlg-btn btn navBar-btn bg-main-color text-light">Vende con nosotros</button>
-        @guest
-          <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
-            <span>Iniciar sesión</span>
-            <i class="fas fa-user navBar-btn-icon"></i>
+        <a href="{{ route('home')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Sitio Principal">
+          <i class="fas fa-home"></i>
+        </a>
+        <form action="{{ route('logout')}}" method="post">
+          @csrf
+          <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
+            <i class="fas fa-sign-out-alt"></i>
           </button>
-        @endguest
-        @auth
-          @if (auth()->user()->userHasRole('super admin'))
-            <a href="{{ route('dashboard')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Admin">
-              <i class="fas fa-user-cog"></i>
-            </a>
-          @endif
-          <form action="{{ route('logout')}}" method="post">
-            @csrf
-            <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
-              @if (!auth()->user()->userHasRole('super admin'))
-                <span>Terminar sesión</span>
-              @endif
-              <i class="fas fa-sign-out-alt"></i>
-            </button>
-          </form>
-        @endauth
+        </form>
       </div>
     </div>
   </div>

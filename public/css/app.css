@@ -10958,6 +10958,7 @@ body {
 .navBar-btn:active {
   background-color: #47798F;
   border-color: #47798F;
+  box-shadow: 0 0 0 0.2rem rgba(71, 121, 143, 0.5);
 }
 
 .navBar-btn-outline {
@@ -10968,12 +10969,7 @@ body {
   color: white;
 }
 
-.navBar-btn-outline:focus {
-  background-color: #47798F;
-  border-color: #47798F;
-  box-shadow: 0 0 0 0.2rem rgba(71, 121, 143, 0.5);
-}
-
+.navBar-btn-outline:focus,
 .navBar-btn-outline:active {
   background-color: #47798F;
   border-color: #47798F;
