@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -24,8 +25,9 @@ Auth::routes();
 //experimental, not sure WTF i am doing!!!!!!
 Route::middleware(['auth'])->group(function (){
     Route::prefix('admin')->group(function(){
-      Route::resource('roles', RoleController::class);
-      Route::get('panel', function () { return view('admin.index'); })->name('dashboard');
-
+      Route::middleware(['apa'])->group(function () {
+        Route::resource('roles', RoleController::class);
+        Route::get('panel', [AdminController::class, 'index'])->name('dashboard');
+      });
     });
 });

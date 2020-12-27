@@ -66,7 +66,7 @@
           </button>
         @endguest
         @auth
-          @if (auth()->user()->userHasRole('super admin'))
+          @if (auth()->user()->hasRoles('super admin'))
             <a href="{{ route('dashboard')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Admin">
               <i class="fas fa-user-cog"></i>
             </a>
@@ -74,9 +74,6 @@
           <form action="{{ route('logout')}}" method="post">
             @csrf
             <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
-              @if (!auth()->user()->userHasRole('super admin'))
-                <span>Terminar sesión</span>
-              @endif
               <i class="fas fa-sign-out-alt"></i>
             </button>
           </form>
