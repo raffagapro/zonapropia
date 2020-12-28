@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
 
 class AdminController extends Controller
 {
@@ -13,28 +15,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-      return view('admin.index');
+      $users = User::all();
+      return view('admin.index')->with('users', $users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function filter(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+      if ($request->type === 'active') {
+        $users = User::all();
+      }elseif ($request->type === 'deleted') {
+        $users = User::onlyTrashed()->get();
+      }
+      $selector = $request->type;
+      return view('admin.index')->with(compact('users', 'selector'));
     }
 
     /**
@@ -43,9 +36,27 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function addRole(Request $request, $id)
     {
-        //
+      $user = User::findOrFail($id);
+      $role = Role::findOrFail($request->role);
+      if (!$user->hasRoles($role->name)) {
+        $user->roles()->attach($role);
+      }
+      $roles = Role::all();
+      $status = 'El role del usuario ha sido actualizado.';
+      return back()->with(compact('status', 'user'));
+    }
+
+    public function rmRole($id, $role_id)
+    {
+      $user = User::findOrFail($id);
+      $role = Role::findOrFail($role_id);
+      $user->roles()->detach($role);
+
+      $roles = Role::all();
+      $status = 'El role del usuario ha sido actualizado.';
+      return back()->with(compact('status', 'user'));
     }
 
     /**
@@ -56,7 +67,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+      $user = User::findOrFail($id);
+      $roles = Role::all();
+      return view('admin.edit')->with(compact('user', 'roles'));
     }
 
     /**
@@ -68,7 +81,26 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validatedData = $request->validate([
+        'nombre' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+      ]);
+      $user = User::findOrFail($id);
+      if ($request->email !== $user->email) {
+        $validatedEmail = $request->validate([
+          'email' => ['unique:users'],
+        ]);
+      }
+      // dd($request->nombre);
+      // $user->update([
+      //   'name'=>'michael',
+      //   'email'=>$request->email,
+      // ]);
+      $user->name = $request->nombre;
+      $user->email = $request->email;
+      $user->save();
+      $status = 'La información del usuario ha sido actualizada.';
+      return back()->with(compact('status', 'user'));
     }
 
     /**
@@ -79,6 +111,17 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $user = User::findOrFail($id);
+      $user->delete();
+      $users = User::all();
+      return back()->with('users', $users);
+    }
+
+    public function restore($id)
+    {
+      $user = User::onlyTrashed()->findOrFail($id);
+      $user->restore();
+      $users = User::all();
+      return back()->with('users', $users);
     }
 }

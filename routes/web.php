@@ -26,8 +26,15 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
     Route::prefix('admin')->group(function(){
       Route::middleware(['apa'])->group(function () {
-        Route::resource('roles', RoleController::class);
-        Route::get('panel', [AdminController::class, 'index'])->name('dashboard');
+        // Route::resource('roles', RoleController::class);
+        Route::resource('adminPanel', AdminController::class, ['except'=>['create', 'store', 'show']]);
+        Route::post('adminPanel/{user}', [AdminController::class, 'show'])->name('adminPanel.show');
+        Route::post('adminPanel/{user}/addRole', [AdminController::class, 'addRole'])->name('adminPanel.addRole');
+        Route::get('adminPanel/{user}/{role}/rmRole', [AdminController::class, 'rmRole'])->name('adminPanel.rmRole');
+        Route::get('adminPanel/filter', [AdminController::class, 'filter'])->name('adminPanel.filter');
+        Route::post('adminPanel/{user}/restore', [AdminController::class, 'restore'])->name('adminPanel.restore');
+
+
       });
     });
 });

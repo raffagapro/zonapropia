@@ -1,4 +1,4 @@
-<div class="section-cont">
+<div class="section-cont" id="ventajas">
   <div class="row text-center section-title-cont padding-wrapper">
     <div class="col">
       <h1 class="section-title">4 Grandes ventajas de comprar con nosotros</h1>

@@ -15,4 +15,12 @@ class Role extends Model
     {
       return $this->belongsToMany(User::class);
     }
+    public function getNameAttribute($name)
+    {
+      return ucwords($name);
+    }
+    // public function setNameAttribute($name)
+    // {
+    //   return strtolower($name);
+    // }
 }

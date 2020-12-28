@@ -1,4 +1,4 @@
-<div class="section-cont">
+<div class="section-cont" id="vendeForm">
   {{-- Title --}}
   <div class="row text-center section-title-cont">
     <div class="col">
