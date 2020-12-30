@@ -20,7 +20,7 @@
     </head>
     <body class="antialiased">
       @include('navmenu')
-      @include('currencyBar')
+      <x-message-bar/>
       {{-- Page Content --}}
       @yield('content')
       @include('footer')

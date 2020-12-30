@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NoticesController;
 
 
 /*
@@ -17,7 +19,8 @@ use App\Http\Controllers\AdminController;
 */
 // Route::post('/test', [LogOutController::class, 'store'])->name('test');
 // Route::post('/tejjhkhst', 'App\Http\Controllers\LogOutController@store')->name('erkfhekru');
-Route::get('/', function () { return view('home.index'); })->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/proyects', function () { return view('proyects.index'); })->name('proyects');
 Route::get('/proyect', function () { return view('proyect.index'); })->name('proyect');
 Auth::routes();
@@ -33,6 +36,8 @@ Route::middleware(['auth'])->group(function (){
         Route::get('adminPanel/{user}/{role}/rmRole', [AdminController::class, 'rmRole'])->name('adminPanel.rmRole');
         Route::get('adminPanel/filter', [AdminController::class, 'filter'])->name('adminPanel.filter');
         Route::post('adminPanel/{user}/restore', [AdminController::class, 'restore'])->name('adminPanel.restore');
+        Route::resource('notice', NoticesController::class, ['except'=>['create', 'show']]);
+
 
 
       });

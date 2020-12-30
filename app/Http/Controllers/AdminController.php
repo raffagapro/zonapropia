@@ -8,6 +8,12 @@ use App\Models\Role;
 
 class AdminController extends Controller
 {
+    // public $paginator_max = 25;
+    // public function __construct()
+    // {
+    //   $paginator_max = $this->$paginator_max;
+    //
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -15,19 +21,47 @@ class AdminController extends Controller
      */
     public function index()
     {
-      $users = User::all();
-      return view('admin.index')->with('users', $users);
+      $users = User::paginate(25);
+      $roles = Role::all();
+      return view('admin.index')->with(compact('users', 'roles'));
     }
 
     public function filter(Request $request)
     {
       if ($request->type === 'active') {
-        $users = User::all();
+        if ($request->search !== null) {
+          $users = User::where('name', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+            ->paginate(25);
+        } else {
+          $users = User::paginate(25);
+        }
+
       }elseif ($request->type === 'deleted') {
-        $users = User::onlyTrashed()->get();
+        if ($request->search !== null) {
+          $users = User::where('name', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+            ->onlyTrashed()
+            ->paginate(25);
+        } else {
+          $users = User::onlyTrashed()->paginate(25);
+        }
       }
       $selector = $request->type;
-      return view('admin.index')->with(compact('users', 'selector'));
+      $searched = $request->search;
+      if ((int)$request->role !== 0) {
+        $roleHolder = Role::findOrFail($request->role);
+      }else {
+        $roleHolder = null;
+      }
+      $roles = Role::all();
+      return view('admin.index')->with(compact(
+        'users',
+        'selector',
+        'searched',
+        'roles',
+        'roleHolder'
+      ));
     }
 
     /**
@@ -113,15 +147,17 @@ class AdminController extends Controller
     {
       $user = User::findOrFail($id);
       $user->delete();
-      $users = User::all();
-      return back()->with('users', $users);
+      $users = User::paginate(25);
+      $roles = Role::all();
+      return back()->with(compact('users', 'roles'));
     }
 
     public function restore($id)
     {
       $user = User::onlyTrashed()->findOrFail($id);
       $user->restore();
-      $users = User::all();
-      return back()->with('users', $users);
+      $users = User::paginate(25);
+      $roles = Role::all();
+      return back()->with(compact('users', 'roles'));
     }
 }

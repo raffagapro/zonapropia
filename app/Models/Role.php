@@ -19,8 +19,8 @@ class Role extends Model
     {
       return ucwords($name);
     }
-    // public function setNameAttribute($name)
-    // {
-    //   return strtolower($name);
-    // }
+    public function setNameAttribute($name)
+    {
+      $this->attributes['name'] = strtolower($name);
+    }
 }

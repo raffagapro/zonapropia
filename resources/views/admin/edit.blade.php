@@ -4,8 +4,6 @@
 @section('content')
   <div style="background-color:#f5f5f5;">
     <div class="container pt-3 pb-3">
-      {{-- Title --}}
-      <h2 class="card-title mb-section-card-title pl-0">{{ $user->name }}</h2>
 
       {{-- Alert Section --}}
       @if(session('status'))
@@ -16,6 +14,12 @@
           </button>
         </div>
       @endif
+
+      {{-- Title --}}
+      <div class="row align-items-center">
+        <h2 class="card-title mb-section-card-title">{{ $user->name }}&nbsp</h2>
+        <a href="{{ route('adminPanel.index') }}" class="border-left mt-3">&nbsp&nbsp Regresar a Usuarios.</a>
+      </div>
 
       {{-- General info form --}}
       <div class="card mb-section-card">

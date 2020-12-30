@@ -165,8 +165,23 @@ body {
 .r-currency-Bar {
   box-shadow: inset 0 0 5px #00000014;
   padding: 6px;
+  height: 30px;
+}
+
+.newsG {
+  position: absolute;
+  transition: opacity .5s ease-in;
+}
+
+.newsG + .newsG { opacity: 0; }
+
+.onlyDesk{
   display: none;
 }
+.onlyTablet{
+  display: none;
+}
+
 
 .lcbar-item {
   padding-right: 11px;
@@ -840,6 +855,13 @@ body {
 }
 /* Responsive Rules */
 @media (min-width:576px) {
+
+  .onlyTablet{
+    display: inline;
+  }
+  .onlyMobile{
+    display: none;
+  }
   /* Currency Bar */
   .l-currency-Bar {
     width: 40%;
@@ -848,6 +870,7 @@ body {
   .r-currency-Bar {
     width: 60%;
     display: flex;
+    height: auto;
   }
 
   .hide-mobile {
@@ -875,6 +898,12 @@ body {
   .slider-lpanel {
     text-align: left;
     margin-bottom: 0;
+  }
+  .onlyDesk{
+    display: none;
+  }
+  .onlyTablet{
+    display: inline;
   }
   /* Sectioins */
   .section-lpanel {
@@ -981,6 +1010,7 @@ body {
 }
 
 @media (min-width:992px) {
+
   /* NAV BAR */
   .nbtis {
     display: none;
@@ -1022,10 +1052,15 @@ body {
 }
 
 @media (min-width:1013px) {
-  /* Left Bar */
-  /* .leftbar-cont{
-    padding-left: 7%;
-  } */
+  .onlyDesk{
+    display: inline;
+  }
+  .onlyTablet{
+    display: none;
+  }
+  .onlyTabletNmobile{
+    display: none;
+  }
   /* Sectioins */
   .ventajas-item{
     margin-bottom: 25px;

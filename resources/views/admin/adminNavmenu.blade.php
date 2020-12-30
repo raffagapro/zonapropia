@@ -45,9 +45,9 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('adminPanel.index')}}">
+          <a class="nav-link active" href="{{ route('notice.index')}}">
             <span class="nav-link-text">
-              Roles
+              Anuncios
             </span>
           </a>
         </li>
