@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePropiedadsTable extends Migration
+class CreateInmobiliariaProyectoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreatePropiedadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('propiedads', function (Blueprint $table) {
+        Schema::create('inmobiliaria_proyecto', function (Blueprint $table) {
             $table->id();
+            $table->integer('inmobiliaria_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->integer('proyecto_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreatePropiedadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('propiedads');
+        Schema::dropIfExists('inmobiliaria_proyecto');
     }
 }

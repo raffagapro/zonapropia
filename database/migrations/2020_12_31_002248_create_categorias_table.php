@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInmobiliariasTable extends Migration
+class CreateCategoriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateInmobiliariasTable extends Migration
      */
     public function up()
     {
-        Schema::create('inmobiliarias', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('logo');
+            $table->text('icono');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateInmobiliariasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inmobiliarias');
+        Schema::dropIfExists('categorias');
     }
 }

@@ -115,6 +115,7 @@
   </div>
 </nav>
 
+
 @guest
   {{-- This opens the modal if there is a validation error --}}
   @if (count($errors) > 0)
