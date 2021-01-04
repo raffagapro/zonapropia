@@ -80,7 +80,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($users as $user)
+              @forelse ($users as $user)
                 @php
                   $go = true;
                 @endphp
@@ -144,7 +144,11 @@
                     </td>
                   </tr>
                 @endif
-              @endforeach
+              @empty
+                <tr>
+                  <th class="main-color">No se encontraron usuarios en el registro.</th>
+                </tr>
+              @endforelse
             </tbody>
           </table>
           {{-- Paginator --}}

@@ -5,20 +5,10 @@
   <div style="background-color:#f5f5f5;">
     <div class="container pt-3 pb-3">
 
-      {{-- Alert Section --}}
-      @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{session('status')}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      @endif
-
       {{-- Title --}}
       <div class="row align-items-center">
         <h2 class="card-title mb-section-card-title">{{ $notice->title }}&nbsp</h2>
-        <a href="{{ route('notice.index') }}" class="border-left mt-3">&nbsp&nbsp Regresar a Anuncios.</a>
+        <a href="{{ route('notice.index') }}" class="border-left mt-3 td-none">&nbsp Regresar a Anuncios.</a>
       </div>
 
       {{-- General info form --}}
@@ -51,6 +41,9 @@
 
     </div>
   </div>
+  @if(session('status'))
+    <x-sweet-alert-admin :message="session('status')"/>
+  @endif
 @endsection
 
 {{-- @section('scripts')

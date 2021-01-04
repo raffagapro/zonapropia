@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticesController;
+use App\Http\Controllers\InmobiliariaController;
 
 
 /*
@@ -37,6 +38,9 @@ Route::middleware(['auth'])->group(function (){
         Route::get('adminPanel/filter', [AdminController::class, 'filter'])->name('adminPanel.filter');
         Route::post('adminPanel/{user}/restore', [AdminController::class, 'restore'])->name('adminPanel.restore');
         Route::resource('notice', NoticesController::class, ['except'=>['create', 'show']]);
+        Route::resource('inmo', InmobiliariaController::class, ['except'=>['show']]);
+        Route::put('inmo/show/{id}', [InmobiliariaController::class, 'show'])->name('inmo.show');
+        Route::put('inmo/hide/{id}', [InmobiliariaController::class, 'hide'])->name('inmo.hide');
 
 
 

@@ -4,7 +4,7 @@
     <span class="lcbar-item"><b>UF: </b>{{ $uf }}</span>
   </div>
   <div class="col-lg r-currency-Bar bg-light justify-content-center align-items-center">
-    @foreach ($news as $new)
+    @forelse ($news as $new)
       @php
         $regNew = substr($new->body, 0, 140);
         $tabNew = substr($new->body, 0, 60);
@@ -17,7 +17,20 @@
         {{ $tabNew.'... ' }}
         <a href="javascript:void(0);" data-toggle="modal" data-target="#newsModal">Ver más</a>
       </small>
-    @endforeach
+      @empty
+        <small class="newsG mt">
+          <b class="main-color">Responsabilidad:</b> Servicios acorde a las exigencias de transparencia y probidad.
+        </small>
+        <small class="newsG mt">
+          <b class="main-color">Seguridad:</b> Altos estándares de calidad y seguridad digital.
+        </small>
+        <small class="newsG mt">
+          <b class="main-color">Confianza:</b> Trabajamos solo con empresas inmobiliarias de basta experiencia.
+        </small>
+        <small class="newsG mt">
+          <b class="main-color">Compañía:</b> Te acompañamos y asesoramos en cada decisión.
+        </small>
+    @endforelse
   </div>
 </div>
 

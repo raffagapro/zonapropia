@@ -1,5 +1,7 @@
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
+window.swal = require('sweetalert2');
+// window.dropify = require('dropify');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

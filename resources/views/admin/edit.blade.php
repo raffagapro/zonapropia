@@ -5,20 +5,10 @@
   <div style="background-color:#f5f5f5;">
     <div class="container pt-3 pb-3">
 
-      {{-- Alert Section --}}
-      @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{session('status')}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      @endif
-
       {{-- Title --}}
       <div class="row align-items-center">
         <h2 class="card-title mb-section-card-title">{{ $user->name }}&nbsp</h2>
-        <a href="{{ route('adminPanel.index') }}" class="border-left mt-3">&nbsp&nbsp Regresar a Usuarios.</a>
+        <a href="{{ route('adminPanel.index') }}" class="border-left mt-3 td-none">&nbsp Regresar a Usuarios.</a>
       </div>
 
       {{-- General info form --}}
@@ -85,6 +75,9 @@
       </div>
     </div>
   </div>
+  @if(session('status'))
+    <x-sweet-alert-admin :message="session('status')"/>
+  @endif
 @endsection
 
 {{-- @section('scripts')

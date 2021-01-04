@@ -3,7 +3,7 @@
 
 @section('content')
   @include('home.mainCarrousel')
-  @include('home.logoBar')
+  <x-inmo-logo-bar/>
   <div class="container">
     @include('home.ventaProjectSec')
     @include('home.buscaPropSec')

@@ -23,5 +23,9 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "dropify": "^0.2.2",
+        "sweetalert2": "^10.12.7"
     }
 }

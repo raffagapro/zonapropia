@@ -4,15 +4,6 @@
 @section('content')
   <div style="background-color:#f5f5f5;">
     <div class="container pt-3 pb-3">
-      {{-- Alert Section --}}
-      @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{session('status')}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      @endif
 
       {{-- Title --}}
       <div class="row align-items-center">
@@ -33,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($notices as $notice)
+              @forelse ($notices as $notice)
                 <tr>
                   <th scope="row">{{ $notice->id }}</th>
                   <td>
@@ -58,7 +49,11 @@
                     </form>
                   </td>
                 </tr>
-              @endforeach
+              @empty
+                <tr>
+                  <th class="main-color">No se encontraron anuncios en el registro.</th>
+                </tr>
+              @endforelse
             </tbody>
           </table>
           {{-- Paginator --}}
@@ -88,6 +83,10 @@
       </div>
     </div>
   </div>
+
+  @if(session('status'))
+    <x-sweet-alert-admin :message="session('status')"/>
+  @endif
 @endsection
 
 {{-- @section('scripts')

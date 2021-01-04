@@ -16,5 +16,10 @@ class Inmobiliaria extends Model
     protected $fillable = [
         'name',
         'logo',
+        'destacar',
     ];
+    public function proyectos()
+    {
+        return $this->hasMany(Proyecto::class);
+    }
 }

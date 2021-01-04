@@ -53,9 +53,9 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('adminPanel.index')}}">
+          <a class="nav-link active" href="{{ route('inmo.index')}}">
             <span class="nav-link-text">
-              Propiedades
+              Inmobiliarias
             </span>
           </a>
         </li>

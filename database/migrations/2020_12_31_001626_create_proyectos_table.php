@@ -39,8 +39,9 @@ class CreateProyectosTable extends Migration
             $table->longText('terminos');
             $table->mediumText('texto_proyecto');
             $table->integer('estado_id');
-            $table->integer('inmobiliaria_id');
-            $table->integer('categoria_id');
+            $table->integer('inmobiliaria_id')->nullable();
+            $table->integer('categoria_id')->nullable();
+            $table->integer('taggable_id')->nullable();
             $table->timestamps();
         });
     }
