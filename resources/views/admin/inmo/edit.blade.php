@@ -64,6 +64,85 @@
         </div>
       </div>
 
+      {{-- Proyectos table --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1">Proyectos</h4>
+        {{-- Table --}}
+        <table class="table table-hover mt-4 table-responsive-sm">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse ($proyectos as $proyecto)
+              <tr>
+                <th scope="row">{{ $proyecto->id }}</th>
+                <td>
+                  <a href="{{ route('inmo.edit', $proyecto->id) }}">
+                    {{ $proyecto->name }}
+                  </a>
+                </td>
+                <td><img src="{{ asset($proyecto->logo) }}" alt="" class="inmoTb"></td>
+                <td>
+                  <a
+                    href="javascript:void(0);"
+                    class="btn btn-sm btn-danger"
+                    onclick="event.preventDefault(); document.getElementById('{{ 'inmoDestroy'.$proyecto->id }}').submit();"
+                    data-toggle="tooltip" data-placement="top" title="Borrar Inmobiliaria">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <form id="{{ 'inmoDestroy'.$proyecto->id }}"
+                    action="{{ route('inmo.destroy', $proyecto->id) }}"
+                    method="POST"
+                    style="display: none;"
+                    >@method('DELETE') @csrf
+                  </form>
+                  @if ( (int)$proyecto->destacar === 1 )
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-danger"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'inmoHide'.$proyecto->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Esconder Inmobiliaria">
+                      <i class="fas fa-eye-slash"></i>
+                    </a>
+                    <form id="{{ 'inmoHide'.$proyecto->id }}"
+                      action="{{ route('inmo.hide', $proyecto->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@method('PUT') @csrf
+                    </form>
+                  @else
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-success"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'inmoShow'.$proyecto->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Destacar Inmobiliaria">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                    <form id="{{ 'inmoShow'.$proyecto->id }}"
+                      action="{{ route('inmo.show', $proyecto->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@method('PUT') @csrf
+                    </form>
+                  @endif
+                </td>
+              </tr>
+            @empty
+              <tr>
+                <th class="main-color">No se encontraron proyectos asociados a esta inmobiliaria.</th>
+              </tr>
+            @endforelse
+          </tbody>
+        </table>
+        {{-- Paginator --}}
+        {{$proyectos->links()}}
+      </div>
+
     </div>
   </div>
   @if(session('status'))

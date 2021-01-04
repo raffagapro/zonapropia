@@ -71,8 +71,9 @@ class InmobiliariaController extends Controller
      */
     public function edit($id)
     {
-      $inmo= Inmobiliaria::findOrFail($id);
-      return view('admin.inmo.edit')->with(compact('inmo'));
+      $inmo = Inmobiliaria::findOrFail($id);
+      $proyectos = $inmo->proyectos()->paginate(25);
+      return view('admin.inmo.edit')->with(compact('inmo', 'proyectos'));
     }
 
     public function show($id)
