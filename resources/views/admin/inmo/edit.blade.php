@@ -67,7 +67,19 @@
       {{-- Proyectos table --}}
       <div class="card mb-section-card">
         {{-- Title --}}
-        <h4 class="card-title mb-section-card-title mt-1">Proyectos</h4>
+        <h4 class="card-title mb-section-card-title mt-1">
+          Proyectos
+          <a href="{{ route('aProyect.create')}}" class="td-none">
+            <i class="fas fa-plus-circle main-color"
+              data-toggle="tooltip" data-placement="top" title="Nuevo Proyecto">
+            </i>
+          </a>
+          <a href="{{ route('inmo.create')}}" class="td-none">
+            <i class="fas fa-search-plus main-color"
+              data-toggle="tooltip" data-placement="top" title="Buscar Proyecto">
+            </i>
+          </a>
+        </h4>
         {{-- Table --}}
         <table class="table table-hover mt-4 table-responsive-sm">
           <thead>

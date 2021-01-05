@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\InmobiliariaController;
+use App\Http\Controllers\AminProyectController;
+use App\Http\Controllers\RegionController;
 
 
 /*
@@ -41,6 +43,9 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('inmo', InmobiliariaController::class, ['except'=>['show']]);
         Route::put('inmo/show/{id}', [InmobiliariaController::class, 'show'])->name('inmo.show');
         Route::put('inmo/hide/{id}', [InmobiliariaController::class, 'hide'])->name('inmo.hide');
+        Route::resource('aProyect', AminProyectController::class);
+        Route::resource('region', RegionController::class);
+
 
 
 

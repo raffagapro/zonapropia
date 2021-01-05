@@ -19,7 +19,7 @@ class CreateProyectosTable extends Migration
             $table->string('direccion');
             $table->string('comuna');
             $table->string('ciudad');
-            $table->string('region');
+            $table->string('region_id');
             $table->longText('descripcion');
             $table->decimal('latitud', $precision = 13, $scale = 10);
             $table->decimal('longitud', $precision = 13, $scale = 10);

@@ -105,7 +105,6 @@ class InmobiliariaController extends Controller
     {
       $inmo = Inmobiliaria::findOrFail($id);
       $inmo->name = $request->nombre;
-      $inmo->save();
       if ($request->has('destacar')) {
         $inmo->destacar = 1;
       }else {
@@ -117,11 +116,17 @@ class InmobiliariaController extends Controller
             'nombre'=>'string|max:40',
             'logo'=>'mimes:jpeg,png|max:500',
           ]);
+          //erases previos logo
+          $delInmo = str_replace('/storage/', "",$inmo->logo);
+          Storage::delete('public/'.$delInmo);
+          //saves new one
           $extension = $request->logo->extension();
           $request->logo->storeAs('/public/inmo_logos', 'logo_'.$request->nombre.".".$extension);
           $url = Storage::url('inmo_logos/logo_'.$request->nombre.".".$extension);
+          $inmo->logo = $url;
         }
       }
+
       $inmo->save();
       $status = 'La inmobiliaria ha sido actualizada exitosamente.';
       return back()->with(compact('inmo', 'status'));

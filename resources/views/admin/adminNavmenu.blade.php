@@ -34,7 +34,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {{-- Main Links --}}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto mr-2">
 
         <li class="nav-item">
           <a class="nav-link active" href="{{ route('adminPanel.index')}}">
@@ -61,17 +61,17 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('adminPanel.index')}}">
+          <a class="nav-link active" href="{{ route('aProyect.index')}}">
             <span class="nav-link-text">
-              Categorias
+              Proyectos
             </span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('adminPanel.index')}}">
+          <a class="nav-link active" href="{{ route('region.index')}}">
             <span class="nav-link-text">
-              Socios
+              Regiones
             </span>
           </a>
         </li>
