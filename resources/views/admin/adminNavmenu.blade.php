@@ -76,6 +76,14 @@
           </a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ route('category.index')}}">
+            <span class="nav-link-text">
+              Categorias
+            </span>
+          </a>
+        </li>
+
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">

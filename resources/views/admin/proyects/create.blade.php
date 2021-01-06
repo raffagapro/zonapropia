@@ -95,6 +95,35 @@
                 </select>
               </div>
             </div>
+            <div class="form-group row">
+              {{-- Categories --}}
+              <div class="col-4">
+                <select class="form-control" name="role">
+                  <option  value=0 disabled selected>Categoria</option>
+                  @foreach ($cats as $cat)
+                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              {{-- Longitud --}}
+              <div class="col-4">
+                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" placeholder="Longitud" value="">
+                @error('longitud')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Latitud --}}
+              <div class="col-4">
+                <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" placeholder="Latitud" value="">
+                @error('latitud')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+            </div>
             {{-- descripcion --}}
             <div class="form-group">
               <textarea class="form-control" name="descripcion" rows="3" placeholder="Descripcion del proyecto"></textarea>

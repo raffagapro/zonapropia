@@ -23,6 +23,6 @@ class Region extends Model
     }
     public function setNameAttribute($name)
     {
-      $this->attributes['name'] = strtolower($name);
+      $this->attributes['name'] = mb_strtolower($name);
     }
 }

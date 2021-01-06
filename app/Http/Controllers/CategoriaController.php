@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proyecto;
-use App\Models\Region;
-use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 
 
-
-class AminProyectController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,22 +15,8 @@ class AminProyectController extends Controller
      */
     public function index()
     {
-      $proyects = Proyecto::paginate(25);
-      return view('admin.proyects.index')->with(compact('proyects'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      return view('admin.proyects.create')
-        ->with(compact('regions', 'inmos', 'cats'));
+      $categories = Categoria::paginate(25);
+      return view('admin.categorias.index')->with(compact('categories'));
     }
 
     /**
@@ -45,18 +27,13 @@ class AminProyectController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+      // dd($request->all());
+      Categoria::create([
+        'name' => $request->nombre,
+      ]);
+      $status = 'La categoria ha sido guardada exitosamente.';
+      $categories = Categoria::paginate(25);
+      return back()->with(compact('categories', 'status'));
     }
 
     /**
@@ -67,7 +44,8 @@ class AminProyectController extends Controller
      */
     public function edit($id)
     {
-        //
+      $category = Categoria::findOrFail($id);
+      return view('admin.categorias.edit')->with(compact('category'));
     }
 
     /**
@@ -79,7 +57,11 @@ class AminProyectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $category = Categoria::findOrFail($id);
+      $category->name = $request->nombre;
+      $category->save();
+      $status = 'La categoria ha sido actualizada exitosamente.';
+      return back()->with(compact('category', 'status'));
     }
 
     /**
@@ -90,6 +72,10 @@ class AminProyectController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $category = Categoria::findOrFail($id);
+      $category->delete();
+      $status = 'La categoria ha sido eliminada exitosamente.';
+      $categories = Categoria::paginate(25);
+      return back()->with(compact('categories', 'status'));
     }
 }

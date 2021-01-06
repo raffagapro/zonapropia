@@ -8,6 +8,7 @@ use App\Http\Controllers\NoticesController;
 use App\Http\Controllers\InmobiliariaController;
 use App\Http\Controllers\AminProyectController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\CategoriaController;
 
 
 /*
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function (){
         Route::put('inmo/hide/{id}', [InmobiliariaController::class, 'hide'])->name('inmo.hide');
         Route::resource('aProyect', AminProyectController::class);
         Route::resource('region', RegionController::class);
+        Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);
 
 
 
