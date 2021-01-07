@@ -21,4 +21,12 @@ class Taggable extends Model
     {
       return $this->belongsToMany(Proyecto::class);
     }
+    public function getNameAttribute($name)
+    {
+      return ucwords($name);
+    }
+    public function setNameAttribute($name)
+    {
+      $this->attributes['name'] = mb_strtolower($name);
+    }
 }

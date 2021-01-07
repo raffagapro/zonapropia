@@ -33,7 +33,7 @@
                 <tr>
                   <th scope="row">{{ $proyect->id }}</th>
                   <td>
-                    <a href="{{ route('inmo.edit', $proyect->id) }}">
+                    <a href="{{ route('aProyect.edit', $proyect->id) }}">
                       {{ $proyect->name }}
                     </a>
                   </td>

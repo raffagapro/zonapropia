@@ -18,9 +18,9 @@ class Categoria extends Model
         'name',
         'icono',
     ];
-    public function proyectos()
+    public function proyects()
     {
-      return $this->belongsToMany(Proyecto::class);
+        return $this->hasMany(Proyecto::class);
     }
     public function getNameAttribute($name)
     {

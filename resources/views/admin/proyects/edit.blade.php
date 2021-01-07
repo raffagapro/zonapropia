@@ -1,5 +1,5 @@
 @extends('layouts.adminDashboard')
-@section('title', 'Agregar Proyecto')
+@section('title', 'Modificar Proyecto')
 
 @section('content')
   <div style="background-color:#f5f5f5;">
@@ -7,21 +7,25 @@
 
       {{-- Title --}}
       <div class="row align-items-center">
-        <h2 class="card-title mb-section-card-title">Agregar Proyecto&nbsp</h2>
+        <h2 class="card-title mb-section-card-title">{{ $proyect->name }}&nbsp</h2>
         <a href="{{ route('aProyect.index') }}" class="border-left mt-3 td-none">&nbsp Regresar a Proyectos.</a>
       </div>
 
       {{-- General info form --}}
       <div class="card mb-section-card">
         {{-- Title --}}
-        <h4 class="card-title mb-section-card-title mt-1 mb-4">Información general</h4>
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Modificar Proyecto</h4>
         {{-- General info --}}
         <div class="container">
-          <form action="{{ route('aProyect.store') }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ route('aProyect.update', $proyect->id) }}" method="POST">
             @csrf
+            @method('PUT')
             {{-- Nombre --}}
             <div class="form-group">
-              <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Nombre" value="">
+              <input type="text" name="nombre"
+                class="form-control @error('nombre') is-invalid @enderror"
+                placeholder="Nombre" value="{{ $proyect->name }}"
+              >
               @error('nombre')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -30,7 +34,10 @@
             </div>
             {{-- Direccion --}}
             <div class="form-group">
-              <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" placeholder="Dirección" value="">
+              <input type="text" name="direccion"
+                class="form-control @error('direccion') is-invalid @enderror"
+                placeholder="Dirección" value="{{ $proyect->direccion }}"
+              >
               @error('direccion')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -42,15 +49,21 @@
               {{-- Region --}}
               <div class="col-4">
                 <select class="form-control" name="region">
-                  <option disabled selected>Region</option>
                   @foreach ($regions as $region)
-                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                    @if ((int)$proyect->region->id === (int)$region->id)
+                      <option value="{{ $region->id }}" selected>{{ $region->name }}</option>
+                    @else
+                      <option value="{{ $region->id }}">{{ $region->name }}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
               {{-- Comuna --}}
               <div class="col-4">
-                <input type="text" name="comuna" class="form-control @error('comuna') is-invalid @enderror" placeholder="Comuna" value="">
+                <input type="text" name="comuna"
+                  class="form-control @error('comuna') is-invalid @enderror"
+                  placeholder="Comuna" value="{{ $proyect->comuna }}"
+                >
                 @error('comuna')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -59,7 +72,10 @@
               </div>
               {{-- Ciudad --}}
               <div class="col-4">
-                <input type="text" name="ciudad" class="form-control @error('ciudad') is-invalid @enderror" placeholder="Ciudad" value="">
+                <input type="text" name="ciudad"
+                  class="form-control @error('ciudad') is-invalid @enderror"
+                  placeholder="Ciudad" value="{{ $proyect->ciudad }}"
+                >
                 @error('ciudad')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -71,7 +87,10 @@
             <div class="form-group row">
               {{-- Latitud --}}
               <div class="col-4">
-                <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" placeholder="Latitud" value="">
+                <input type="text" name="latitud"
+                  class="form-control @error('latitud') is-invalid @enderror"
+                  placeholder="Latitud" value="{{ $proyect->latitud }}"
+                >
                 @error('latitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -80,7 +99,10 @@
               </div>
               {{-- Longitud --}}
               <div class="col-4">
-                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" placeholder="Longitud" value="">
+                <input type="text" name="longitud"
+                  class="form-control @error('longitud') is-invalid @enderror"
+                  placeholder="Longitud" value="{{ $proyect->longitud }}"
+                >
                 @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -90,9 +112,17 @@
               {{-- Inmobiliarias --}}
               <div class="col-4">
                 <select class="form-control" name="inmo">
-                  <option  value=0 selected>Inmobiliaria</option>
+                  <option  value=0 >Sin Inmobiliaria</option>
                   @foreach ($inmos as $inmo)
-                    <option value="{{ $inmo->id }}">{{ $inmo->name }}</option>
+                    @if ($proyect->inmobiliaria !== null)
+                      @if ((int)$proyect->inmobiliaria->id === (int)$inmo->id)
+                        <option value="{{ $inmo->id }}" selected>{{ $inmo->name }}</option>
+                      @else
+                        <option value="{{ $inmo->id }}">{{ $inmo->name }}</option>
+                      @endif
+                    @else
+                      <option value="{{ $inmo->id }}">{{ $inmo->name }}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
@@ -102,15 +132,21 @@
               {{-- Categories --}}
               <div class="col-4">
                 <select class="form-control" name="cat">
-                  <option  value=0 disabled selected>Categoria</option>
                   @foreach ($cats as $cat)
-                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                    @if ((int)$proyect->categoria->id === (int)$cat->id)
+                      <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
+                    @else
+                      <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
               {{-- Cuota Monto --}}
               <div class="col-4">
-                <input type="text" name="cuotaMonto" class="form-control @error('cuotaMonto') is-invalid @enderror" placeholder="Cuota Monto" value="">
+                <input type="text" name="cuotaMonto"
+                  class="form-control @error('cuotaMonto') is-invalid @enderror"
+                  placeholder="Cuota Monto" value="{{ $proyect->cuota_monto }}"
+                >
                 @error('cuotaMonto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -119,7 +155,10 @@
               </div>
               {{-- Bono Pie Monto --}}
               <div class="col-4">
-                <input type="text" name="bonoPieMonto" class="form-control @error('bonoPieMonto') is-invalid @enderror" placeholder="Bono Pie Monto" value="">
+                <input type="text" name="bonoPieMonto"
+                  class="form-control @error('bonoPieMonto') is-invalid @enderror"
+                  placeholder="Bono Pie Monto" value="{{ $proyect->bono_pie_monto }}"
+                >
                 @error('bonoPieMonto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -129,19 +168,27 @@
             </div>
             {{-- descripcion --}}
             <div class="form-group">
-              <textarea class="form-control" name="descripcion" rows="3" placeholder="Descripcion del proyecto"></textarea>
+              <textarea class="form-control" name="descripcion" rows="3"
+                placeholder="Descripcion del proyecto"
+              >{{ $proyect->descripcion }}</textarea>
             </div>
             {{-- texto descatado --}}
             <div class="form-group">
-              <textarea class="form-control" name="textoDestacado" rows="3" placeholder="Texto destacado"></textarea>
+              <textarea class="form-control" name="textoDestacado" rows="3"
+                placeholder="Texto destacado"
+              >{{ $proyect->texto_destacado }}</textarea>
             </div>
             {{-- Texto Proyecto --}}
             <div class="form-group">
-              <textarea class="form-control" name="textoProyecto" rows="3" placeholder="Texto del proyecto"></textarea>
+              <textarea class="form-control" name="textoProyecto" rows="3"
+                placeholder="Texto del proyecto"
+                >{{ $proyect->texto_proyecto }}</textarea>
             </div>
             {{-- terms --}}
             <div class="form-group">
-              <textarea class="form-control" name="terminos" rows="3" placeholder="Terminos"></textarea>
+              <textarea class="form-control" name="terminos" rows="3"
+                placeholder="Terminos"
+                >{{ $proyect->terminos }}</textarea>
             </div>
             {{-- date/estado/destacado--}}
             <div class="form-group row">
@@ -151,7 +198,7 @@
                   type="text"
                   name="fechaLimite"
                   class="form-control @error('fechaLimite') is-invalid @enderror"
-                  placeholder="Fecha Limite" value=""
+                  placeholder="Fecha Limite" value="{{ $proyect->cuota_pie_fecha_limite }}"
                   onfocus="(this.type='date')"
                   onblur="(this.type='text')"
                 >
@@ -164,21 +211,21 @@
               {{-- Status --}}
               <div class="col-4">
                 <select class="form-control" name="status">
-                  <option disabled selected>Status</option>
-                  <option value=0>Borrador</option>
-                  <option value=1>Publicado</option>
+                  <option disabled>Status</option>
+                  <option value=0 @if ((int)$proyect->estado_id === 0) selected @endif>Borrador</option>
+                  <option value=1 @if ((int)$proyect->estado_id === 1) selected @endif>Publicado</option>
                 </select>
               </div>
               {{-- Destacado --}}
               <div class="col-4">
                 <select class="form-control" name="destacar">
-                  <option disabled selected>Destacar</option>
-                  <option value=0>No</option>
-                  <option value=1>Si</option>
+                  <option disabled>Destacar</option>
+                  <option value=0 @if ((int)$proyect->destacado === 0) selected @endif>No</option>
+                  <option value=1 @if ((int)$proyect->destacado === 1) selected @endif>Si</option>
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar</button>
+            <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
           </form>
         </div>
       </div>
@@ -188,8 +235,9 @@
   @if(session('status'))
     <x-sweet-alert-admin :message="session('status')"/>
   @endif
-  {{-- <script type="text/javascript">
-    console.log(document.getElementsByClassName('dropify'));
-    document.getElementsByClassName('dropify').dropify();
-  </script> --}}
 @endsection
+
+{{-- @section('scripts')
+
+<script src="{{ asset('js/calendar.js') }}" defer></script>
+@endsection --}}

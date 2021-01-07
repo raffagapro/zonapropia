@@ -9,6 +9,7 @@ use App\Http\Controllers\InmobiliariaController;
 use App\Http\Controllers\AminProyectController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\TagController;
 
 
 /*
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('aProyect', AminProyectController::class);
         Route::resource('region', RegionController::class);
         Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);
+        Route::resource('tag', TagController::class, ['except'=>['create', 'show']]);
 
 
 

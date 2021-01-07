@@ -43,13 +43,13 @@ class Proyecto extends Model
         'taggable_id',
     ];
 
-    public function estado()
-    {
-      return $this->hasOne(Estado::class);
-    }
+    // public function estado()
+    // {
+    //   return $this->hasOne(Estado::class);
+    // }
     public function categoria()
     {
-      return $this->hasOne(Categoria::class);
+      return $this->belongsTo(Categoria::class);
     }
     public function tags()
     {
@@ -58,5 +58,9 @@ class Proyecto extends Model
     public function inmobiliaria()
     {
       return $this->belongsTo(Inmobiliaria::class);
+    }
+    public function region()
+    {
+      return $this->belongsTo(Region::class);
     }
 }
