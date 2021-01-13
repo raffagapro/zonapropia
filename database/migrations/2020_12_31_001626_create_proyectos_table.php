@@ -19,7 +19,7 @@ class CreateProyectosTable extends Migration
             $table->string('direccion');
             $table->string('comuna')->nullable();
             $table->string('ciudad')->nullable();
-            $table->string('region_id')->nullable();
+            $table->integer('region_id')->nullable();
             $table->longText('descripcion')->nullable();
             $table->decimal('latitud', 13, 7)->nullable();
             $table->decimal('longitud', 13, 7)->nullable();
@@ -41,6 +41,12 @@ class CreateProyectosTable extends Migration
             $table->integer('estado_id')->nullable();
             $table->integer('inmobiliaria_id')->nullable();
             $table->integer('categoria_id')->nullable();
+            $table->integer('minRooms')->nullable();
+            $table->integer('maxRooms')->nullable();
+            $table->integer('minBathrooms')->nullable();
+            $table->integer('maxBathrooms')->nullable();
+            $table->integer('minMC')->nullable();
+            $table->integer('maxMC')->nullable();
             $table->timestamps();
         });
     }

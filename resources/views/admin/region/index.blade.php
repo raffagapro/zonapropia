@@ -7,12 +7,12 @@
       {{-- Title --}}
       <div class="row align-items-center">
         <h2 class="card-title mb-section-card-title mb-3">Regiones&nbsp</h2>
-        <a href="{{ route('region.create')}}" class="td-none">
+        {{-- <a href="{{ route('region.create')}}" class="td-none">
           <i class="fas fa-plus-circle fa-2x main-color"
             data-toggle="tooltip" data-placement="top" title="Agregar Region">
           </i>
           &nbsp
-        </a>
+        </a> --}}
         <span class="border-left">&nbsp Mostrando {{$regions->count()}} de {{$regions->total()}} resultados. &nbsp</span>
       </div>
 
@@ -24,7 +24,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Control</th>
+                {{-- <th scope="col">Control</th> --}}
               </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                       {{ $region->name }}
                     </a>
                   </td>
-                  <td>
+                  {{-- <td>
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
@@ -79,7 +79,7 @@
                         >@method('PUT') @csrf
                       </form>
                     @endif
-                  </td>
+                  </td> --}}
                 </tr>
               @empty
                 <tr>

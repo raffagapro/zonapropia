@@ -178,6 +178,99 @@
                 </select>
               </div>
             </div>
+            {{-- rooms/bath/MC--}}
+            <div class="form-group row">
+              {{-- Room Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minRoom"
+                  min="0"
+                  class="form-control @error('minRoom') is-invalid @enderror"
+                  placeholder="Dorms Min." value=""
+                >
+                @error('minRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Room Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxRoom"
+                  min="0"
+                  class="form-control @error('maxRoom') is-invalid @enderror"
+                  placeholder="Dorms Max" value=""
+                >
+                @error('maxRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minBath"
+                  min="0"
+                  class="form-control @error('minBath') is-invalid @enderror"
+                  placeholder="Baño Min" value=""
+                >
+                @error('minBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxBath"
+                  min="0"
+                  class="form-control @error('maxBath') is-invalid @enderror"
+                  placeholder="Baño Max" value=""
+                >
+                @error('maxBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minMC"
+                  min="0"
+                  class="form-control @error('minMC') is-invalid @enderror"
+                  placeholder="m² Min" value=""
+                >
+                @error('minMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxMC"
+                  min="0"
+                  class="form-control @error('maxMC') is-invalid @enderror"
+                  placeholder="m² Max" value=""
+                >
+                @error('maxMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+            </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar</button>
           </form>
         </div>

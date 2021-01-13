@@ -143,8 +143,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
       $user = User::findOrFail($id);
       $user->delete();
       $users = User::paginate(25);
@@ -152,8 +151,7 @@ class AdminController extends Controller
       return back()->with(compact('users', 'roles'));
     }
 
-    public function restore($id)
-    {
+    public function restore($id){
       $user = User::onlyTrashed()->findOrFail($id);
       $user->restore();
       $users = User::paginate(25);

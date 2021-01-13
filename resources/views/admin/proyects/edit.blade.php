@@ -225,10 +225,243 @@
                 </select>
               </div>
             </div>
+            {{-- rooms/bath/MC--}}
+            <div class="form-group row">
+              {{-- Room Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minRoom"
+                  min="0"
+                  class="form-control @error('minRoom') is-invalid @enderror"
+                  placeholder="Dorms Min." value="{{ $proyect->minRooms }}"
+                >
+                @error('minRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Room Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxRoom"
+                  min="0"
+                  class="form-control @error('maxRoom') is-invalid @enderror"
+                  placeholder="Dorms Max" value="{{ $proyect->maxRooms }}"
+                >
+                @error('maxRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minBath"
+                  min="0"
+                  class="form-control @error('minBath') is-invalid @enderror"
+                  placeholder="Baño Min" value="{{ $proyect->minBathrooms }}"
+                >
+                @error('minBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxBath"
+                  min="0"
+                  class="form-control @error('maxBath') is-invalid @enderror"
+                  placeholder="Baño Max" value="{{ $proyect->maxBathrooms }}"
+                >
+                @error('maxBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minMC"
+                  min="0"
+                  class="form-control @error('minMC') is-invalid @enderror"
+                  placeholder="m² Min" value="{{ $proyect->minMC }}"
+                >
+                @error('minMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxMC"
+                  min="0"
+                  class="form-control @error('maxMC') is-invalid @enderror"
+                  placeholder="m² Max" value="{{ $proyect->maxMC }}"
+                >
+                @error('maxMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+            </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
           </form>
         </div>
       </div>
+
+      {{-- Tags Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Tags</h4>
+        {{-- Tags Form --}}
+        <div class="container">
+          <form action="{{ route('aProyect.addTag', $proyect->id) }}" method="POST">
+            @csrf
+            <div class="row">
+              <div class="col-md-8 col-lg-10">
+                <select class="form-control" name="tag">
+                  <option selected disabled>Seleccionar Tag</option>
+                  @foreach ($tags as $tag)
+                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar Tag</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              @foreach ($proyect->tags as $tag)
+                <span class="badge badge-primary">
+                  <a href="{{ route('aProyect.rmTag', [$proyect->id, $tag->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                  {{ $tag->name }}
+                </span>
+              @endforeach
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {{-- Images --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Media</h4>
+        {{-- General info --}}
+        <div class="container">
+          {{-- Baner --}}
+          <form
+            action="{{ route('media.storeBanner', $proyect->id) }}"
+            method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="banner">Banner (1920 × 927px, 3MB max, jpeg, png)</label><br>
+              @if ($proyect->proyectHasMedia('banner'))
+                <img src="{{ $proyect->media->where('name', 'banner')->first()->loc }}" class="mediaProyect mb-2">
+                {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
+              @endif
+              <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
+              <input type="hidden" name="name" value="banner">
+              <input
+                type="file"
+                class="form-control-file @error('banner') is-invalid @enderror"
+                data-default-file="url_of_your_file"
+                name="banner"/>
+              @error('banner')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn bg-main-color navBar-btn text-light">Guardar</button>
+            </div>
+          </form>
+          <hr>
+          {{-- Principal --}}
+          <form
+            action="{{ route('media.storeMain', $proyect->id) }}"
+            method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="image">Principal (400 × 550px, 1MB max, jpeg, png)</label><br>
+              @if ($proyect->proyectHasMedia('main'))
+                <img src="{{ $proyect->media->where('name', 'main')->first()->loc }}" class="mediaProyect mb-2">
+                {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
+              @endif
+              <input type="hidden" name="name" value="main">
+              <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
+              <input
+                type="file"
+                class="form-control-file @error('main') is-invalid @enderror"
+                data-default-file="url_of_your_file"
+                name="main"/>
+              @error('main')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn bg-main-color navBar-btn text-light">Guardar</button>
+            </div>
+          </form>
+          <hr>
+          {{-- adicionales--}}
+          <form
+            action="{{ route('media.storeMedia', $proyect->id) }}"
+            method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="image">Media (1MB max, jpeg, png)</label><br>
+              @foreach ($proyect->media->where('name', 'media')->all() as $media)
+                <div class="d-inline">
+                  <a href="{{ route('media.delMedia', [$media->id, $proyect->id]) }}" class="imgDelBtn">
+                    <i class="fas fa-trash text-danger"></i>
+                  </a>
+                  {{ str_replace('/storage/media/', "",$media->loc) }}
+                  <br>
+                  <img src="{{ $media->loc }}" class="mediaProyect mb-2">
+                </div>
+                <br>
+              @endforeach
+              <input type="hidden" name="name" value="media">
+              <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
+              <input
+                type="file"
+                class="form-control-file @error('media') is-invalid @enderror"
+                data-default-file="url_of_your_file"
+                name="media"/>
+              @error('media')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn bg-main-color navBar-btn text-light">Guardar</button>
+            </div>
+          </form>
+          <hr>
+        </div>
+      </div>
+
 
     </div>
   </div>

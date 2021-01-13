@@ -26,8 +26,10 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
       Taggable::create([
         'name' => $request->nombre,
+        'color' => $request->color,
       ]);
       $status = 'El tag ha sido guardado exitosamente.';
       $tags = Taggable::paginate(25);
@@ -57,6 +59,7 @@ class TagController extends Controller
     {
       $tag = Taggable::findOrFail($id);
       $tag->name = $request->nombre;
+      $tag->color = $request->color;
       $tag->save();
       $status = 'El tag ha sido actualizado exitosamente.';
       return back()->with(compact('tag', 'status'));

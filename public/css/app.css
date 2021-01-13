@@ -10924,6 +10924,11 @@ body {
   width: auto;
 }
 
+.mediaProyect {
+  height: 200px;
+  width: auto;
+}
+
 .main-color {
   color: #62A4C0;
   border-color: #62A4C0;
@@ -11472,6 +11477,12 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 2px 2px 5px #00000015;
+}
+
+.owl-nav {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
 }
 
 .control-left {

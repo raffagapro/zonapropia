@@ -36,7 +36,7 @@
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
                       onclick="event.preventDefault(); document.getElementById('{{ 'catDestroy'.$categorie->id }}').submit();"
-                      data-toggle="tooltip" data-placement="top" title="Borrar Anuncio">
+                      data-toggle="tooltip" data-placement="top" title="Borrar Categoria">
                       <i class="fas fa-trash"></i>
                     </a>
                     <form id="{{ 'catDestroy'.$categorie->id }}"

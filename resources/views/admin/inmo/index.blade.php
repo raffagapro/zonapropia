@@ -37,7 +37,9 @@
                       {{ $inmo->name }}
                     </a>
                   </td>
-                  <td><img src="{{ asset($inmo->logo) }}" alt="" class="inmoTb"></td>
+                  <td>
+                    <img src="{{ asset($inmo->logo) }}" alt="" class="inmoTb">
+                  </td>
                   <td>
                     <a
                       href="javascript:void(0);"

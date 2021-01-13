@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Inmobiliaria;
+use App\Models\Proyecto;
 
 
 class InmobiliariaController extends Controller
@@ -14,8 +15,7 @@ class InmobiliariaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
       $inmos = Inmobiliaria::paginate(25);
       return view('admin.inmo.index')->with(compact('inmos'));
     }
@@ -25,8 +25,7 @@ class InmobiliariaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
       return view('admin.inmo.create');
     }
 
@@ -36,8 +35,7 @@ class InmobiliariaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
       if ($request->hasFile('logo')) {
         if ($request->file('logo')->isValid()) {
           $validated = $request->validate([
@@ -69,15 +67,13 @@ class InmobiliariaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
       $inmo = Inmobiliaria::findOrFail($id);
-      $proyectos = $inmo->proyectos()->paginate(25);
-      return view('admin.inmo.edit')->with(compact('inmo', 'proyectos'));
+      $proyects = $inmo->proyects()->paginate(25);
+      return view('admin.inmo.edit')->with(compact('inmo', 'proyects'));
     }
 
-    public function show($id)
-    {
+    public function show($id){
       $inmo= Inmobiliaria::findOrFail($id);
       $inmo->destacar = 1;
       $inmo->save();
@@ -85,11 +81,30 @@ class InmobiliariaController extends Controller
       return back()->with(compact('inmos'));
     }
 
-    public function hide($id)
-    {
+    public function hide($id){
       $inmo= Inmobiliaria::findOrFail($id);
       $inmo->destacar = 0;
       $inmo->save();
+      $inmos = Inmobiliaria::paginate(25);
+      return back()->with(compact('inmos'));
+    }
+
+    public function search(Request $request)
+    {
+      $inmo = Inmobiliaria::findOrFail($request->inmo_id);
+      $proyects = $inmo->proyects()->paginate(25);
+      if ($request->search !== null) {
+        $searched = Proyecto::where('name', 'LIKE', '%'.$request->search.'%')
+         ->where('estado_id', 1)->get();
+        return view('admin.inmo.edit')->with(compact('searched', 'inmo', 'proyects'));
+      }
+      return view('admin.inmo.edit')->with(compact('inmo', 'proyects'));
+    }
+
+    public function addProject(Request $request){
+      $inmo = Inmobiliaria::findOrFail($request->inmo_id);
+      $proyect = Proyecto::findOrFail($request->proyect_id);
+      $inmo->proyects()->save($proyect);
       $inmos = Inmobiliaria::paginate(25);
       return back()->with(compact('inmos'));
     }
@@ -101,8 +116,7 @@ class InmobiliariaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
       $inmo = Inmobiliaria::findOrFail($id);
       $inmo->name = $request->nombre;
       if ($request->has('destacar')) {
@@ -138,8 +152,7 @@ class InmobiliariaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
       $inmo = Inmobiliaria::findOrFail($id);
       $delInmo = str_replace('/storage/', "",$inmo->logo);
       Storage::delete('public/'.$delInmo);

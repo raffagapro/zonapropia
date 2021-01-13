@@ -15,9 +15,10 @@ class Taggable extends Model
      */
     protected $fillable = [
         'name',
+        'color',
     ];
 
-    public function proyectos()
+    public function proyects()
     {
       return $this->belongsToMany(Proyecto::class);
     }
