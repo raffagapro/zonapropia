@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(RegionesTable::class);
         $this->call(CategoriasTable::class);
+        $this->call(Tags::class);
     }
 }

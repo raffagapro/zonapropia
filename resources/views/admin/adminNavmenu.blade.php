@@ -68,20 +68,18 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ route('region.index')}}">
+        <li class="nav-item dropdown main-color">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="nav-link-text">
-              Regiones
+              Configuración
             </span>
           </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ route('category.index')}}">
-            <span class="nav-link-text">
-              Categorias
-            </span>
-          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item main-color" href="{{ route('dest.index')}}">Destacados</a>
+            <a class="dropdown-item main-color" href="{{ route('region.index')}}">Regiones</a>
+            <a class="dropdown-item main-color" href="{{ route('category.index')}}">Categorias</a>
+            <a class="dropdown-item main-color" href="{{ route('tag.index')}}">Tags</a>
+          </div>
         </li>
 
       </ul>

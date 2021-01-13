@@ -24,7 +24,8 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Logo</th>
+                <th scope="col">Inmobiliaria</th>
+                <th scope="col">Tags</th>
                 <th scope="col">Control</th>
               </tr>
             </thead>
@@ -33,54 +34,101 @@
                 <tr>
                   <th scope="row">{{ $proyect->id }}</th>
                   <td>
-                    <a href="{{ route('inmo.edit', $proyect->id) }}">
+                    <a href="{{ route('aProyect.edit', $proyect->id) }}">
                       {{ $proyect->name }}
                     </a>
                   </td>
-                  <td><img src="{{ asset($proyect->logo) }}" alt="" class="inmoTb"></td>
                   <td>
-                    <a
-                      href="javascript:void(0);"
-                      class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'inmoDestroy'.$proyect->id }}').submit();"
-                      data-toggle="tooltip" data-placement="top" title="Borrar Inmobiliaria">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                    <form id="{{ 'inmoDestroy'.$proyect->id }}"
-                      action="{{ route('inmo.destroy', $proyect->id) }}"
-                      method="POST"
-                      style="display: none;"
-                      >@method('DELETE') @csrf
-                    </form>
-                    @if ( (int)$proyect->destacar === 1 )
+                    @if ($proyect->inmobiliaria)
+                      <a href="{{ route('inmo.edit', $proyect->inmobiliaria->id) }}">
+                        {{ $proyect->inmobiliaria->name }}
+                      </a>
+                    @else
+                      Sin Inmobiliaria
+                    @endif
+                  </td>
+                  <td>
+                    @foreach ($proyect->tags as $tag)
+                      <span class="badge badge-primary">{{ $tag->name }}</span>
+                    @endforeach
+                  </td>
+                  <td>
+                    {{-- publicado --}}
+                    @if ( (int)$proyect->estado_id === 1 )
                       <a
                         href="javascript:void(0);"
-                        class="btn btn-sm btn-danger"
-                        onclick="event.preventDefault(); document.getElementById('{{ 'inmoHide'.$proyect->id }}').submit();"
-                        data-toggle="tooltip" data-placement="top" title="Esconder Inmobiliaria">
-                        <i class="fas fa-eye-slash"></i>
+                        class="btn btn-sm btn-warning"
+                        onclick="event.preventDefault(); document.getElementById('{{ 'draftPro'.$proyect->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Borrador">
+                        <i class="fas fa-pencil-ruler"></i>
                       </a>
-                      <form id="{{ 'inmoHide'.$proyect->id }}"
-                        action="{{ route('inmo.hide', $proyect->id) }}"
+                      <form id="{{ 'draftPro'.$proyect->id }}"
+                        action="{{ route('aProyect.draft', $proyect->id) }}"
                         method="POST"
                         style="display: none;"
-                        >@method('PUT') @csrf
+                        >@csrf
                       </form>
                     @else
                       <a
                         href="javascript:void(0);"
                         class="btn btn-sm btn-success"
-                        onclick="event.preventDefault(); document.getElementById('{{ 'inmoShow'.$proyect->id }}').submit();"
-                        data-toggle="tooltip" data-placement="top" title="Destacar Inmobiliaria">
-                        <i class="fas fa-eye"></i>
+                        onclick="event.preventDefault(); document.getElementById('{{ 'publishPro'.$proyect->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Publicar">
+                        <i class="fas fa-check-double"></i>
                       </a>
-                      <form id="{{ 'inmoShow'.$proyect->id }}"
-                        action="{{ route('inmo.show', $proyect->id) }}"
+                      <form id="{{ 'publishPro'.$proyect->id }}"
+                        action="{{ route('aProyect.publish', $proyect->id) }}"
                         method="POST"
                         style="display: none;"
-                        >@method('PUT') @csrf
+                        >@csrf
                       </form>
                     @endif
+
+                    {{-- destacar --}}
+                    @if ( (int)$proyect->destacado === 1 )
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-sm btn-primary"
+                        onclick="event.preventDefault(); document.getElementById('{{ 'deHighlightPro'.$proyect->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Remover Destacar">
+                        <i class="fas fa-eye-slash"></i>
+                      </a>
+                      <form id="{{ 'deHighlightPro'.$proyect->id }}"
+                        action="{{ route('aProyect.deHighlight', $proyect->id) }}"
+                        method="POST"
+                        style="display: none;"
+                        >@csrf
+                      </form>
+                    @else
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-sm btn-primary"
+                        onclick="event.preventDefault(); document.getElementById('{{ 'highlightPro'.$proyect->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Destacar Proyecto">
+                        <i class="fas fa-star"></i>
+                      </a>
+                      <form id="{{ 'highlightPro'.$proyect->id }}"
+                        action="{{ route('aProyect.highlight', $proyect->id) }}"
+                        method="POST"
+                        style="display: none;"
+                        >@csrf
+                      </form>
+                    @endif
+
+                    {{-- delete --}}
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-danger"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Borrar Proyecto">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                    <form id="{{ 'proyectDestroy'.$proyect->id }}"
+                      action="{{ route('aProyect.destroy', $proyect->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@method('DELETE') @csrf
+                    </form>
                   </td>
                 </tr>
               @empty

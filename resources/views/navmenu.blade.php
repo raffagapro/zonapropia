@@ -67,7 +67,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#ventajas">
+          <a class="nav-link" href="{{ route('home').'#ventajas'}}">
             <span class="nav-link-text">
               Por qué invertir
             </span>
@@ -90,7 +90,7 @@
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
-        <a href="#vendeForm" class="nbnlg-btn btn navBar-btn bg-main-color text-light">Vende con nosotros</a>
+        <a href="{{ route('home').'#vendeForm'}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light">Vende con nosotros</a>
         @guest
           <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
             <span>Iniciar sesión</span>

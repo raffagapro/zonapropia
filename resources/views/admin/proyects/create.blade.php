@@ -37,15 +37,16 @@
                   </span>
               @enderror
             </div>
+            {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
-              {{-- Ciudad --}}
+              {{-- Region --}}
               <div class="col-4">
-                <input type="text" name="ciudad" class="form-control @error('ciudad') is-invalid @enderror" placeholder="Ciudad" value="">
-                @error('ciudad')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                <select class="form-control" name="region">
+                  <option disabled selected>Region</option>
+                  @foreach ($regions as $region)
+                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                  @endforeach
+                </select>
               </div>
               {{-- Comuna --}}
               <div class="col-4">
@@ -56,30 +57,31 @@
                     </span>
                 @enderror
               </div>
-              {{-- Region --}}
+              {{-- Ciudad --}}
               <div class="col-4">
-                <select class="form-control" name="region">
-                  <option disabled selected>Region</option>
-                  @foreach ($regions as $region)
-                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              {{-- Longitud --}}
-              <div class="col-4">
-                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" placeholder="Longitud" value="">
-                @error('longitud')
+                <input type="text" name="ciudad" class="form-control @error('ciudad') is-invalid @enderror" placeholder="Ciudad" value="">
+                @error('ciudad')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
               </div>
+            </div>
+            {{-- long/lat/inmo --}}
+            <div class="form-group row">
               {{-- Latitud --}}
               <div class="col-4">
                 <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" placeholder="Latitud" value="">
                 @error('latitud')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Longitud --}}
+              <div class="col-4">
+                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" placeholder="Longitud" value="">
+                @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -87,7 +89,7 @@
               </div>
               {{-- Inmobiliarias --}}
               <div class="col-4">
-                <select class="form-control" name="role">
+                <select class="form-control" name="inmo">
                   <option  value=0 selected>Inmobiliaria</option>
                   @foreach ($inmos as $inmo)
                     <option value="{{ $inmo->id }}">{{ $inmo->name }}</option>
@@ -95,29 +97,30 @@
                 </select>
               </div>
             </div>
+            {{-- cat/cuota/bono pie --}}
             <div class="form-group row">
               {{-- Categories --}}
               <div class="col-4">
-                <select class="form-control" name="role">
+                <select class="form-control" name="cat">
                   <option  value=0 disabled selected>Categoria</option>
                   @foreach ($cats as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                   @endforeach
                 </select>
               </div>
-              {{-- Longitud --}}
+              {{-- Cuota Monto --}}
               <div class="col-4">
-                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" placeholder="Longitud" value="">
-                @error('longitud')
+                <input type="text" name="cuotaMonto" class="form-control @error('cuotaMonto') is-invalid @enderror" placeholder="Cuota Monto" value="">
+                @error('cuotaMonto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
               </div>
-              {{-- Latitud --}}
+              {{-- Bono Pie Monto --}}
               <div class="col-4">
-                <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" placeholder="Latitud" value="">
-                @error('latitud')
+                <input type="text" name="bonoPieMonto" class="form-control @error('bonoPieMonto') is-invalid @enderror" placeholder="Bono Pie Monto" value="">
+                @error('bonoPieMonto')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -128,25 +131,144 @@
             <div class="form-group">
               <textarea class="form-control" name="descripcion" rows="3" placeholder="Descripcion del proyecto"></textarea>
             </div>
-            {{-- File --}}
+            {{-- texto descatado --}}
+            <div class="form-group">
+              <textarea class="form-control" name="textoDestacado" rows="3" placeholder="Texto destacado"></textarea>
+            </div>
+            {{-- Texto Proyecto --}}
+            <div class="form-group">
+              <textarea class="form-control" name="textoProyecto" rows="3" placeholder="Texto del proyecto"></textarea>
+            </div>
+            {{-- terms --}}
+            <div class="form-group">
+              <textarea class="form-control" name="terminos" rows="3" placeholder="Terminos"></textarea>
+            </div>
+            {{-- date/estado/destacado--}}
             <div class="form-group row">
+              {{-- fecha limite --}}
               <div class="col-4">
                 <input
-                  type="file"
-                  class="form-control-file @error('logo') is-invalid @enderror"
-                  data-default-file="url_of_your_file"
-                  name="logo"/>
-                @error('logo')
+                  type="text"
+                  name="fechaLimite"
+                  class="form-control @error('fechaLimite') is-invalid @enderror"
+                  placeholder="Fecha Limite" value=""
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                >
+                @error('fechaLimite')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
               </div>
-              <div class="col mt4">
-                <input class="form-check-input" type="checkbox" value=1 name="destacar">
-                <label class="form-check-label" for="defaultCheck1">
-                  Destacar en barra de logos.
-                </label>
+              {{-- Status --}}
+              <div class="col-4">
+                <select class="form-control" name="status">
+                  <option disabled selected>Status</option>
+                  <option value=0>Borrador</option>
+                  <option value=1>Publicado</option>
+                </select>
+              </div>
+              {{-- Destacado --}}
+              <div class="col-4">
+                <select class="form-control" name="destacar">
+                  <option disabled selected>Destacar</option>
+                  <option value=0>No</option>
+                  <option value=1>Si</option>
+                </select>
+              </div>
+            </div>
+            {{-- rooms/bath/MC--}}
+            <div class="form-group row">
+              {{-- Room Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minRoom"
+                  min="0"
+                  class="form-control @error('minRoom') is-invalid @enderror"
+                  placeholder="Dorms Min." value=""
+                >
+                @error('minRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Room Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxRoom"
+                  min="0"
+                  class="form-control @error('maxRoom') is-invalid @enderror"
+                  placeholder="Dorms Max" value=""
+                >
+                @error('maxRoom')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minBath"
+                  min="0"
+                  class="form-control @error('minBath') is-invalid @enderror"
+                  placeholder="Baño Min" value=""
+                >
+                @error('minBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Bath Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxBath"
+                  min="0"
+                  class="form-control @error('maxBath') is-invalid @enderror"
+                  placeholder="Baño Max" value=""
+                >
+                @error('maxBath')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Min --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="minMC"
+                  min="0"
+                  class="form-control @error('minMC') is-invalid @enderror"
+                  placeholder="m² Min" value=""
+                >
+                @error('minMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- MC Max --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="maxMC"
+                  min="0"
+                  class="form-control @error('maxMC') is-invalid @enderror"
+                  placeholder="m² Max" value=""
+                >
+                @error('maxMC')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar</button>

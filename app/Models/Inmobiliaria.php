@@ -18,7 +18,7 @@ class Inmobiliaria extends Model
         'logo',
         'destacar',
     ];
-    public function proyectos()
+    public function proyects()
     {
         return $this->hasMany(Proyecto::class);
     }

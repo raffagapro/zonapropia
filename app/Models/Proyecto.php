@@ -41,15 +41,21 @@ class Proyecto extends Model
         'inmobiliaria_id',
         'categoria_id',
         'taggable_id',
+        'minRooms',
+        'maxRooms',
+        'minBathrooms',
+        'maxBathrooms',
+        'minMC',
+        'maxMC',
     ];
 
-    public function estado()
-    {
-      return $this->hasOne(Estado::class);
-    }
+    // public function estado()
+    // {
+    //   return $this->hasOne(Estado::class);
+    // }
     public function categoria()
     {
-      return $this->hasOne(Categoria::class);
+      return $this->belongsTo(Categoria::class);
     }
     public function tags()
     {
@@ -58,5 +64,26 @@ class Proyecto extends Model
     public function inmobiliaria()
     {
       return $this->belongsTo(Inmobiliaria::class);
+    }
+    public function region()
+    {
+      return $this->belongsTo(Region::class);
+    }
+    public function media()
+    {
+      return $this->hasMany(Media::class);
+    }
+    public function proyectHasMedia($media_name)
+    {
+      foreach ($this->media as $mediaa) {
+        if ($media_name === $mediaa->name) {
+          return true;
+        }
+      }
+      return false;
+    }
+    public function destacado()
+    {
+        return $this->hasOne(Destacado::class);
     }
 }
