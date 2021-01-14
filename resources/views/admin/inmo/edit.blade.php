@@ -74,10 +74,19 @@
               data-toggle="tooltip" data-placement="top" title="Nuevo Proyecto">
             </i>
           </a>
+<<<<<<< HEAD
+=======
+          {{-- <a href="{{ route('aProyect.index')}}" class="td-none">
+            <i class="fas fa-search-plus main-color"
+              data-toggle="tooltip" data-placement="top" title="Buscar Proyecto">
+            </i>
+          </a> --}}
+>>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
         </h4>
         <div class="container">
           {{-- Table --}}
           <table class="table table-hover mt-4 table-responsive-sm">
+<<<<<<< HEAD
             <thead>
               <tr>
                 <th scope="col">ID</th>
@@ -167,10 +176,86 @@
                     </a>
                     <form id="{{ 'proyectRM'.$proyect->id }}"
                       action="{{ route('inmo.rmProyect', [$proyect->id, $inmo->id]) }}"
+=======
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse ($proyects as $proyect)
+              <tr>
+                <th scope="row">{{ $proyect->id }}</th>
+                <td>
+                  <a href="{{ route('inmo.edit', $proyect->id) }}">
+                    {{ $proyect->name }}
+                  </a>
+                </td>
+                <td>
+                  {{-- publicado --}}
+                  @if ( (int)$proyect->estado_id === 1 )
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-warning"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'draftPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Borrador">
+                      <i class="fas fa-pencil-ruler"></i>
+                    </a>
+                    <form id="{{ 'draftPro'.$proyect->id }}"
+                      action="{{ route('aProyect.draft', $proyect->id) }}"
                       method="POST"
                       style="display: none;"
                       >@csrf
                     </form>
+                  @else
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-success"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'publishPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Publicar">
+                      <i class="fas fa-check-double"></i>
+                    </a>
+                    <form id="{{ 'publishPro'.$proyect->id }}"
+                      action="{{ route('aProyect.publish', $proyect->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@csrf
+                    </form>
+                  @endif
+
+                  {{-- destacar --}}
+                  @if ( (int)$proyect->destacado === 1 )
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-primary"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'deHighlightPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Remover Destacar">
+                      <i class="fas fa-eye-slash"></i>
+                    </a>
+                    <form id="{{ 'deHighlightPro'.$proyect->id }}"
+                      action="{{ route('aProyect.deHighlight', $proyect->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@csrf
+                    </form>
+                  @else
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-primary"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'highlightPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Destacar Proyecto">
+                      <i class="fas fa-star"></i>
+                    </a>
+                    <form id="{{ 'highlightPro'.$proyect->id }}"
+                      action="{{ route('aProyect.highlight', $proyect->id) }}"
+>>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
+                      method="POST"
+                      style="display: none;"
+                      >@csrf
+                    </form>
+<<<<<<< HEAD
                   </td>
                 </tr>
               @empty
@@ -180,6 +265,33 @@
               @endforelse
             </tbody>
           </table>
+=======
+                  @endif
+
+                  {{-- delete --}}
+                  <a
+                    href="javascript:void(0);"
+                    class="btn btn-sm btn-danger"
+                    onclick="event.preventDefault(); document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();"
+                    data-toggle="tooltip" data-placement="top" title="Borrar Proyecto">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <form id="{{ 'proyectDestroy'.$proyect->id }}"
+                    action="{{ route('aProyect.destroy', $proyect->id) }}"
+                    method="POST"
+                    style="display: none;"
+                    >@method('DELETE') @csrf
+                  </form>
+                </td>
+              </tr>
+            @empty
+              <tr>
+                <th class="main-color">No se encontraron proyectos asociados a esta inmobiliaria.</th>
+              </tr>
+            @endforelse
+          </tbody>
+        </table>
+>>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
           {{-- Paginator --}}
           {{$proyects->links()}}
           {{-- Agregar Proyecto Existente --}}
@@ -217,11 +329,19 @@
                       <a
                         href="javascript:void(0);"
                         class="btn btn-sm btn-primary bg-main-color"
+<<<<<<< HEAD
                         onclick="event.preventDefault(); document.getElementById('{{ 'proyectAggr'.$s->id }}').submit();"
                         data-toggle="tooltip" data-placement="top" title="Agregar Proyecto">
                         <i class="fas fa-plus"></i>
                       </a>
                       <form id="{{ 'proyectAggr'.$s->id }}"
+=======
+                        onclick="event.preventDefault(); document.getElementById('{{ 'proyectAdd'.$s->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Agregar Proyecto">
+                        <i class="fas fa-plus"></i>
+                      </a>
+                      <form id="{{ 'proyectAdd'.$s->id }}"
+>>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
                         action="{{ route('inmo.addProyect') }}"
                         method="POST"
                         style="display: none;"

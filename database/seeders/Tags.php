@@ -16,6 +16,7 @@ class Tags extends Seeder
     {
       Taggable::create([
         'name' => 'vivir',
+<<<<<<< HEAD
         'color' => 'primary'
       ]);
       Taggable::create([
@@ -41,6 +42,26 @@ class Tags extends Seeder
       Taggable::create([
         'name' => 'entrega inmediata',
         'color' => 'danger'
+=======
+      ]);
+      Taggable::create([
+        'name' => 'inversion',
+      ]);
+      Taggable::create([
+        'name' => 'nuevo proyecto',
+      ]);
+      Taggable::create([
+        'name' => 'ultima unidad',
+      ]);
+      Taggable::create([
+        'name' => 'sustentable',
+      ]);
+      Taggable::create([
+        'name' => 'venta en verde',
+      ]);
+      Taggable::create([
+        'name' => 'entrega inmediata',
+>>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
       ]);
     }
 }
