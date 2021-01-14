@@ -89,8 +89,7 @@ class InmobiliariaController extends Controller
       return back()->with(compact('inmos'));
     }
 
-    public function search(Request $request)
-    {
+    public function search(Request $request){
       $inmo = Inmobiliaria::findOrFail($request->inmo_id);
       $proyects = $inmo->proyects()->paginate(25);
       if ($request->search !== null) {
@@ -105,8 +104,31 @@ class InmobiliariaController extends Controller
       $inmo = Inmobiliaria::findOrFail($request->inmo_id);
       $proyect = Proyecto::findOrFail($request->proyect_id);
       $inmo->proyects()->save($proyect);
-      $inmos = Inmobiliaria::paginate(25);
-      return back()->with(compact('inmos'));
+      $proyects = $inmo->proyects()->paginate(25);
+      return view('admin.inmo.edit')->with(compact('inmo', 'proyects'));
+    }
+
+    public function rmProject($id, $inmo_id){
+      $inmo = Inmobiliaria::findOrFail($inmo_id);
+      $proyect = Proyecto::findOrFail($id);
+      $proyect->inmobiliaria()->dissociate();
+      $proyect->save();
+      $proyects = $inmo->proyects()->paginate(25);
+      return view('admin.inmo.edit')->with(compact('inmo', 'proyects'));
+    }
+
+    public function filter(Request $request){
+      if ($request->search !== null) {
+        $inmos = Inmobiliaria::where('name', 'LIKE', '%'.$request->search.'%')
+          ->paginate(25);
+      } else {
+        $inmos = Inmobiliaria::paginate(25);
+      }
+      $searched = $request->search;
+      return view('admin.inmo.index')->with(compact(
+        'inmos',
+        'searched',
+      ));
     }
 
     /**

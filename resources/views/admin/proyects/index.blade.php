@@ -16,6 +16,33 @@
         <span class="border-left">&nbsp Mostrando {{$proyects->count()}} de {{$proyects->total()}} resultados. &nbsp</span>
       </div>
 
+      {{-- Filters --}}
+      <form action="{{ route('aProyect.filter') }}" method="get">
+        <div class="row">
+          {{-- Buscar --}}
+          <div class="col">
+            <input type="text"
+              class="form-control form-control-sm"
+              name="search" placeholder="Buscar Nombrdel Proyecto"
+              @isset($searched)
+                value="{{ $searched }}"
+              @endisset
+            >
+          </div>
+          {{-- Btns --}}
+          <div class="col-2">
+            <button type="submit" class="btn btn-sm bg-main-color btn-block navBar-btn text-light">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="col-2">
+            <a href="{{ route('aProyect.index')}}" class="btn btn-sm bg-main-color btn-block navBar-btn text-light">
+              Remover Filtros
+            </a>
+          </div>
+        </div>
+      </form>
+
       {{-- Table --}}
       <div class="card mb-section-card">
         <div class="card-body pt-0">
@@ -60,7 +87,7 @@
                         class="btn btn-sm btn-warning"
                         onclick="event.preventDefault(); document.getElementById('{{ 'draftPro'.$proyect->id }}').submit();"
                         data-toggle="tooltip" data-placement="top" title="Borrador">
-                        <i class="fas fa-pencil-ruler"></i>
+                        <i class="fas fa-cloud-download-alt"></i>
                       </a>
                       <form id="{{ 'draftPro'.$proyect->id }}"
                         action="{{ route('aProyect.draft', $proyect->id) }}"
@@ -74,7 +101,7 @@
                         class="btn btn-sm btn-success"
                         onclick="event.preventDefault(); document.getElementById('{{ 'publishPro'.$proyect->id }}').submit();"
                         data-toggle="tooltip" data-placement="top" title="Publicar">
-                        <i class="fas fa-check-double"></i>
+                        <i class="fas fa-cloud-upload-alt"></i>
                       </a>
                       <form id="{{ 'publishPro'.$proyect->id }}"
                         action="{{ route('aProyect.publish', $proyect->id) }}"

@@ -16,6 +16,33 @@
         <span class="border-left">&nbsp Mostrando {{$inmos->count()}} de {{$inmos->total()}} resultados. &nbsp</span>
       </div>
 
+      {{-- Filters --}}
+      <form action="{{ route('inmo.filter') }}" method="get">
+        <div class="row">
+          {{-- Buscar --}}
+          <div class="col">
+            <input type="text"
+              class="form-control form-control-sm"
+              name="search" placeholder="Buscar"
+              @isset($searched)
+                value="{{ $searched }}"
+              @endisset
+            >
+          </div>
+          {{-- Btns --}}
+          <div class="col-2">
+            <button type="submit" class="btn btn-sm bg-main-color btn-block navBar-btn text-light">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="col-2">
+            <a href="{{ route('inmo.index')}}" class="btn btn-sm bg-main-color btn-block navBar-btn text-light">
+              Remover Filtros
+            </a>
+          </div>
+        </div>
+      </form>
+
       {{-- Table --}}
       <div class="card mb-section-card">
         <div class="card-body pt-0">

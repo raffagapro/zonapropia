@@ -3,18 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Proyecto;
 
-
-class ProyectController extends Controller
+class ProyectsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-      return view('proyects.index');
+    public function index(){
+      $g = true;
+      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
+      // dd($proyectos);
+      return view('proyects.index')
+        ->with(compact('proyectos', 'g'));
+    }
+    public function indexList(){
+      $g = false;
+      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
+      // dd($proyectos);
+      return view('proyects.index')
+        ->with(compact('proyectos', 'g'));
     }
 
     /**
@@ -24,7 +34,7 @@ class ProyectController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**

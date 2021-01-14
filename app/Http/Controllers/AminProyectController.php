@@ -91,17 +91,6 @@ class AminProyectController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -181,6 +170,30 @@ class AminProyectController extends Controller
       return back()->with(compact('status', 'proyects'));
     }
 
+    public function filter(Request $request){
+      if ($request->search !== null) {
+        $proyects = Proyecto::where('name', 'LIKE', '%'.$request->search.'%')
+        // $proyects = Proyecto::where('name', 'LIKE', '%'.$request->search.'%')
+        // $user->posts()
+        //   ->where(function (Builder $query) {
+        //       return $query->where('active', 1)
+        //                    ->orWhere('votes', '>=', 100);
+        //   })
+        //   ->get();
+        //
+
+          ->orWhere('inmobiliaria_id', 'LIKE', '%'.$request->search.'%')
+          ->paginate(25);
+      } else {
+        $proyects = Proyecto::paginate(25);
+      }
+      $searched = $request->search;
+      return view('admin.proyects.index')->with(compact(
+        'proyects',
+        'searched',
+      ));
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -219,8 +232,6 @@ class AminProyectController extends Controller
       $proyect->maxMC = $request->maxMC;
       if ((int)$request->inmo === 0) {
         $proyect->inmobiliaria()->dissociate();
-      }else {
-        // code...
       }
       if ((int)$request->inmo !== 0) {
         if ($proyect->inmobiliaria !== null) {

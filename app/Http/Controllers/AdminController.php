@@ -19,15 +19,13 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
       $users = User::paginate(25);
       $roles = Role::all();
       return view('admin.index')->with(compact('users', 'roles'));
     }
 
-    public function filter(Request $request)
-    {
+    public function filter(Request $request){
       if ($request->type === 'active') {
         if ($request->search !== null) {
           $users = User::where('name', 'LIKE', '%'.$request->search.'%')

@@ -53,7 +53,7 @@
       {{-- Main Links --}}
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('proyects')}}">
+          <a class="nav-link active" href="{{ route('proyects.index')}}">
             <span class="nav-link-text">
               Proyectos
             </span>
