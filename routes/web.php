@@ -12,10 +12,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DestacadosController;
-<<<<<<< HEAD
 use App\Http\Controllers\ProyectsController;
-=======
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
 
 
 /*
@@ -55,30 +52,19 @@ Route::middleware(['auth'])->group(function (){
         Route::put('inmo/hide/{id}', [InmobiliariaController::class, 'hide'])->name('inmo.hide');
         Route::post('inmo/search', [InmobiliariaController::class, 'search'])->name('inmo.search');
         Route::post('inmo/addProject', [InmobiliariaController::class, 'addProject'])->name('inmo.addProyect');
-<<<<<<< HEAD
         Route::post('inmo/rmProject/{proyect_id}/{inmo_id}', [InmobiliariaController::class, 'rmProject'])->name('inmo.rmProyect');
         Route::get('inmo/filter', [InmobiliariaController::class, 'filter'])->name('inmo.filter');
         Route::resource('aProyect', AminProyectController::class, ['except'=>['show']]);
-=======
-        Route::resource('aProyect', AminProyectController::class);
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
         Route::post('aProyect/{proyect}/addTag', [AminProyectController::class, 'addTag'])->name('aProyect.addTag');
         Route::get('aProyect/{proyect}/{tag}/rmTag', [AminProyectController::class, 'rmTag'])->name('aProyect.rmTag');
         Route::post('aProyect/{proyect}/highlight', [AminProyectController::class, 'highlight'])->name('aProyect.highlight');
         Route::post('aProyect/{proyect}/deHighlight', [AminProyectController::class, 'deHighlight'])->name('aProyect.deHighlight');
         Route::post('aProyect/{proyect}/publicar', [AminProyectController::class, 'publish'])->name('aProyect.publish');
         Route::post('aProyect/{proyect}/borrador', [AminProyectController::class, 'draft'])->name('aProyect.draft');
-<<<<<<< HEAD
         Route::get('aProyect/filter', [AminProyectController::class, 'filter'])->name('aProyect.filter');
         Route::resource('region', RegionController::class);
         Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);
         Route::resource('tag', TagController::class, ['except'=>['create', 'show']]);
-=======
-        Route::resource('region', RegionController::class);
-        Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);
-        Route::resource('tag', TagController::class, ['except'=>['create', 'show']]);
-        // Route::resource('media', MediaController::class, ['except'=>['create', 'show']]);
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
         Route::post('media/bannerImgStore', [MediaController::class, 'storeBanner'])->name('media.storeBanner');
         Route::post('media/mainImgStore', [MediaController::class, 'storeMain'])->name('media.storeMain');
         Route::post('media/mediaImgStore', [MediaController::class, 'storeMedia'])->name('media.storeMedia');

@@ -87,11 +87,7 @@
                         class="btn btn-sm btn-warning"
                         onclick="event.preventDefault(); document.getElementById('{{ 'draftPro'.$proyect->id }}').submit();"
                         data-toggle="tooltip" data-placement="top" title="Borrador">
-<<<<<<< HEAD
                         <i class="fas fa-cloud-download-alt"></i>
-=======
-                        <i class="fas fa-pencil-ruler"></i>
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
                       </a>
                       <form id="{{ 'draftPro'.$proyect->id }}"
                         action="{{ route('aProyect.draft', $proyect->id) }}"
@@ -105,11 +101,7 @@
                         class="btn btn-sm btn-success"
                         onclick="event.preventDefault(); document.getElementById('{{ 'publishPro'.$proyect->id }}').submit();"
                         data-toggle="tooltip" data-placement="top" title="Publicar">
-<<<<<<< HEAD
                         <i class="fas fa-cloud-upload-alt"></i>
-=======
-                        <i class="fas fa-check-double"></i>
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
                       </a>
                       <form id="{{ 'publishPro'.$proyect->id }}"
                         action="{{ route('aProyect.publish', $proyect->id) }}"

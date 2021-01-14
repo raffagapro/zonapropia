@@ -106,25 +106,6 @@ class AminProyectController extends Controller
         ->with(compact('proyect', 'cats', 'inmos', 'regions', 'tags'));
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id){
-      $proyect = Proyecto::findOrFail($id);
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      $tags = Taggable::all();
-      return view('admin.proyects.edit')
-        ->with(compact('proyect', 'cats', 'inmos', 'regions', 'tags'));
-    }
-
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
     public function addTag(Request $request, $id){
       $proyect = Proyecto::findOrFail($id);
       $tag = Taggable::findOrFail($request->tag);
@@ -151,7 +132,6 @@ class AminProyectController extends Controller
       $regions = Region::all();
       $status = 'El tag ha sido eliminado.';
       return back()->with(compact('status', 'proyect', 'cats', 'inmos', 'regions', 'tags'));
-<<<<<<< HEAD
     }
 
     public function highlight(Request $request, $id){
@@ -214,46 +194,6 @@ class AminProyectController extends Controller
       ));
     }
 
-=======
-    }
-
-    public function highlight(Request $request, $id){
-      $proyect = Proyecto::findOrFail($id);
-      $proyect->destacado = 1;
-      $proyect->save();
-      $proyects = Proyecto::paginate(25);
-      $status = 'El proyecto ha sido destacado.';
-      return back()->with(compact('status', 'proyects'));
-    }
-
-    public function deHighlight(Request $request, $id){
-      $proyect = Proyecto::findOrFail($id);
-      $proyect->destacado = 0;
-      $proyect->save();
-      $proyects = Proyecto::paginate(25);
-      $status = 'El proyecto yano es destacado.';
-      return back()->with(compact('status', 'proyects'));
-    }
-
-    public function publish(Request $request, $id){
-      $proyect = Proyecto::findOrFail($id);
-      $proyect->estado_id = 1;
-      $proyect->save();
-      $proyects = Proyecto::paginate(25);
-      $status = 'El proyecto ha sido publicado.';
-      return back()->with(compact('status', 'proyects'));
-    }
-
-    public function draft(Request $request, $id){
-      $proyect = Proyecto::findOrFail($id);
-      $proyect->estado_id = 0;
-      $proyect->save();
-      $proyects = Proyecto::paginate(25);
-      $status = 'El proyecto ha sido puesto como borrador.';
-      return back()->with(compact('status', 'proyects'));
-    }
-
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
 
     /**
      * Update the specified resource in storage.
@@ -292,11 +232,6 @@ class AminProyectController extends Controller
       $proyect->maxMC = $request->maxMC;
       if ((int)$request->inmo === 0) {
         $proyect->inmobiliaria()->dissociate();
-<<<<<<< HEAD
-=======
-      }else {
-        // code...
->>>>>>> 97b78cf3557f945ac9e3eed419e41630ad162ebc
       }
       if ((int)$request->inmo !== 0) {
         if ($proyect->inmobiliaria !== null) {
