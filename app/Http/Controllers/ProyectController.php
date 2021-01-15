@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Proyecto;
 
 
 class ProyectController extends Controller
@@ -14,7 +15,7 @@ class ProyectController extends Controller
      */
     public function index()
     {
-      return view('proyects.index');
+
     }
 
     /**
@@ -46,7 +47,9 @@ class ProyectController extends Controller
      */
     public function show($id)
     {
-        //
+      $proyect = Proyecto::findOrFail($id);
+      return view('proyect.index')
+       ->with(compact('proyect'));
     }
 
     /**

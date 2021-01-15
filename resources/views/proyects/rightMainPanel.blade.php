@@ -5,12 +5,12 @@
   <div class="row mainbody">
     @forelse ($proyectos as $proyecto)
       @if ($g)
-        <x-proyects.gridItem />
+        <x-proyects.gridItem :proyect="$proyecto"/>
       @else
-        <x-proyects.listItem />
+        <x-proyects.listItem :proyect="$proyecto"/>
       @endif
     @empty
-      <h1>Nada carnal!</h1>
+      <h1>No proyects</h1>
     @endforelse
   </div>
   {{-- Paginator --}}

@@ -13,6 +13,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DestacadosController;
 use App\Http\Controllers\ProyectsController;
+use App\Http\Controllers\ProyectController;
 
 
 /*
@@ -31,8 +32,8 @@ use App\Http\Controllers\ProyectsController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('proyects', ProyectsController::class);
 Route::Post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
+Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 
-Route::get('/proyect', function () { return view('proyect.index'); })->name('proyect');
 Auth::routes();
 
 //experimental, not sure WTF i am doing!!!!!!

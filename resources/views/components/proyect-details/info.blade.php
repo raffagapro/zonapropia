@@ -1,3 +1,7 @@
+@props([
+  'proyect' => $proyect,
+])
+
 <div class="row">
   <!-- Left Panel -->
   <div class="col-lg-8">
@@ -7,18 +11,18 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Información del proyecto</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> San Miguel - Condominio San Nicolás</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
           <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>UF 1.400</h1>
-          <h1 class="mb-info-rating-cont mt-0 pt-0">
+          {{-- <h1 class="mb-info-rating-cont mt-0 pt-0">
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating-empty"></i>
-          </h1>
+          </h1> --}}
         </div>
         <!-- Paragrap -->
         <div class="col-12 mt-5">
@@ -30,14 +34,18 @@
         <div class="col-12 mt-4">
           <h4>Características</h4>
         </div>
-        <div class="col-md-4 mb-char-aleft mt-4">
-          <h5><i class="fas fa-bed"></i> 2 - 3 dormitorios</h5>
-        </div>
-        <div class="col-md-4 mb-char-acenter mt-4">
-          <h5><i class="fas fa-toilet"></i> 1 - 3 baños</h5>
-        </div>
+        @if ((int)$proyect->maxRooms !== 0)
+          <div class="col-md-4 mb-char-aleft mt-4">
+            <h5><i class="fas fa-bed"></i> {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} dormitorios</h5>
+          </div>
+        @endif
+        @if ((int)$proyect->maxBathrooms !== 0)
+          <div class="col-md-4 mb-char-acenter mt-4">
+            <h5><i class="fas fa-toilet"></i> {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} baños</h5>
+          </div>
+        @endif
         <div class="col-md-4 mb-char-aright mt-4">
-          <h5><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></h5>
+          <h5><i class="fas fa-expand-arrows-alt"></i> {{ $proyect->minMC }} - {{ $proyect->maxMC }} m<sup>2</sup></h5>
         </div>
         <!-- Gallery -->
         <div class="col-12 mt-4">
@@ -51,12 +59,16 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="./assets/images/proyect_info_banner.png" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="./assets/images/proyect_info_banner.png" class="d-block w-100" alt="...">
-              </div>
+              @php
+                $go = 0;
+              @endphp
+              @forelse ($proyect->media->where('name', 'media')->all() as $media)
+                <div class="carousel-item @if ($go === 0) active @php $go = 1; @endphp @endif">
+                  <img src="{{ $media->loc }}" class="d-block w-100" alt="...">
+                </div>
+              @empty
+                <h3>Sin imagenes</h3>
+              @endforelse
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -169,7 +181,14 @@
         </div>
         <!-- Map -->
         <div class="col-12 mt-4">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12435.807215717095!2d-89.6329412628196!3d21.033529239214946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5676a883be8cdf%3A0x6feaafc65eb0a49c!2sCostco%20M%C3%A9rida!5e0!3m2!1ses-419!2smx!4v1607535700350!5m2!1ses-419!2smx" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12435.807215717095!2d".$proyect->latitud."!3d".$proyect->longitud."!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5676a883be8cdf%3A0x6feaafc65eb0a49c!2sCostco%20M%C3%A9rida!5e0!3m2!1ses-419!2smx!4v1607535700350!5m2!1ses-419!2smx" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> --}}
+          @php
+            $mUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14892.511597308125!2d";
+            $mUrl .= $proyect->longitud."8512115!3d".$proyect->latitud;
+            $mUrl .= "2453485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5675a3bdefd325%3A0x574e993843a6c287!2sFraccionamiento%20Las%20Am%C3%A9ricas%2C%20M%C3%A9rida%2C%20Yuc.!5e0!3m2!1ses-419!2smx!4v1610672924000!5m2!1ses-419!2smx";
+
+          @endphp
+          <iframe src="{{ $mUrl }}" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
         </div>
       </div>
     </div>

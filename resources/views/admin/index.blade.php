@@ -130,7 +130,22 @@
                         <a
                           href="javascript:void(0);"
                           class="btn btn-sm btn-danger"
-                          onclick="event.preventDefault(); document.getElementById('{{ 'userDestroy'.$user->id }}').submit();"
+                          onclick="
+                            event.preventDefault();
+                            swal.fire({
+                              text: '¿Deseas desactivar al usuario?',
+                              showCancelButton: true,
+                              cancelButtonText: `Cancelar`,
+                              cancelButtonColor:'#62A4C0',
+                              confirmButtonColor:'red',
+                              confirmButtonText:'Eliminar',
+                              icon:'error',
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                document.getElementById('{{ 'userDestroy'.$user->id }}').submit();
+                              }
+                            });
+                            "
                           data-toggle="tooltip" data-placement="top" title="Desactivar usuario">
                           <i class="fas fa-times"></i>
                         </a>
@@ -157,6 +172,13 @@
       </div>
     </div>
   </div>
+
+  @if(session('status'))
+    <x-sweet-alert-admin :message="session('status')"/>
+  @endif
+  @isset($status)
+    <x-sweet-alert-admin :message="$status"/>
+  @endisset
 @endsection
 
 {{-- @section('scripts')

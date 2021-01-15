@@ -1,8 +1,8 @@
 @props([
   'proyect' => $proyect,
 ])
-
-<div class="slider-cont-cards">
+<a href="{{ route('proyect.show', $proyect->id )}}" class="text-light">
+  <div class="slider-cont-cards">
   <div class="card text-white singlePanelSlider section-slide1"
     style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
   >
@@ -20,7 +20,7 @@
         <h4>Desde UF 1.200</h4>
         <small>
           @if ((int)$proyect->maxRooms !== 0)
-            {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorms |
+            {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorm |
           @endif
           @if ((int)$proyect->maxBathrooms !== 0)
             {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} Baños |
@@ -30,3 +30,4 @@
     </div>
   </div>
 </div>
+</a>

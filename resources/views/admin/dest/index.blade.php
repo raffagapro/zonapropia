@@ -34,7 +34,7 @@
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
                       onclick="event.preventDefault(); document.getElementById('{{ 'rmProyect'.$dest->id }}').submit();"
-                      data-toggle="tooltip" data-placement="top" title="Borrar Tag">
+                      data-toggle="tooltip" data-placement="top" title="Remover de destacados">
                       <i class="fas fa-times"></i>
                     </a>
                     <form id="{{ 'rmProyect'.$dest->id }}"

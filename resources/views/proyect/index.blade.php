@@ -14,14 +14,24 @@
       @include('proyect.datosFinancieros')
 
       {{-- Main Body Sections --}}
-      <!-- Info -->
-      <x-proyect-details.info />
-      <!-- Char -->
-      <x-proyect-details.char />
-      <!-- Info Financiera -->
-      <x-proyect-details.info-financiera />
-      <!-- Comparativa -->
-      <x-proyect-details.comparativa />
+      <div class="tab-content" id="pills-tabContent">
+        <!-- Info -->
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+          <x-proyect-details.info :proyect="$proyect" />
+        </div>
+        <!-- Char -->
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <x-proyect-details.char :proyect="$proyect" />
+        </div>
+        <!-- Info Financiera -->
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+          <x-proyect-details.info-financiera :proyect="$proyect" />
+        </div>
+        <!-- Comparativa -->
+        <div class="tab-pane fade" id="pills-comp" role="tabpanel" aria-labelledby="pills-comp-tab">
+          <x-proyect-details.comparativa :proyect="$proyect" />
+        </div>
+      </div>
 
       <!-- Proyectos Similares -->
       <div class="row">

@@ -146,7 +146,22 @@
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();"
+                      onclick="
+                        event.preventDefault();
+                        swal.fire({
+                          text: '¿Deseas eliminar el proyecto?',
+                          showCancelButton: true,
+                          cancelButtonText: `Cancelar`,
+                          cancelButtonColor:'#62A4C0',
+                          confirmButtonColor:'red',
+                          confirmButtonText:'Eliminar',
+                          icon:'error',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();
+                          }
+                        });
+                      "
                       data-toggle="tooltip" data-placement="top" title="Borrar Proyecto">
                       <i class="fas fa-trash"></i>
                     </a>

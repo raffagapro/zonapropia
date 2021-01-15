@@ -26,11 +26,13 @@ class MessageBar extends Component
     public function render()
     {
       $news = Notice::all();
-      $response = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/dolar?apikey=SBIF9990SBIF44b7SBIF7f4c5a537d02358e1099&formato=json');
-      $response = $response->json();
-      // dd($response);
-      $dollar = 50;
-      $uf = 28.35;
+      $dol = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/dolar?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
+      $dol = $dol->json();
+      $ul = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
+      $ul = $ul->json();
+      // dd($ul['UFs']);
+      $dollar = $dol['Dolares'][0]['Valor'];
+      $uf = $ul['UFs'][0]['Valor'];
         return view('components.message-bar')
           ->with(compact('dollar', 'uf', 'news'));
     }
