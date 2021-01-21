@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Http;
 use App\Models\Notice;
+use App\Models\Sbif;
 
 class MessageBar extends Component
 {
@@ -25,27 +26,44 @@ class MessageBar extends Component
      */
     public function render()
     {
+      // news
       $news = Notice::all();
-      $dollar = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/dolar?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
-      $dollar = $dollar->json();
-      if (isset($dollar['Dolares'])) {
-        $dollar = $dollar['Dolares'][0]['Valor'];
-      } else {
-        $preDate = date('Y-m-d');
-        $date = date('Y-m-d', strtotime('-3 day', strtotime($preDate)));
-        $date = explode("-", $date);
-        $tempUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/dolar/'.$date[0].'/'.$date[1].'/dias/'.$date[2].'?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json';
-        $dollar = Http::get($tempUrl);
+      $masterDate = date('Y-m-d');
+      $preSBIF = Sbif::where('created_at', 'LIKE', '%'.$masterDate.'%')->first();
+      if ($preSBIF === null) {
+        $newSBIF = new Sbif();
+        // Dolares
+        $dollar = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/dolar?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
         $dollar = $dollar->json();
-        $dollar = $dollar['Dolares'][0]['Valor'];
+        if (isset($dollar['Dolares'])) {
+          $newSBIF->dollar = $dollar['Dolares'][0]['Valor'];
+        }else {
+          $preDate = date('Y-m-d');
+          $date = date('Y-m-d', strtotime('-3 day', strtotime($preDate)));
+          $date = explode("-", $date);
+          $tempUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/dolar/'.$date[0].'/'.$date[1].'/dias/'.$date[2].'?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json';
+          $dollar = Http::get($tempUrl);
+          $dollar = $dollar->json();
+          $newSBIF->dollar = $dollar['Dolares'][0]['Valor'];
+        }
+        // UF
+        $ul = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
+        $ul = $ul->json();
+        if (isset($ul['UFs'])) {
+          $newSBIF->uf = $ul['UFs'][0]['Valor'];
+        }else {
+          $preDate = date('Y-m-d');
+          $date = date('Y-m-d', strtotime('-3 day', strtotime($preDate)));
+          $date = explode("-", $date);
+          $tempUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/uf/'.$date[0].'/'.$date[1].'/dias/'.$date[2].'?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json';
+          $ul = Http::get($tempUrl);
+          $ul = $ul->json();
+          $newSBIF->uf = $ul['UFs'][0]['Valor'];
+        }
+        $newSBIF->save();
       }
-
-      // dd($dollar);
-      $ul = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
-      $ul = $ul->json();
-      // dd($ul['UFs']);
-
-      $uf = $ul['UFs'][0]['Valor'];
+      $dollar = $preSBIF->dollar;
+      $uf = $preSBIF->uf;
         return view('components.message-bar')
           ->with(compact('dollar', 'uf', 'news'));
     }
