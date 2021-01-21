@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Proyecto;
 use App\Models\Region;
+use App\Models\Provincia;
+use App\Models\Comuna;
 use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 use App\Models\Taggable;
@@ -53,7 +55,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::create([
         'name' => $request->nombre,
         'direccion' => $request->direccion,
-        'comuna' => $request->comuna,
         'ciudad' => $request->ciudad,
         'descripcion' => $request->descripcion,
         'latitud' => $request->latitud,
@@ -79,6 +80,11 @@ class AminProyectController extends Controller
       }
       $region = Region::findOrFail((int)$request->region);
       $region->proyects()->save($proyect);
+      $provincia = Provincia::findOrFail((int)$request->provincia);
+      $provincia->proyects()->save($proyect);
+      $comuna = Comuna::findOrFail((int)$request->comuna);
+      $comuna->proyects()->save($proyect);
+
       $cat= Categoria::findOrFail((int)$request->cat);
       $cat->proyects()->save($proyect);
       $regions = Region::all();
@@ -194,6 +200,19 @@ class AminProyectController extends Controller
       ));
     }
 
+    public function provinsiaGrabber(Request $request){
+      $region = Region::findOrFail($request->region);
+      $provincias = $region->provincias;
+      $comunas = $provincias[0]->comunas;
+      return [$provincias, $comunas];
+    }
+
+    public function comunaGrabber(Request $request){
+      $provincia = Provincia::findOrFail($request->provincia);
+      $comunas = $provincia->comunas;
+      return [$comunas];
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -207,7 +226,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
       $proyect->direccion = $request->direccion;
-      $proyect->comuna = $request->comuna;
       $proyect->ciudad = $request->ciudad;
       $proyect->descripcion = $request->descripcion;
       $proyect->latitud = $request->latitud;
@@ -246,6 +264,16 @@ class AminProyectController extends Controller
         $proyect->region()->dissociate();
         $region = Region::findOrFail((int)$request->region);
         $region->proyects()->save($proyect);
+      }
+      if ($request->provincia !== $proyect->provincia->id) {
+        $proyect->provincia()->dissociate();
+        $provincia = Provincia::findOrFail((int)$request->provincia);
+        $provincia->proyects()->save($proyect);
+      }
+      if ($request->comuna !== $proyect->comuna->id) {
+        $proyect->comuna()->dissociate();
+        $comuna = Comuna::findOrFail((int)$request->comuna);
+        $comuna->proyects()->save($proyect);
       }
       if ($request->cat !== $proyect->categoria->id) {
         $proyect->categoria()->dissociate();

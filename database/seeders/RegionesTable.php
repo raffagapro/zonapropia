@@ -56,5 +56,11 @@ class RegionesTable extends Seeder
       Region::create([
         'name' => 'santiago',
       ]);
+      Region::create([
+        'name' => 'maule',
+      ]);
+      Region::create([
+        'name' => 'magallanes',
+      ]);
     }
 }

@@ -22,6 +22,7 @@
             @method('PUT')
             {{-- Nombre --}}
             <div class="form-group">
+              <label for="nombre">Nombre</label>
               <input type="text" name="nombre"
                 class="form-control @error('nombre') is-invalid @enderror"
                 placeholder="Nombre" value="{{ $proyect->name }}"
@@ -34,6 +35,7 @@
             </div>
             {{-- Direccion --}}
             <div class="form-group">
+              <label for="direccion">Direccion</label>
               <input type="text" name="direccion"
                 class="form-control @error('direccion') is-invalid @enderror"
                 placeholder="Dirección" value="{{ $proyect->direccion }}"
@@ -47,8 +49,10 @@
             {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-4">
-                <select class="form-control" name="region">
+              <div class="col-3">
+                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                <label for="region">Region</label>
+                <select class="form-control" name="region" id="region">
                   @foreach ($regions as $region)
                     @if ((int)$proyect->region->id === (int)$region->id)
                       <option value="{{ $region->id }}" selected>{{ $region->name }}</option>
@@ -58,20 +62,35 @@
                   @endforeach
                 </select>
               </div>
+              {{-- Provincia --}}
+              <div class="col-3">
+                <label for="region">Provincia</label>
+                <select class="form-control" name="provincia" id="provincia">
+                  @foreach ($proyect->region->provincias as $provincia)
+                    @if ((int)$proyect->provincia->id === (int)$provincia->id)
+                      <option value="{{ $provincia->id }}" selected>{{ $provincia->name }}</option>
+                    @else
+                      <option value="{{ $provincia->id }}">{{ $provincia->name }}</option>
+                    @endif
+                  @endforeach
+                </select>
+              </div>
               {{-- Comuna --}}
-              <div class="col-4">
-                <input type="text" name="comuna"
-                  class="form-control @error('comuna') is-invalid @enderror"
-                  placeholder="Comuna" value="{{ $proyect->comuna }}"
-                >
-                @error('comuna')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+              <div class="col-3">
+                <label for="comuna">Comuna</label>
+                <select class="form-control" name="comuna" id="comuna">
+                  @foreach ($proyect->provincia->comunas as $comuna)
+                    @if ((int)$proyect->comuna->id === (int)$comuna->id)
+                      <option value="{{ $comuna->id }}" selected>{{ $comuna->name }}</option>
+                    @else
+                      <option value="{{ $comuna->id }}">{{ $comuna->name }}</option>
+                    @endif
+                  @endforeach
+                </select>
               </div>
               {{-- Ciudad --}}
-              <div class="col-4">
+              <div class="col-3">
+                <label for="ciudad">Ciudad</label>
                 <input type="text" name="ciudad"
                   class="form-control @error('ciudad') is-invalid @enderror"
                   placeholder="Ciudad" value="{{ $proyect->ciudad }}"
@@ -87,6 +106,7 @@
             <div class="form-group row">
               {{-- Latitud --}}
               <div class="col-4">
+                <label for="latitud">Latitud</label>
                 <input type="text" name="latitud"
                   class="form-control @error('latitud') is-invalid @enderror"
                   placeholder="Latitud" value="{{ $proyect->latitud }}"
@@ -99,6 +119,7 @@
               </div>
               {{-- Longitud --}}
               <div class="col-4">
+                <label for="longitud">Longitud</label>
                 <input type="text" name="longitud"
                   class="form-control @error('longitud') is-invalid @enderror"
                   placeholder="Longitud" value="{{ $proyect->longitud }}"
@@ -111,6 +132,7 @@
               </div>
               {{-- Inmobiliarias --}}
               <div class="col-4">
+                <label for="inmo">Inmobiliarias</label>
                 <select class="form-control" name="inmo">
                   <option  value=0 >Sin Inmobiliaria</option>
                   @foreach ($inmos as $inmo)
@@ -131,6 +153,7 @@
             <div class="form-group row">
               {{-- Categories --}}
               <div class="col-4">
+                <label for="cat">Categoria</label>
                 <select class="form-control" name="cat">
                   @foreach ($cats as $cat)
                     @if ((int)$proyect->categoria->id === (int)$cat->id)
@@ -143,6 +166,7 @@
               </div>
               {{-- Cuota Monto --}}
               <div class="col-4">
+                <label for="cuotaMonto">Monto Cuota</label>
                 <input type="text" name="cuotaMonto"
                   class="form-control @error('cuotaMonto') is-invalid @enderror"
                   placeholder="Cuota Monto" value="{{ $proyect->cuota_monto }}"
@@ -155,6 +179,7 @@
               </div>
               {{-- Bono Pie Monto --}}
               <div class="col-4">
+                <label for="bonoPieMonto">Bono Pie Monto</label>
                 <input type="text" name="bonoPieMonto"
                   class="form-control @error('bonoPieMonto') is-invalid @enderror"
                   placeholder="Bono Pie Monto" value="{{ $proyect->bono_pie_monto }}"
@@ -168,24 +193,28 @@
             </div>
             {{-- descripcion --}}
             <div class="form-group">
+              <label for="descripcion">Descripción</label>
               <textarea class="form-control" name="descripcion" rows="3"
-                placeholder="Descripcion del proyecto"
+                placeholder="Descripción del proyecto"
               >{{ $proyect->descripcion }}</textarea>
             </div>
             {{-- texto descatado --}}
             <div class="form-group">
+              <label for="textoDestacado">Texto Destacado</label>
               <textarea class="form-control" name="textoDestacado" rows="3"
                 placeholder="Texto destacado"
               >{{ $proyect->texto_destacado }}</textarea>
             </div>
             {{-- Texto Proyecto --}}
             <div class="form-group">
+              <label for="textoProyecto">Texto Proyecto</label>
               <textarea class="form-control" name="textoProyecto" rows="3"
                 placeholder="Texto del proyecto"
                 >{{ $proyect->texto_proyecto }}</textarea>
             </div>
             {{-- terms --}}
             <div class="form-group">
+              <label for="terminos">Terminos</label>
               <textarea class="form-control" name="terminos" rows="3"
                 placeholder="Terminos"
                 >{{ $proyect->terminos }}</textarea>
@@ -194,6 +223,7 @@
             <div class="form-group row">
               {{-- fecha limite --}}
               <div class="col-4">
+                <label for="fechaLimite">Fecha Limite</label>
                 <input
                   type="text"
                   name="fechaLimite"
@@ -210,6 +240,7 @@
               </div>
               {{-- Status --}}
               <div class="col-4">
+                <label for="status">Status</label>
                 <select class="form-control" name="status">
                   <option disabled>Status</option>
                   <option value=0 @if ((int)$proyect->estado_id === 0) selected @endif>Borrador</option>
@@ -218,6 +249,7 @@
               </div>
               {{-- Destacado --}}
               <div class="col-4">
+                <label for="destacar">Destacar</label>
                 <select class="form-control" name="destacar">
                   <option disabled>Destacar</option>
                   <option value=0 @if ((int)$proyect->destacado === 0) selected @endif>No</option>
@@ -229,6 +261,7 @@
             <div class="form-group row">
               {{-- Room Min --}}
               <div class="col-2">
+                <label for="minRoom">Dorms Min.</label>
                 <input
                   type="number"
                   name="minRoom"
@@ -244,6 +277,7 @@
               </div>
               {{-- Room Max --}}
               <div class="col-2">
+                <label for="maxRoom">Dorms Max.</label>
                 <input
                   type="number"
                   name="maxRoom"
@@ -259,6 +293,7 @@
               </div>
               {{-- Bath Min --}}
               <div class="col-2">
+                <label for="minBath">Baño Min.</label>
                 <input
                   type="number"
                   name="minBath"
@@ -274,6 +309,7 @@
               </div>
               {{-- Bath Max --}}
               <div class="col-2">
+                <label for="maxBath">Baño Max.</label>
                 <input
                   type="number"
                   name="maxBath"
@@ -289,6 +325,7 @@
               </div>
               {{-- MC Min --}}
               <div class="col-2">
+                <label for="minMC">m² Min.</label>
                 <input
                   type="number"
                   name="minMC"
@@ -304,6 +341,7 @@
               </div>
               {{-- MC Max --}}
               <div class="col-2">
+                <label for="maxMC">m² Max.</label>
                 <input
                   type="number"
                   name="maxMC"
@@ -470,7 +508,7 @@
   @endif
 @endsection
 
-{{-- @section('scripts')
-
-<script src="{{ asset('js/calendar.js') }}" defer></script>
-@endsection --}}
+@section('scripts')
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script src="{{ asset('js/ajax/regionSwitcherEdit.js') }}" ></script>
+@endsection

@@ -51,7 +51,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {{-- Main Links --}}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto mr-1">
         <li class="nav-item">
           <a class="nav-link active" href="{{ route('proyects.index')}}">
             <span class="nav-link-text">
@@ -80,13 +80,15 @@
             </span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span class="nav-link-text">
-              Respaldo
-            </span>
-          </a>
-        </li>
+        @auth
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('userProfile.index')}}">
+              <span class="nav-link-text">
+                Perfil
+              </span>
+            </a>
+          </li>
+        @endauth
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
@@ -118,7 +120,7 @@
 
 @guest
   {{-- This opens the modal if there is a validation error --}}
-  @if (count($errors) > 0)
+  @if (old('originTab') === 'login')
     <script type="text/javascript">
       $( document ).ready(function() {
         $('#loginModal').modal('show');
@@ -167,7 +169,7 @@
             </div>
             {{-- Right Panel --}}
             <div class="col-md-6">
-              <img src="./assets/images/login-modal-img.png" width="100%">
+              <img src="{{ asset('assets/images/login-modal-img.png') }}" width="100%">
             </div>
           </div>
         </div>

@@ -69,6 +69,14 @@ class Proyecto extends Model
     {
       return $this->belongsTo(Region::class);
     }
+    public function provincia()
+    {
+      return $this->belongsTo(Provincia::class);
+    }
+    public function comuna()
+    {
+      return $this->belongsTo(Comuna::class);
+    }
     public function media()
     {
       return $this->hasMany(Media::class);

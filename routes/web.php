@@ -14,6 +14,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\DestacadosController;
 use App\Http\Controllers\ProyectsController;
 use App\Http\Controllers\ProyectController;
+use App\Http\Controllers\UserProfile;
 
 
 /*
@@ -31,13 +32,15 @@ use App\Http\Controllers\ProyectController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('proyects', ProyectsController::class);
-Route::Post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
+Route::post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 
 Auth::routes();
 
 //experimental, not sure WTF i am doing!!!!!!
 Route::middleware(['auth'])->group(function (){
+    Route::resource('userProfile', UserProfile::class);
+    Route::put('userProfile/updatePW/{user}', [UserProfile::class, 'updatePW'])->name('userProfile.updatePW');
     Route::prefix('admin')->group(function(){
       Route::middleware(['apa'])->group(function () {
         // Route::resource('roles', RoleController::class);
@@ -62,6 +65,8 @@ Route::middleware(['auth'])->group(function (){
         Route::post('aProyect/{proyect}/deHighlight', [AminProyectController::class, 'deHighlight'])->name('aProyect.deHighlight');
         Route::post('aProyect/{proyect}/publicar', [AminProyectController::class, 'publish'])->name('aProyect.publish');
         Route::post('aProyect/{proyect}/borrador', [AminProyectController::class, 'draft'])->name('aProyect.draft');
+        Route::post('aProyect/provincia', [AminProyectController::class, 'provinsiaGrabber'])->name('aProyect.proGrabber');
+        Route::post('aProyect/comuna', [AminProyectController::class, 'comunaGrabber'])->name('aProyect.coGrabber');
         Route::get('aProyect/filter', [AminProyectController::class, 'filter'])->name('aProyect.filter');
         Route::resource('region', RegionController::class);
         Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);

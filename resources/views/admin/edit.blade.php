@@ -21,6 +21,7 @@
             @csrf
             @method('PUT')
             <div class="form-group">
+              <label for="nombre">Nombre</label>
               <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Nombre" value="{{ $user->name }}">
               @error('nombre')
                   <span class="invalid-feedback" role="alert">
@@ -29,6 +30,7 @@
               @enderror
             </div>
             <div class="form-group">
+              <label for="email">Email</label>
               <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ $user->email }}">
               @error('email')
                   <span class="invalid-feedback" role="alert">

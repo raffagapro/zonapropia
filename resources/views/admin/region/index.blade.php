@@ -32,9 +32,7 @@
                 <tr>
                   <th scope="row">{{ $region->id }}</th>
                   <td>
-                    <a href="{{ route('inmo.edit', $region->id) }}">
-                      {{ $region->name }}
-                    </a>
+                    {{ $region->name }}
                   </td>
                   {{-- <td>
                     <a
