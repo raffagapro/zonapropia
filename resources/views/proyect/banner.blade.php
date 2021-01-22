@@ -9,7 +9,7 @@
       <div class="col-sm-6 col-lg-7 banner-lpanel">
         <div>
           <x-triTitle
-            :subtitle="$proyect->comuna"
+            :subtitle="$proyect->comuna->name"
             :title="$proyect->name"
             :par="'Encuentra una propiedad a tu medida, del resto nos encargamos nosotros. Te ayudamos brindándote toda la información de manera sencilla y transparente para que tomes la mejor decisión.'"
           />
@@ -18,7 +18,11 @@
       {{-- Right Panel --}}
       <div class="col-sm-6 col-lg-5 banner-rpanel">
         <div>
-          <h1 class="banner-rtitle"><span class="banner-pretitle">Desde </span>UF 1.400</h1>
+          @if ($proyect->getUF())
+            <h1 class="banner-rtitle"><span class="banner-pretitle">Desde </span>UF {{ $proyect->getUF() }}</h1>
+          @else
+            <h1 class="banner-rtitle"><span class="banner-pretitle">Próximamente</h1>
+          @endif
           {{-- <h1 class="rating-cont-banner">
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>

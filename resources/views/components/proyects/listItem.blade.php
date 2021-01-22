@@ -22,16 +22,15 @@
             <!-- Title & Map Marker -->
             <div class="col-12">
               <h5 class="card-title list-title">{{ $proyect->name }}</h5>
-              <h6 class="list-subtitle-mapmarker"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna }}</h6>
+              <h6 class="list-subtitle-mapmarker"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }}</h6>
             </div>
             <!-- Beds & Square Room -->
             <div class="col-12">
               <div class="row mt-3">
                 <div class="col-lg-6">
                   @if ((int)$proyect->maxRooms !== 0)
-
+                    <small class="bed-square-room"><i class="fas fa-bed gm-icon"></i> {{ $proyect->minRooms }} - {{ $proyect->maxRooms }}</small>
                   @endif
-                  <small class="bed-square-room"><i class="fas fa-bed gm-icon"></i> {{ $proyect->minRooms }} - {{ $proyect->maxRooms }}</small>
                 </div>
                 <div class="col-lg-6 go-right">
                   <small class="bed-square-room"><i class="fas fa-expand-arrows-alt gm-icon"></i> {{ $proyect->minMC }} - {{ $proyect->maxMC }} m<sup>2</sup></small>
@@ -53,7 +52,11 @@
                   <i class="far fa-star star-rating-empty"></i>
                 </div> --}}
                 <div class="col go-right">
-                  <h5 class="list-rating-anex">Desde UF 1.400</h5>
+                  @if ($proyect->getUF())
+                    <h5 class="list-rating-anex">Desde {{ $proyect->getUF() }}</h5>
+                  @else
+                    <h5 class="list-rating-anex">Próximamente</h5>
+                  @endif
                 </div>
               </div>
             </div>

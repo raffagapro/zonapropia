@@ -15,9 +15,13 @@
       </div>
       <!-- Body -->
       <div class="slide-body">
-        <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna }}</small>
+        <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna->name }}</small>
         <h6>{{ $proyect->name }}</h6>
-        <h4>Desde UF 1.200</h4>
+        @if ($proyect->getUF())
+          <h4>{{ $proyect->getUF() }}</h4>
+        @else
+          <h4>Próximamente</h4>
+        @endif
         <small>
           @if ((int)$proyect->maxRooms !== 0)
             {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorm |

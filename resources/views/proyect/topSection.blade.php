@@ -6,7 +6,7 @@
       <!-- Specs -->
       <div class="row">
         <div class="col-4">
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna }}</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }}</small>
         </div>
         <div class="col-2">
           @if ((int)$proyect->maxRooms !== 0)

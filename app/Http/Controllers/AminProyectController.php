@@ -11,6 +11,7 @@ use App\Models\Comuna;
 use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 use App\Models\Taggable;
+use App\Models\Caracteristica;
 
 
 
@@ -104,12 +105,24 @@ class AminProyectController extends Controller
      */
     public function edit($id){
       $proyect = Proyecto::findOrFail($id);
+      // $unidades = $proyect->unidades;
+      // $unidades = $unidades->sortBy('precio_venta');
+      // $unidad = $unidades->first();
+      // dd($unidad->precio_venta);
       $cats = Categoria::all();
+      $caracs = Caracteristica::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
       $tags = Taggable::all();
       return view('admin.proyects.edit')
-        ->with(compact('proyect', 'cats', 'inmos', 'regions', 'tags'));
+        ->with(compact(
+          'proyect',
+          'cats',
+          'inmos',
+          'regions',
+          'tags',
+          'caracs'
+        ));
     }
 
     public function addTag(Request $request, $id){
@@ -121,24 +134,89 @@ class AminProyectController extends Controller
       }else {
         $status = 'El Tag ya se esta asociado con el proyecto.';
       }
+      $caracs = Caracteristica::all();
       $tags = Taggable::all();
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
-      return back()->with(compact('status', 'proyect', 'cats', 'inmos', 'regions', 'tags'));
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs'
+      ));
     }
 
     public function rmTag($id, $tag_id){
       $proyect = Proyecto::findOrFail($id);
       $tag = Taggable::findOrFail($tag_id);
       $proyect->tags()->detach($tag);
+      $caracs = Caracteristica::all();
       $tags = Taggable::all();
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
       $status = 'El tag ha sido eliminado.';
-      return back()->with(compact('status', 'proyect', 'cats', 'inmos', 'regions', 'tags'));
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs'
+      ));
     }
+
+    public function addCar(Request $request, $id){
+      $proyect = Proyecto::findOrFail($id);
+      $car = Caracteristica::findOrFail($request->car);
+      if (!$proyect->caracteristicas()->where('name', $car->name)->first()) {
+        $proyect->caracteristicas()->attach($car);
+        $status = 'La caracteristica ha sido agregada.';
+      }else {
+        $status = 'La caracteristica ya esta asociada con el proyecto.';
+      }
+      $caracs = Caracteristica::all();
+      $tags = Taggable::all();
+      $cats = Categoria::all();
+      $inmos = Inmobiliaria::all();
+      $regions = Region::all();
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs'
+      ));
+    }
+
+    public function rmCar($id, $car_id){
+      $proyect = Proyecto::findOrFail($id);
+      $car = Caracteristica::findOrFail($car_id);
+      $proyect->caracteristicas()->detach($car);
+      $caracs = Caracteristica::all();
+      $tags = Taggable::all();
+      $cats = Categoria::all();
+      $inmos = Inmobiliaria::all();
+      $regions = Region::all();
+      $status = 'La caracteristica ha sido eliminada.';
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs'
+      ));
+    }
+
 
     public function highlight(Request $request, $id){
       $proyect = Proyecto::findOrFail($id);

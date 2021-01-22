@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Destacado extends Model
+class Media_Cara extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'orden',
+        'name',
+        'loc',
     ];
-    public function proyecto()
+    public function proyect()
     {
         return $this->belongsTo(Proyecto::class);
+    }
+    public function caracteristica()
+    {
+        return $this->belongsTo(Caracteristica::class);
     }
 }

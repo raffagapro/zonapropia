@@ -11,11 +11,15 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Información del proyecto</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna }} - {{ $proyect->name }}</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
-          <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>UF 1.400</h1>
+          @if ($proyect->getUF())
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>{{ $proyect->getUF() }}</h1>
+          @else
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Próximamente</h1>
+          @endif
           {{-- <h1 class="mb-info-rating-cont mt-0 pt-0">
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
@@ -48,38 +52,40 @@
           <h5><i class="fas fa-expand-arrows-alt"></i> {{ $proyect->minMC }} - {{ $proyect->maxMC }} m<sup>2</sup></h5>
         </div>
         <!-- Gallery -->
-        <div class="col-12 mt-4">
-          <h3 class="mb-datos-title">Galería</h3>
-        </div>
-        <div class="col-12 mt-4">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              @php
-                $go = 0;
-              @endphp
-              @forelse ($proyect->media->where('name', 'media')->all() as $media)
-                <div class="carousel-item @if ($go === 0) active @php $go = 1; @endphp @endif">
-                  <img src="{{ $media->loc }}" class="d-block w-100" alt="...">
-                </div>
-              @empty
-                <h3>Sin imagenes</h3>
-              @endforelse
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
+        @if (count($proyect->media->where('name', 'media')->all()) > 0 )
+          <div class="col-12 mt-4">
+            <h3 class="mb-datos-title">Galería</h3>
           </div>
-        </div>
+          <div class="col-12 mt-4">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                @php
+                  $go = 0;
+                @endphp
+                @forelse ($proyect->media->where('name', 'media')->all() as $media)
+                  <div class="carousel-item @if ($go === 0) active @php $go = 1; @endphp @endif">
+                    <img src="{{ $media->loc }}" class="d-block w-100" alt="...">
+                  </div>
+                @empty
+                  <h3>Sin imagenes</h3>
+                @endforelse
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        @endif
       </div>
     </div>
     <!-- Cotizaador -->
@@ -197,11 +203,13 @@
   <!-- Right Panel -->
   <div class="col-lg-4">
     <!-- Logo -->
-    <div class="card mb-section-card mt-0">
-      <div class="card-body row align-items-center mt-5 mb-5">
-        <img src="./assets/images/logos/sample-logo1.png" alt="" class="mb-main-logo">
+    @if ($proyect->inmobiliaria !== null)
+      <div class="card mb-section-card mt-0">
+        <div class="card-body row align-items-center mt-5 mb-5">
+          <img src="{{ asset($proyect->inmobiliaria->logo) }}" alt="" class="mb-main-logo">
+        </div>
       </div>
-    </div>
+    @endif
     <!-- Etapa de venta -->
     <div class="card mb-section-card mt-0">
       <div class="card-body row align-items-center mt-2 mb-5">
@@ -251,7 +259,7 @@
         <!-- Fecha de publicación -->
         <div class="col-12 mt-4">
           <h5 class="">Fecha de publicación</h5>
-          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> 25 de Marzo del 2021</h6>
+          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> {{ $proyect->created_at->diffForHumans() }}</h6>
         </div>
       </div>
     </div>

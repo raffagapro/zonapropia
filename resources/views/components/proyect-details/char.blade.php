@@ -1,3 +1,7 @@
+@props([
+  'proyect' => $proyect,
+])
+
 <div class="row">
   <!-- Top Panel -->
   <div class="col-12">
@@ -7,18 +11,22 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Características</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> San Miguel - Condominio San Nicolás</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
-          <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>UF 1.400</h1>
-          <h1 class="mb-info-rating-cont mt-0 pt-0">
+          @if ($proyect->getUF())
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>{{ $proyect->getUF() }}</h1>
+          @else
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Próximamente</h1>
+          @endif
+          {{-- <h1 class="mb-info-rating-cont mt-0 pt-0">
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating-empty"></i>
-          </h1>
+          </h1> --}}
         </div>
         <!-- Paragrap -->
         <div class="col-12 mt-5">
@@ -30,14 +38,18 @@
         <div class="col-12 mt-4">
           <h4>Características</h4>
         </div>
-        <div class="col-md-4 mb-char-aleft mt-4">
-          <h5><i class="fas fa-bed"></i> 2 - 3 dormitorios</h5>
-        </div>
-        <div class="col-md-4 mb-char-acenter mt-4">
-          <h5><i class="fas fa-toilet"></i> 1 - 3 baños</h5>
-        </div>
+        @if ((int)$proyect->maxRooms !== 0)
+          <div class="col-md-4 mb-char-aleft mt-4">
+            <h5><i class="fas fa-bed"></i> {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} dormitorios</h5>
+          </div>
+        @endif
+        @if ((int)$proyect->maxBathrooms !== 0)
+          <div class="col-md-4 mb-char-acenter mt-4">
+            <h5><i class="fas fa-toilet"></i> {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} baños</h5>
+          </div>
+        @endif
         <div class="col-md-4 mb-char-aright mt-4">
-          <h5><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></h5>
+          <h5><i class="fas fa-expand-arrows-alt"></i> {{ $proyect->minMC }} - {{ $proyect->maxMC }} m<sup>2</sup></h5>
         </div>
         <!-- Gallery -->
         <div class="col-12 mt-4">

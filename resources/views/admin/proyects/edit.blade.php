@@ -394,6 +394,39 @@
         </div>
       </div>
 
+      {{-- Caracteristicas Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Caracteristicas</h4>
+        {{-- Caracteristicas Form --}}
+        <div class="container">
+          <form action="{{ route('aProyect.addCar', $proyect->id) }}" method="POST">
+            @csrf
+            <div class="row">
+              <div class="col-md-8 col-lg-10">
+                <select class="form-control" name="car">
+                  <option selected disabled>Seleccionar Caracteristica</option>
+                  @foreach ($caracs as $car)
+                    <option value="{{ $car->id }}">{{ $car->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              @foreach ($proyect->caracteristicas as $cari)
+                <span class="badge badge-primary">
+                  <a href="{{ route('aProyect.rmCar', [$proyect->id, $cari->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                  {{ $cari->name }}
+                </span>
+              @endforeach
+            </div>
+          </form>
+        </div>
+      </div>
+
       {{-- Images --}}
       <div class="card mb-section-card">
         {{-- Title --}}

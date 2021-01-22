@@ -16,7 +16,7 @@
       <div class="card-body">
         <!-- Title & Map Marker -->
         <h5 class="card-title grid-title">{{ $proyect->name }}</h5>
-        <small class="subtitle-mapmarker"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna }}</small>
+        <small class="subtitle-mapmarker"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }}</small>
         <!-- Beds & Square Room -->
         <div class="row mt-3">
           <div class="col-lg-6">
@@ -39,7 +39,11 @@
             <i class="far fa-star star-rating-empty"></i>
           </div> --}}
           <div class="col go-right">
-            <h4 class="rating-anex">Desde UF 1.400</h4>
+            @if ($proyect->getUF())
+              <h4 class="rating-anex">Desde {{ $proyect->getUF() }}</h4>
+            @else
+              <h4 class="rating-anex">Próximamente</h4>
+            @endif
           </div>
         </div>
       </div>

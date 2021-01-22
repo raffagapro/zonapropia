@@ -61,6 +61,10 @@ class Proyecto extends Model
     {
       return $this->belongsToMany(Taggable::class);
     }
+    public function caracteristicas()
+    {
+      return $this->belongsToMany(Caracteristica::class);
+    }
     public function inmobiliaria()
     {
       return $this->belongsTo(Inmobiliaria::class);
@@ -90,8 +94,27 @@ class Proyecto extends Model
       }
       return false;
     }
+    public function media_cara()
+    {
+      return $this->hasMany(Media_Cara::class);
+    }
     public function destacado()
     {
         return $this->hasOne(Destacado::class);
+    }
+    public function unidades()
+    {
+        return $this->hasMany(Unidad::class);
+    }
+    public function getUF()
+    {
+      $unidades = $this->unidades;
+      $unidades = $unidades->sortBy('precio_venta');
+      if (count($unidades) > 0) {
+        $unidad = $unidades->first();
+        return "UF ".$unidad->precio_venta;
+      }else {
+        return false;
+      }
     }
 }

@@ -18,6 +18,7 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
+                <th scope="col">Orden</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Control</th>
               </tr>
@@ -26,10 +27,43 @@
               @forelse ($dests as $dest)
                 <tr>
                   <th scope="row">{{ $dest->id }}</th>
+                  <th>{{ $dest->orden }}</th>
                   <td>
                     {{ $dest->proyecto->name }}
                   </td>
                   <td>
+                    {{-- up --}}
+                    @if ($dest->orden !== 1)
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-sm btn-primary"
+                        onclick="event.preventDefault(); document.getElementById('{{ 'destUp'.$dest->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Subir orden">
+                        <i class="fas fa-arrow-up"></i>
+                      </a>
+                      <form id="{{ 'destUp'.$dest->id }}"
+                        action="{{ route('dest.up', $dest->id) }}"
+                        method="POST"
+                        style="display: none;"
+                        >@csrf
+                      </form>
+                    @endif
+                    @if ($dest->orden < count($dests))
+                      <a
+                        href="javascript:void(0);"
+                        class="btn btn-sm btn-primary"
+                        onclick="event.preventDefault(); document.getElementById('{{ 'destDown'.$dest->id }}').submit();"
+                        data-toggle="tooltip" data-placement="top" title="Bajar orden">
+                        <i class="fas fa-arrow-down"></i>
+                      </a>
+                      <form id="{{ 'destDown'.$dest->id }}"
+                        action="{{ route('dest.down', $dest->id) }}"
+                        method="POST"
+                        style="display: none;"
+                        >@csrf
+                      </form>
+                    @endif
+                    {{-- Eliminar --}}
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"

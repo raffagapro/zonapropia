@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDestacadosTable extends Migration
+class CreateMediaCarasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateDestacadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('destacados', function (Blueprint $table) {
+        Schema::create('media__caras', function (Blueprint $table) {
             $table->id();
-            $table->integer('proyecto_id')->unsigned()->nullable()->onDelete('cascade');
-            $table->integer('orden');
+            $table->string('name');
+            $table->text('loc');
+            $table->integer('proyecto_id')->nullable()->onDelete('cascade');
+            $table->integer('caracteristica_id')->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateDestacadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('destacados');
+        Schema::dropIfExists('media__caras');
     }
 }

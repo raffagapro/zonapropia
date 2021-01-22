@@ -78,6 +78,7 @@
             <a class="dropdown-item main-color" href="{{ route('dest.index')}}">Destacados</a>
             <a class="dropdown-item main-color" href="{{ route('region.index')}}">Regiones</a>
             <a class="dropdown-item main-color" href="{{ route('category.index')}}">Categorias</a>
+            <a class="dropdown-item main-color" href="{{ route('caracs.index')}}">Caracteristicas</a>
             <a class="dropdown-item main-color" href="{{ route('tag.index')}}">Tags</a>
           </div>
         </li>

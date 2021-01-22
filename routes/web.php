@@ -15,6 +15,8 @@ use App\Http\Controllers\DestacadosController;
 use App\Http\Controllers\ProyectsController;
 use App\Http\Controllers\ProyectController;
 use App\Http\Controllers\UserProfile;
+use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\CaracteristicasController;
 
 
 /*
@@ -61,6 +63,8 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('aProyect', AminProyectController::class, ['except'=>['show']]);
         Route::post('aProyect/{proyect}/addTag', [AminProyectController::class, 'addTag'])->name('aProyect.addTag');
         Route::get('aProyect/{proyect}/{tag}/rmTag', [AminProyectController::class, 'rmTag'])->name('aProyect.rmTag');
+        Route::post('aProyect/{proyect}/addCar', [AminProyectController::class, 'addCar'])->name('aProyect.addCar');
+        Route::get('aProyect/{proyect}/{car}/rmCar', [AminProyectController::class, 'rmCar'])->name('aProyect.rmCar');
         Route::post('aProyect/{proyect}/highlight', [AminProyectController::class, 'highlight'])->name('aProyect.highlight');
         Route::post('aProyect/{proyect}/deHighlight', [AminProyectController::class, 'deHighlight'])->name('aProyect.deHighlight');
         Route::post('aProyect/{proyect}/publicar', [AminProyectController::class, 'publish'])->name('aProyect.publish');
@@ -79,6 +83,13 @@ Route::middleware(['auth'])->group(function (){
         Route::post('dest/search', [DestacadosController::class, 'search'])->name('dest.search');
         Route::post('dest/add/{proyect_id}', [DestacadosController::class, 'add'])->name('dest.add');
         Route::post('dest/remove/{proyect_id}', [DestacadosController::class, 'remove'])->name('dest.remove');
+        Route::post('dest/up/{dest_id}', [DestacadosController::class, 'up'])->name('dest.up');
+        Route::post('dest/down{dest_id}', [DestacadosController::class, 'down'])->name('dest.down');
+        Route::resource('unidad', UnidadController::class, ['except'=>['index', 'create', 'show']]);
+        Route::post('unidad/{proyect}', [UnidadController::class, 'zIndex'])->name('unidad.zIndex');
+        Route::get('unidad/create/{proyect}', [UnidadController::class, 'zCreate'])->name('unidad.zCreate');
+        Route::resource('caracs', CaracteristicasController::class, ['except'=>['show', 'create']]);
+
 
 
       });

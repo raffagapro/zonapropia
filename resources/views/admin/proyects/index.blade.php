@@ -53,6 +53,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Inmobiliaria</th>
                 <th scope="col">Tags</th>
+                <th scope="col">Unidades</th>
                 <th scope="col">Control</th>
               </tr>
             </thead>
@@ -78,6 +79,21 @@
                     @foreach ($proyect->tags as $tag)
                       <span class="badge badge-primary">{{ $tag->name }}</span>
                     @endforeach
+                  </td>
+                  <td>
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-primary"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'unidadesPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Ver unidades">
+                      {{ count($proyect->unidades)}}
+                    </a>
+                    <form id="{{ 'unidadesPro'.$proyect->id }}"
+                      action="{{ route('unidad.zIndex', $proyect->id) }}"
+                      method="Post"
+                      style="display: none;"
+                      >@csrf
+                    </form>
                   </td>
                   <td>
                     {{-- publicado --}}

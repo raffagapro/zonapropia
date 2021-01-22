@@ -1,3 +1,7 @@
+@props([
+  'proyect' => $proyect,
+])
+
 <div class="row">
   <!-- Top Panel -->
   <div class="col-12">
@@ -11,14 +15,18 @@
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
-          <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>UF 1.400</h1>
-          <h1 class="mb-info-rating-cont mt-0 pt-0">
+          @if ($proyect->getUF())
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Desde </span>{{ $proyect->getUF() }}</h1>
+          @else
+            <h1 class="mb-info-rating-title mb-0 pb-0"><span class="mb-info-rating-pretitle">Próximamente</h1>
+          @endif
+          {{-- <h1 class="mb-info-rating-cont mt-0 pt-0">
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating"></i>
             <i class="fas fa-star star-rating-empty"></i>
-          </h1>
+          </h1> --}}
         </div>
         <!-- Paragrap -->
         <div class="col-12 mt-5 text-danger text-center">
