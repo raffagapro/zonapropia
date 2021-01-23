@@ -89,6 +89,8 @@ Route::middleware(['auth'])->group(function (){
         Route::post('unidad/{proyect}', [UnidadController::class, 'zIndex'])->name('unidad.zIndex');
         Route::get('unidad/create/{proyect}', [UnidadController::class, 'zCreate'])->name('unidad.zCreate');
         Route::resource('caracs', CaracteristicasController::class, ['except'=>['show', 'create']]);
+        Route::post('caracs/addMedia', [CaracteristicasController::class, 'addMedia'])->name('caracs.addMedia');
+        Route::get('caracs/rmMedia/{media}', [CaracteristicasController::class, 'rmMedia'])->name('caracs.rmMedia');
 
 
 

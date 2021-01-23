@@ -67,4 +67,10 @@ $( document ).ready(function() {
       // console.log(data);
     });
   });
+
+  $(".charImgBtn").click(function(event) {
+    event.preventDefault();
+    let charId = $(this).attr('id');
+    $("#char_id").val(charId);
+  });
 });

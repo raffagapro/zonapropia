@@ -74,6 +74,9 @@ class AminProyectController extends Controller
         'maxBathrooms' => $request->maxBath,
         'minMC' => $request->minMC,
         'maxMC' => $request->maxMC,
+        'seguridad' => $request->seguridad,
+        'etapa_venta' => $request->etapa_venta,
+        'fecha_entrega' => $request->fecha_entrega,
       ]);
       if ((int)$request->inmo !== 0) {
         $inmo = Inmobiliaria::findOrFail((int)$request->inmo);
@@ -199,6 +202,14 @@ class AminProyectController extends Controller
     public function rmCar($id, $car_id){
       $proyect = Proyecto::findOrFail($id);
       $car = Caracteristica::findOrFail($car_id);
+      $mcs = $proyect->getMediaCara($car_id);
+      // erases media sociated to characteristic
+      foreach ($mcs as $mc) {
+        $delMedia = str_replace('/storage/', "",$mc->loc);
+        Storage::delete('public/'.$delMedia);
+        //erase record from DB
+        $mc->delete();
+      }
       $proyect->caracteristicas()->detach($car);
       $caracs = Caracteristica::all();
       $tags = Taggable::all();
@@ -216,7 +227,6 @@ class AminProyectController extends Controller
         'caracs'
       ));
     }
-
 
     public function highlight(Request $request, $id){
       $proyect = Proyecto::findOrFail($id);
@@ -291,7 +301,6 @@ class AminProyectController extends Controller
       return [$comunas];
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -326,6 +335,9 @@ class AminProyectController extends Controller
       $proyect->maxBathrooms = $request->maxBath;
       $proyect->minMC = $request->minMC;
       $proyect->maxMC = $request->maxMC;
+      $proyect->seguridad = $request->seguridad;
+      $proyect->etapa_venta = $request->etapa_venta;
+      $proyect->fecha_entrega = $request->fecha_entrega;
       if ((int)$request->inmo === 0) {
         $proyect->inmobiliaria()->dissociate();
       }
@@ -388,6 +400,23 @@ class AminProyectController extends Controller
         foreach ($proyect->tags as $tag) {
           $proyect->tags()->detach($tag);
         }
+      }
+      //chars
+      foreach ($proyect->caracteristicas as $car) {
+        //media associated with the char
+        foreach ($proyect->getMediaCara($car->id) as $mc) {
+          $delMedia = str_replace('/storage/', "",$mc->loc);
+          Storage::delete('public/'.$delMedia);
+          //erase record from DB
+          $mc->delete();
+        }
+        $proyect->caracteristicas()->detach($car);
+      }
+      //units
+      foreach ($proyect->unidades as $unidad) {
+        $delUni = str_replace('/storage/', "",$unidad->tipologia);
+        Storage::delete('public/'.$delUni);
+        $unidad->delete();
       }
       $proyect->delete();
       $proyects = Proyecto::paginate(25);

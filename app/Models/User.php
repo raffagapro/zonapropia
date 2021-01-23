@@ -77,4 +77,8 @@ class User extends Authenticatable
     {
       $this->attributes['name'] = strtolower($name);
     }
+    public function proyects()
+    {
+      return $this->belongsToMany(Proyecto::class);
+    }
 }

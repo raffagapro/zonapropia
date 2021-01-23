@@ -10929,6 +10929,16 @@ body {
   width: auto;
 }
 
+.test {
+  margin-left: -25px;
+  margin-top: 60px;
+}
+
+.mediaProyect2 {
+  height: 100px;
+  width: auto;
+}
+
 .main-color {
   color: #62A4C0;
   border-color: #62A4C0;

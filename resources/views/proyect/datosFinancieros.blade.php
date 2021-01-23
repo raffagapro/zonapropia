@@ -9,20 +9,20 @@
   <div class="card-body row align-items-center">
     <!-- Panel 2 -->
     <div class="col-md-4 text-center df-item-mb">
-      <h1 class="mb-datos-num">123</h1>
-      <h5 class="mb-datos-text">Rentabilidad promedio sobre inversión</h5>
+      <h1 class="mb-datos-num">{{ $proyect->getPrecioPromedio() }}</h1>
+      <h5 class="mb-datos-text">Precio Promedio</h5>
     </div>
 
     <!-- Panel 3 -->
     <div class="col-md-4 text-center df-item-mb">
-      <h1 class="mb-datos-num">123</h1>
-      <h5 class="mb-datos-text">Precio promedio</h5>
+      <h1 class="mb-datos-num">{{ $proyect->getUF_M2() }}</h1>
+      <h5 class="mb-datos-text">UF/m<sup>2</sup> Promedio</h5>
     </div>
 
     <!-- Panel 4 -->
     <div class="col-md-4 text-center">
-      <h1 class="mb-datos-num">123</h1>
-      <h5 class="mb-datos-text">Proyección en x años</h5>
+      <h1 class="mb-datos-num">{{ count($proyect->unidades) }}</h1>
+      <h5 class="mb-datos-text">Tipologias</h5>
     </div>
 
   </div>

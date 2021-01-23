@@ -145,26 +145,6 @@
                 @enderror
               </div>
             </div>
-            {{-- descripcion --}}
-            <div class="form-group">
-              <label for="descripcion">Descripcion del proyecto</label>
-              <textarea class="form-control" name="descripcion" rows="3"></textarea>
-            </div>
-            {{-- texto descatado --}}
-            <div class="form-group">
-              <label for="textoDestacado">Texto destacado</label>
-              <textarea class="form-control" name="textoDestacado" rows="3"></textarea>
-            </div>
-            {{-- Texto Proyecto --}}
-            <div class="form-group">
-              <label for="textoProyecto">Texto del proyecto</label>
-              <textarea class="form-control" name="textoProyecto" rows="3"></textarea>
-            </div>
-            {{-- terms --}}
-            <div class="form-group">
-              <label for="terminos">Terminos</label>
-              <textarea class="form-control" name="terminos" rows="3"></textarea>
-            </div>
             {{-- date/estado/destacado--}}
             <div class="form-group row">
               {{-- fecha limite --}}
@@ -197,6 +177,44 @@
                 <select class="form-control" name="destacar">
                   <option value=0>No</option>
                   <option value=1>Si</option>
+                </select>
+              </div>
+            </div>
+            {{-- fecha_entrega/etapa_venta/seguridad--}}
+            <div class="form-group row">
+              {{-- fecha_entrega --}}
+              <div class="col-4">
+                <label for="fecha_entrega">Fecha Entrega</label>
+                <input
+                  type="text"
+                  name="fecha_entrega"
+                  class="form-control @error('fecha_entrega') is-invalid @enderror"
+                  value=""
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                >
+                @error('fecha_entrega')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- etapa_venta --}}
+              <div class="col-4">
+                <label for="etapa_venta">Etapa de Venta</label>
+                <select class="form-control" name="etapa_venta">
+                  <option value=1 >Etapa 1</option>
+                  <option value=2 >Etapa 2</option>
+                  <option value=3 >Etapa 3</option>
+                </select>
+              </div>
+              {{-- seguridad --}}
+              <div class="col-4">
+                <label for="seguridad">Seguridad</label>
+                <select class="form-control" name="seguridad">
+                  <option value=1 >Baja</option>
+                  <option value=2 >Media</option>
+                  <option value=3 >Alta</option>
                 </select>
               </div>
             </div>
@@ -292,6 +310,26 @@
                     </span>
                 @enderror
               </div>
+            </div>
+            {{-- descripcion --}}
+            <div class="form-group">
+              <label for="descripcion">Descripcion del proyecto</label>
+              <textarea class="form-control" name="descripcion" rows="3"></textarea>
+            </div>
+            {{-- texto descatado --}}
+            <div class="form-group">
+              <label for="textoDestacado">Texto destacado</label>
+              <textarea class="form-control" name="textoDestacado" rows="3"></textarea>
+            </div>
+            {{-- Texto Proyecto --}}
+            <div class="form-group">
+              <label for="textoProyecto">Texto del proyecto</label>
+              <textarea class="form-control" name="textoProyecto" rows="3"></textarea>
+            </div>
+            {{-- terms --}}
+            <div class="form-group">
+              <label for="terminos">Terminos</label>
+              <textarea class="form-control" name="terminos" rows="3"></textarea>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar Proyecto</button>
           </form>

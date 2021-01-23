@@ -11,7 +11,7 @@
           <x-triTitle
             :subtitle="$proyect->comuna->name"
             :title="$proyect->name"
-            :par="'Encuentra una propiedad a tu medida, del resto nos encargamos nosotros. Te ayudamos brindándote toda la información de manera sencilla y transparente para que tomes la mejor decisión.'"
+            :par="$proyect->texto_destacado"
           />
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div class="col-sm-6 col-lg-5 banner-rpanel">
         <div>
           @if ($proyect->getUF())
-            <h1 class="banner-rtitle"><span class="banner-pretitle">Desde </span>UF {{ $proyect->getUF() }}</h1>
+            <h1 class="banner-rtitle"><span class="banner-pretitle">Desde </span>{{ $proyect->getUF() }}</h1>
           @else
             <h1 class="banner-rtitle"><span class="banner-pretitle">Próximamente</h1>
           @endif

@@ -47,6 +47,9 @@ class Proyecto extends Model
         'maxBathrooms',
         'minMC',
         'maxMC',
+        'seguridad',
+        'etapa_venta',
+        'fecha_entrega',
     ];
 
     // public function estado()
@@ -60,6 +63,10 @@ class Proyecto extends Model
     public function tags()
     {
       return $this->belongsToMany(Taggable::class);
+    }
+    public function users()
+    {
+      return $this->belongsToMany(User::class);
     }
     public function caracteristicas()
     {
@@ -98,6 +105,16 @@ class Proyecto extends Model
     {
       return $this->hasMany(Media_Cara::class);
     }
+    public function getMediaCara($car_id)
+    {
+      $mc = Media_Cara::where('proyecto_id', $this->id)->where('caracteristica_id', $car_id)->get();
+      return $mc;
+    }
+    public function getAllMediaCara()
+    {
+      $mc = Media_Cara::where('proyecto_id', $this->id)->get();
+      return $mc;
+    }
     public function destacado()
     {
         return $this->hasOne(Destacado::class);
@@ -117,4 +134,34 @@ class Proyecto extends Model
         return false;
       }
     }
+    public function getPrecioPromedio()
+    {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
+        $total = 0;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->precio_venta;
+        }
+        $total = $total / count($unidades);
+        return $total ;
+      }else {
+        return false;
+      }
+    }
+
+    public function getUF_M2()
+    {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
+        $total = 0;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->uf_m2;
+        }
+        $total = $total / count($unidades);
+        return $total ;
+      }else {
+        return false;
+      }
+    }
+
 }

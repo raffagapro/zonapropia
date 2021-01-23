@@ -1,9 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+
 use App\Models\Caracteristica;
+use App\Models\Proyecto;
+use App\Models\Media_Cara;
+use App\Models\Categoria;
+use App\Models\Inmobiliaria;
+use App\Models\Region;
+use App\Models\Taggable;
 
 class CaracteristicasController extends Controller
 {
@@ -12,8 +19,7 @@ class CaracteristicasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
       $caracs = Caracteristica::paginate(25);
       return view('admin.caracs.index')->with(compact('caracs'));
     }
@@ -24,8 +30,7 @@ class CaracteristicasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
       Caracteristica::create([
         'name' => $request->nombre,
         'icono' => $request->icono,
@@ -42,8 +47,7 @@ class CaracteristicasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
       $car = Caracteristica::findOrFail($id);
       return view('admin.caracs.edit')->with(compact('car'));
     }
@@ -55,8 +59,7 @@ class CaracteristicasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
       $car = Caracteristica::findOrFail($id);
       $car->name = $request->nombre;
       $car->icono = $request->icono;
@@ -72,13 +75,94 @@ class CaracteristicasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
       $car = Caracteristica::findOrFail($id);
-      //missing code for deliting media associated with the charac
+      $proyects = $car->proyects;
+      // removes proyects associated
+      foreach ($proyects as $pro) {
+        $pro->caracteristicas()->detach($car);
+      }
+      //removes media associated
+      foreach ($car->media_cara as $mc) {
+        $delMedia = str_replace('/storage/', "",$mc->loc);
+        Storage::delete('public/'.$delMedia);
+        //erase record from DB
+        $mc->delete();
+      }
       $car->delete();
       $status = 'La caracteristica ha sido eliminada exitosamente.';
       $caracs = Caracteristica::paginate(25);
       return back()->with(compact('caracs', 'status'));
+    }
+
+    public function addMedia(Request $request){
+      $car = Caracteristica::findOrFail($request->char_id);
+      $proyect = Proyecto::findOrFail($request->proyect_id);
+      // dd($car, $proyect);
+      if ($request->hasFile('charImg')) {
+        if ($request->file('charImg')->isValid()) {
+          $validated = $request->validate([
+            'charImg'=>'mimes:jpeg,png|max:1000',
+          ]);
+          //nueva img
+          $mc = Media_Cara::create([
+            'name' => 'temp',
+            'loc' => 'temp'
+          ]);
+          $extension = $request->charImg->extension();
+          $request->charImg->storeAs('/public/chars', 'char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id.'.'.$extension);
+          $url = Storage::url('chars/char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id.'.'.$extension);
+          $mc->name = 'char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id;
+          $mc->loc = $url;
+          $mc->save();
+
+          $proyect->media_cara()->save($mc);
+          $car->media_cara()->save($mc);
+          $status = 'La imagen ha sido guardada.';
+          $cats = Categoria::all();
+          $caracs = Caracteristica::all();
+          $inmos = Inmobiliaria::all();
+          $regions = Region::all();
+          $tags = Taggable::all();
+          return view('admin.proyects.edit')
+            ->with(compact(
+              'proyect',
+              'cats',
+              'inmos',
+              'regions',
+              'tags',
+              'caracs',
+              'status'
+            ));
+        }
+      }
+    }
+
+    public function rmMedia($id){
+      $mc = Media_Cara::findOrFail($id);
+      $proyect_id = $mc->proyecto_id;
+      //erase file from store
+      $delMedia = str_replace('/storage/', "",$mc->loc);
+      Storage::delete('public/'.$delMedia);
+      //erase record from DB
+      $mc->delete();
+      $proyect = Proyecto::findOrFail($proyect_id);
+      // dd($proyect);
+      $status = 'La imagen ha sido eliminada.';
+      $cats = Categoria::all();
+      $caracs = Caracteristica::all();
+      $inmos = Inmobiliaria::all();
+      $regions = Region::all();
+      $tags = Taggable::all();
+      return view('admin.proyects.edit')
+        ->with(compact(
+          'proyect',
+          'cats',
+          'inmos',
+          'regions',
+          'tags',
+          'caracs',
+          'status'
+        ));
     }
 }

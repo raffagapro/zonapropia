@@ -30,9 +30,7 @@
         </div>
         <!-- Paragrap -->
         <div class="col-12 mt-5">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim, quis nostrud
-          </p>
+          <p>{{ $proyect->descripcion }}</p>
         </div>
         <!-- Características -->
         <div class="col-12 mt-4">
@@ -216,50 +214,57 @@
         <!-- Etapa de venta -->
         <div class="col-12 mt-4">
           <h5 class="mb-0">Etapa de Venta</h5>
-          <small>1er etapa </small>
+          @if ((int)$proyect->etapa_venta === 1) <small>1er etapa </small>@endif
+          @if ((int)$proyect->etapa_venta === 2) <small>2da etapa </small>@endif
+          @if ((int)$proyect->etapa_venta === 3) <small>3er etapa </small>@endif
           <div class="row">
-            <div class="col-4 pr-1"><hr class="mb-hr-indicator-red"></div>
-            <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator"></div>
-            <div class="col-4 pl-1"><hr class="mb-hr-indicator"></div>
+            <div class="col-4 pr-1"><hr class="mb-hr-indicator-green"></div>
+            @if ((int)$proyect->etapa_venta > 1)
+              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator-green"></div>
+            @else
+              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator"></div>
+            @endif
+            @if ((int)$proyect->etapa_venta > 2)
+              <div class="col-4 pl-1"><hr class="mb-hr-indicator-green"></div>
+            @else
+              <div class="col-4 pl-1"><hr class="mb-hr-indicator"></div>
+            @endif
           </div>
         </div>
         <!-- Fecha de entrega -->
         <div class="col-12 mt-4">
           <h5 class="">Fecha de Entrega</h5>
-          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> 25 de Marzo del 2021</h6>
+          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> {{ $proyect->fecha_entrega }}</h6>
         </div>
         <!-- Seguridad del sector -->
         <div class="col-12 mt-4">
           <h5 class="mb-0">Seguridad del sector</h5>
-          <small>Alta </small>
+          @if ((int)$proyect->seguridad === 1) <small>Baja </small>@endif
+          @if ((int)$proyect->seguridad === 2) <small>Media </small>@endif
+          @if ((int)$proyect->seguridad === 3) <small>Alta </small>@endif
           <div class="row">
-            <div class="col-4 pr-1"><hr class="mb-hr-indicator-green"></div>
-            <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator-green"></div>
-            <div class="col-4 pl-1"><hr class="mb-hr-indicator-green"></div>
+            <div class="col-4 pr-1"><hr class="mb-hr-indicator-red"></div>
+            @if ((int)$proyect->seguridad > 1)
+              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator-red"></div>
+            @else
+              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator"></div>
+            @endif
+            @if ((int)$proyect->seguridad > 2)
+              <div class="col-4 pl-1"><hr class="mb-hr-indicator-red"></div>
+            @else
+              <div class="col-4 pl-1"><hr class="mb-hr-indicator"></div>
+            @endif
           </div>
-        </div>
-        <!-- Rentabilidad del sector -->
-        <div class="col-12 mt-4">
-          <h5 class="">Rentabilidad del sector</h5>
-          <h6>
-            <i class="fas fa-question-circle" style="color:red"></i>
-            <i class="fas fa-question-circle" style="color:red"></i>
-            <i class="fas fa-question-circle" style="color:red"></i>
-          </h6>
-        </div>
-        <!-- Financiamiento -->
-        <div class="col-12 mt-4">
-          <h5 class="">Financiamiento</h5>
-          <h6>
-            <i class="fas fa-question-circle" style="color:red"></i>
-            <i class="fas fa-question-circle" style="color:red"></i>
-            <i class="fas fa-question-circle" style="color:red"></i>
-          </h6>
         </div>
         <!-- Fecha de publicación -->
         <div class="col-12 mt-4">
           <h5 class="">Fecha de publicación</h5>
           <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> {{ $proyect->created_at->diffForHumans() }}</h6>
+        </div>
+        <!-- Financiamiento -->
+        <div class="col-12 mt-4">
+          <h5 class="">Financiamiento</h5>
+          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Aprobación</button>
         </div>
       </div>
     </div>
@@ -289,18 +294,6 @@
         </div>
       </div>
     </div>
-    <!-- Pre Aprobación -->
-    <div class="card mb-section-card mt-0">
-      <div class="card-body row mt-2 mb-5">
-        <div class="col-12 mt-4">
-          <h5>Pre Aprobación</h5>
-          <img src="./assets/images/logos/bci-logo.png" alt="" class="mb-main-logo mt-4">
-          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Simulación</button>
-          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Pre aprobacion</button>
-          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Aprobación</button>
-        </div>
-      </div>
-    </div>
     <!-- Agenda Visita -->
     <div class="card mb-section-card mt-0">
       <div class="card-body row mt-2 mb-5">
@@ -314,69 +307,6 @@
       </div>
     </div>
     <!-- Agregados recientemente  -->
-    <div class="card mb-section-card mt-0">
-      <div class="card-body row mt-2 mb-5">
-        <div class="col-12 mt-4">
-          <h5>Agregados recientemente </h5>
-          <!-- item -->
-          <div class="row mt-4 align-items-center">
-            <div class="col-5">
-              <img src="./assets/images/mini-card.png" class="mini-card-img">
-            </div>
-            <div class="col-7">
-              <h6 class="mb-0">Smart La Florida</h6>
-              <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> La Florida</small>
-              <div class="w-100%"></div>
-              <small><i class="fas fa-bed"></i> 2 - 3 dormitorios</small>
-              <small><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></small>
-              <h6 class="mb-section-card-item mb-0 pb-0">Desde UF 1.400</h6>
-            </div>
-
-          </div>
-          <!-- item -->
-          <div class="row mt-4 align-items-center">
-            <div class="col-5">
-              <img src="./assets/images/mini-card.png" class="mini-card-img">
-            </div>
-            <div class="col-7">
-              <h6 class="mb-0">Smart La Florida</h6>
-              <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> La Florida</small>
-              <div class="w-100%"></div>
-              <small><i class="fas fa-bed"></i> 2 - 3 dormitorios</small>
-              <small><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></small>
-              <h6 class="mb-section-card-item mb-0 pb-0">Desde UF 1.400</h6>
-            </div>
-          </div>
-          <!-- item -->
-          <div class="row mt-4 align-items-center">
-            <div class="col-5">
-              <img src="./assets/images/mini-card.png" class="mini-card-img">
-            </div>
-            <div class="col-7">
-              <h6 class="mb-0">Smart La Florida</h6>
-              <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> La Florida</small>
-              <div class="w-100%"></div>
-              <small><i class="fas fa-bed"></i> 2 - 3 dormitorios</small>
-              <small><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></small>
-              <h6 class="mb-section-card-item mb-0 pb-0">Desde UF 1.400</h6>
-            </div>
-          </div>
-          <!-- item -->
-          <div class="row mt-4 align-items-center">
-            <div class="col-5">
-              <img src="./assets/images/mini-card.png" class="mini-card-img">
-            </div>
-            <div class="col-7">
-              <h6 class="mb-0">Smart La Florida</h6>
-              <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> La Florida</small>
-              <div class="w-100%"></div>
-              <small><i class="fas fa-bed"></i> 2 - 3 dormitorios</small>
-              <small><i class="fas fa-expand-arrows-alt"></i> 45 - 70 m<sup>2</sup></small>
-              <h6 class="mb-section-card-item mb-0 pb-0">Desde UF 1.400</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <x-side-recent-proyects />
   </div>
 </div>

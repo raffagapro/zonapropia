@@ -191,34 +191,6 @@
                 @enderror
               </div>
             </div>
-            {{-- descripcion --}}
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <textarea class="form-control" name="descripcion" rows="3"
-                placeholder="Descripción del proyecto"
-              >{{ $proyect->descripcion }}</textarea>
-            </div>
-            {{-- texto descatado --}}
-            <div class="form-group">
-              <label for="textoDestacado">Texto Destacado</label>
-              <textarea class="form-control" name="textoDestacado" rows="3"
-                placeholder="Texto destacado"
-              >{{ $proyect->texto_destacado }}</textarea>
-            </div>
-            {{-- Texto Proyecto --}}
-            <div class="form-group">
-              <label for="textoProyecto">Texto Proyecto</label>
-              <textarea class="form-control" name="textoProyecto" rows="3"
-                placeholder="Texto del proyecto"
-                >{{ $proyect->texto_proyecto }}</textarea>
-            </div>
-            {{-- terms --}}
-            <div class="form-group">
-              <label for="terminos">Terminos</label>
-              <textarea class="form-control" name="terminos" rows="3"
-                placeholder="Terminos"
-                >{{ $proyect->terminos }}</textarea>
-            </div>
             {{-- date/estado/destacado--}}
             <div class="form-group row">
               {{-- fecha limite --}}
@@ -254,6 +226,44 @@
                   <option disabled>Destacar</option>
                   <option value=0 @if ((int)$proyect->destacado === 0) selected @endif>No</option>
                   <option value=1 @if ((int)$proyect->destacado === 1) selected @endif>Si</option>
+                </select>
+              </div>
+            </div>
+            {{-- fecha_entrega/etapa_venta/seguridad--}}
+            <div class="form-group row">
+              {{-- fecha_entrega --}}
+              <div class="col-4">
+                <label for="fecha_entrega">Fecha Entrega</label>
+                <input
+                  type="text"
+                  name="fecha_entrega"
+                  class="form-control @error('fecha_entrega') is-invalid @enderror"
+                  value="{{ $proyect->fecha_entrega }}"
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                >
+                @error('fecha_entrega')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- etapa_venta --}}
+              <div class="col-4">
+                <label for="etapa_venta">Etapa de Venta</label>
+                <select class="form-control" name="etapa_venta">
+                  <option value=1 @if ((int)$proyect->etapa_venta === 1) selected @endif>Etapa 1</option>
+                  <option value=2 @if ((int)$proyect->etapa_venta === 2) selected @endif>Etapa 2</option>
+                  <option value=3 @if ((int)$proyect->etapa_venta === 3) selected @endif>Etapa 3</option>
+                </select>
+              </div>
+              {{-- seguridad --}}
+              <div class="col-4">
+                <label for="seguridad">Seguridad</label>
+                <select class="form-control" name="seguridad">
+                  <option value=0 @if ((int)$proyect->seguridad === 0) selected @endif>Baja</option>
+                  <option value=1 @if ((int)$proyect->seguridad === 1) selected @endif>Media</option>
+                  <option value=2 @if ((int)$proyect->seguridad === 2) selected @endif>Alta</option>
                 </select>
               </div>
             </div>
@@ -356,6 +366,34 @@
                 @enderror
               </div>
             </div>
+            {{-- descripcion --}}
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <textarea class="form-control" name="descripcion" rows="3"
+                placeholder="Descripción del proyecto"
+              >{{ $proyect->descripcion }}</textarea>
+            </div>
+            {{-- texto descatado --}}
+            <div class="form-group">
+              <label for="textoDestacado">Texto Destacado</label>
+              <textarea class="form-control" name="textoDestacado" rows="3"
+                placeholder="Texto destacado"
+              >{{ $proyect->texto_destacado }}</textarea>
+            </div>
+            {{-- Texto Proyecto --}}
+            <div class="form-group">
+              <label for="textoProyecto">Texto Proyecto</label>
+              <textarea class="form-control" name="textoProyecto" rows="3"
+                placeholder="Texto del proyecto"
+                >{{ $proyect->texto_proyecto }}</textarea>
+            </div>
+            {{-- terms --}}
+            <div class="form-group">
+              <label for="terminos">Terminos</label>
+              <textarea class="form-control" name="terminos" rows="3"
+                placeholder="Terminos"
+                >{{ $proyect->terminos }}</textarea>
+            </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
           </form>
         </div>
@@ -417,10 +455,38 @@
             </div>
             <div class="mb-3">
               @foreach ($proyect->caracteristicas as $cari)
-                <span class="badge badge-primary">
-                  <a href="{{ route('aProyect.rmCar', [$proyect->id, $cari->id]) }}"><i class="fas fa-times text-danger"></i></a>
-                  {{ $cari->name }}
-                </span>
+                <div class="row align-items-center">
+                  <div class="col-2 char-icon-con">
+                    <div class="circle-cont-icon">
+                      <i class="{{ $cari->icono }} circle-icon fa-2x text-light"></i>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h5>{{ $cari->name }}</h5>
+                    <a
+                      id="{{ $cari->id }}"
+                      class="btn bg-main-color navBar-btn text-light charImgBtn"
+                      data-toggle="modal" data-target="#charImgModal"
+                      href="javascript:void(0);">
+                      <i class="fas fa-camera"></i>
+                    </a>
+                    <a
+                      class="btn btn-danger"
+                      href="{{ route('aProyect.rmCar', [$proyect->id, $cari->id]) }}">
+                      <i class="fas fa-times"></i>
+                    </a>
+                  </div>
+                  <div class="col">
+                    @forelse ($proyect->getMediaCara($cari->id) as $mc)
+                      <img src="{{ asset($mc->loc) }}" class="mediaProyect2 mb-2">
+                      <a href="{{ route('caracs.rmMedia', $mc->id) }}" class="btn btn-sm btn-danger test"><i class="fas fa-times"></i></a>
+                    @empty
+                      <p>Sin imagenes.</p>
+                    @endforelse
+                  </div>
+                </div>
+                <hr>
+
               @endforeach
             </div>
           </form>
@@ -442,7 +508,7 @@
             <div class="form-group">
               <label for="banner">Banner (1920 × 927px, 3MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('banner'))
-                <img src="{{ $proyect->media->where('name', 'banner')->first()->loc }}" class="mediaProyect mb-2">
+                <img src="{{ asset($proyect->media->where('name', 'banner')->first()->loc) }}" class="mediaProyect mb-2">
                 {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
               @endif
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -472,8 +538,7 @@
             <div class="form-group">
               <label for="image">Principal (400 × 550px, 1MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('main'))
-                <img src="{{ $proyect->media->where('name', 'main')->first()->loc }}" class="mediaProyect mb-2">
-                {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
+                <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" class="mediaProyect mb-2">
               @endif
               <input type="hidden" name="name" value="main">
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -508,7 +573,7 @@
                   </a>
                   {{ str_replace('/storage/media/', "",$media->loc) }}
                   <br>
-                  <img src="{{ $media->loc }}" class="mediaProyect mb-2">
+                  <img src="{{ asset($media->loc) }}" class="mediaProyect mb-2">
                 </div>
                 <br>
               @endforeach
@@ -534,6 +599,43 @@
       </div>
 
 
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="charImgModal" tabindex="-1" role="dialog" aria-labelledby="charImgModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Imagen</h5>
+        </div>
+        <div class="modal-body">
+          <form
+            action="{{ route('caracs.addMedia') }}"
+            method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="charImg">Imagen (1920 × 927px, 3MB max, jpeg, png)</label><br>
+              <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
+              <input type="hidden" name="char_id" id="char_id" value="">
+              <input
+                type="file"
+                class="form-control-file @error('charImg') is-invalid @enderror"
+                data-default-file="url_of_your_file"
+                name="charImg"/>
+              @error('charImg')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn bg-main-color navBar-btn text-light">Agregar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
   @if(session('status'))

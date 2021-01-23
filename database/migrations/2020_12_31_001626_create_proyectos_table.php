@@ -48,6 +48,9 @@ class CreateProyectosTable extends Migration
             $table->integer('maxBathrooms')->nullable();
             $table->integer('minMC')->nullable();
             $table->integer('maxMC')->nullable();
+            $table->integer('etapa_venta')->nullable();
+            $table->date('fecha_entrega')->nullable();
+            $table->integer('seguridad')->nullable();
             $table->timestamps();
         });
     }
