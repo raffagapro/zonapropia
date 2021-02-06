@@ -25,11 +25,11 @@
       type="password"
       class="form-control @error('password') is-invalid @enderror"
       id="contraseña"
-      name="contraseña"
+      name="password"
       placeholder="Contraseña"
       autocomplete="current-password"
     >
-    @error('contraseña')
+    @error('password')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>

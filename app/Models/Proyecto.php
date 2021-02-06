@@ -17,7 +17,6 @@ class Proyecto extends Model
         'name',
         'direccion',
         'comuna',
-        'ciudad',
         'region',
         'descripcion',
         'latitud',
@@ -123,6 +122,10 @@ class Proyecto extends Model
     {
         return $this->hasMany(Unidad::class);
     }
+    public function tipografias()
+    {
+        return $this->hasMany(Tipografia::class);
+    }
     public function getUF()
     {
       $unidades = $this->unidades;
@@ -162,6 +165,11 @@ class Proyecto extends Model
       }else {
         return false;
       }
+    }
+
+    public function getVendedores()
+    {
+      // $vendedores = User::where('role_id', $this->id)->where('caracteristica_id', $car_id)->get();
     }
 
 }

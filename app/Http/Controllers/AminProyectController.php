@@ -56,7 +56,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::create([
         'name' => $request->nombre,
         'direccion' => $request->direccion,
-        'ciudad' => $request->ciudad,
         'descripcion' => $request->descripcion,
         'latitud' => $request->latitud,
         'longitud' => $request->longitud,
@@ -93,11 +92,12 @@ class AminProyectController extends Controller
       $cat->proyects()->save($proyect);
       $regions = Region::all();
       $inmos = Inmobiliaria::all();
+      $caracs = Caracteristica::all();
       $cats = Categoria::all();
       $tags = Taggable::all();
       $status = 'El proyecto ha sido creado exitosamente.';
       return view('admin.proyects.edit')
-        ->with(compact('proyect', 'status', 'regions', 'inmos', 'cats', 'tags'));
+        ->with(compact('proyect', 'status', 'regions', 'inmos', 'cats', 'tags', 'caracs'));
     }
 
     /**

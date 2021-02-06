@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      {{-- Add Notice --}}
+      {{-- Add Tag --}}
       <div class="card mb-section-card">
         <div class="card-body pt-0">
           {{-- Title --}}

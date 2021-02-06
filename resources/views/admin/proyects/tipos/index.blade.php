@@ -1,5 +1,5 @@
 @extends('layouts.adminDashboard')
-@section('title', 'Panel de Unidades')
+@section('title', 'Panel de Tipografias')
 
 @section('content')
   <div style="background-color:#f5f5f5;">
@@ -13,13 +13,13 @@
           </i>
           &nbsp
         </a>
-        <a href="{{ route('unidad.zCreate', $proyecto->id)}}" class="td-none">
+        <a href="{{ route('tipo.create', $proyecto->id)}}" class="td-none">
           <i class="fas fa-plus-circle fa-2x main-color"
-            data-toggle="tooltip" data-placement="top" title="Agregar Unidad">
+            data-toggle="tooltip" data-placement="top" title="Agregar Tipologia">
           </i>
           &nbsp
         </a>
-        <span class="border-left">&nbsp Mostrando {{$proyecto->unidades->count()}} unidades. &nbsp</span>
+        <span class="border-left">&nbsp Mostrando {{$proyecto->tipografias->count()}} tipologias. &nbsp</span>
       </div>
 
       {{-- Table --}}
@@ -29,37 +29,50 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Label</th>
-                <th scope="col">Tipologia</th>
+                <th scope="col">Model</th>
+                <th scope="col">Codigo</th>
                 <th scope="col">Status</th>
+                <th scope="col">Piso</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">UF m<sup>2</sup></th>
                 <th scope="col">Control</th>
               </tr>
             </thead>
             <tbody>
-              @forelse ($proyecto->unidades as $uni)
+              @forelse ($proyecto->tipografias as $tipo)
                 <tr>
-                  <th scope="row">{{ $uni->id }}</th>
-                  {{-- label  --}}
+                  <th scope="row">{{ $tipo->id }}</th>
                   <td>
-                    <a href="{{ route('unidad.edit', $uni->id) }}">
-                      {{ $uni->label }}
+                    <a href="{{ route('tipo.edit', $tipo->id) }}">
+                      {{ $tipo->modelo }}
                     </a>
                   </td>
-                  {{-- tipologia  --}}
                   <td>
-                    @if ($uni->tipografia === null)
-                      Sin Tipologia
+                    @if ($tipo->code === null)
+                      Sin codigo
                     @else
-                      {{ $uni->tipografia->modelo }}
+                      {{ $tipo->code }}
                     @endif
                   </td>
-                  {{-- status  --}}
                   <td>
-                    @if ($uni->status === 0)
+                    @if ($tipo->status === 0)
                       <span class="badge badge-danger">Bloqueada</span>
                     @else
                       <span class="badge badge-primary">Disponible</span>
                     @endif
+                  </td>
+                  <td>
+                    @if ($tipo->piso === null)
+                      N/A
+                    @else
+                      {{ $tipo->piso }}
+                    @endif
+                  </td>
+                  <td>
+                    ${{ $tipo->precio_venta }}
+                  </td>
+                  <td>
+                    {{ $tipo->uf_m2 }}
                   </td>
                   <td>
                     {{-- delete --}}
@@ -69,7 +82,7 @@
                       onclick="
                         event.preventDefault();
                         swal.fire({
-                          text: '¿Deseas eliminar la unidad?',
+                          text: '¿Deseas eliminar la tipologia?',
                           showCancelButton: true,
                           cancelButtonText: `Cancelar`,
                           cancelButtonColor:'#62A4C0',
@@ -78,15 +91,15 @@
                           icon:'error',
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            document.getElementById('{{ 'unidadDestroy'.$uni->id }}').submit();
+                            document.getElementById('{{ 'tipoDestroy'.$tipo->id }}').submit();
                           }
                         });
                       "
                       data-toggle="tooltip" data-placement="top" title="Borrar Unidad">
                       <i class="fas fa-trash"></i>
                     </a>
-                    <form id="{{ 'unidadDestroy'.$uni->id }}"
-                      action="{{ route('unidad.destroy', $uni->id) }}"
+                    <form id="{{ 'tipoDestroy'.$tipo->id }}"
+                      action="{{ route('tipo.destroy', $tipo->id) }}"
                       method="POST"
                       style="display: none;"
                       >@method('DELETE') @csrf
@@ -95,7 +108,7 @@
                 </tr>
               @empty
                 <tr>
-                  <th class="main-color">No se encontraron unidades asociadas al proyecto.</th>
+                  <th class="main-color">No se encontraron tipologias asociadas al proyecto.</th>
                 </tr>
               @endforelse
             </tbody>

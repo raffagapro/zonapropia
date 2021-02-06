@@ -62,8 +62,13 @@ class MessageBar extends Component
         }
         $newSBIF->save();
       }
-      $dollar = $preSBIF->dollar;
-      $uf = $preSBIF->uf;
+      if ($preSBIF !== null) {
+        $dollar = $preSBIF->dollar;
+        $uf = $preSBIF->uf;
+      }else {
+        $dollar = 0;
+        $uf = 0;
+      }
         return view('components.message-bar')
           ->with(compact('dollar', 'uf', 'news'));
     }

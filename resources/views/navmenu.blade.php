@@ -105,12 +105,13 @@
               <i class="fas fa-user-cog"></i>
             </a>
           @endif
-          <form action="{{ route('logout')}}" method="post">
-            @csrf
-            <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
-              <i class="fas fa-sign-out-alt"></i>
-            </button>
-          </form>
+
+          <a 
+            href="{{ route('userProfile.index')}}"
+            class="newProfileBtn main-color"
+            data-toggle="tooltip" data-placement="top" title="{{ auth()-> user()->name }}">
+            <i class="fas fa-user" class="main-color"></i>
+          </a>
         @endauth
       </div>
     </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Proyecto;
 use App\Models\Unidad;
+use App\Models\Tipografia;
 
 class UnidadController extends Controller
 {
@@ -42,36 +43,13 @@ class UnidadController extends Controller
     public function store(Request $request){
       $proyecto = Proyecto::findOrFail($request->proyect_id);
       $unidad = Unidad::create([
-        'modelo' => $request->modelo,
-        'nombre' => $request->nombre,
-        'status' => $request->status,
-        'vulnerable' => $request->vulnerable,
-        'uf_m2' => $request->uf_m2,
-        'lote' => $request->lote,
-        'piso' => $request->piso,
-        'orientacion' => $request->orientacion,
-        'dormitorios' => $request->dormitorios,
-        'banos' => $request->banos,
-        'superficie_municipal' => $request->superficie_municipal,
-        'superficie_total' => $request->superficie_total,
-        'superficie_inferior' => $request->superficie_inferior,
-        'superficie_terrazas' => $request->superficie_terrazas,
-        'superficie_loggia' => $request->superficie_loggia,
-        'precio_lista' => $request->precio_lista,
-        'precio_venta' => $request->precio_venta,
+        'label' => $request->label,
+        'status' => (int)$request->status,
       ]);
       $proyecto->unidades()->save($unidad);
-      if ($request->hasFile('tipologia')) {
-        if ($request->file('tipologia')->isValid()) {
-          $validated = $request->validate([
-            'tipologia'=>'mimes:jpeg,png|max:1000',
-          ]);
-          $extension = $request->tipologia->extension();
-          $request->tipologia->storeAs('/public/tipologias', 'tipologia_'.$unidad->id.".".$extension);
-          $url = Storage::url('tipologias/tipologia_'.$unidad->id.".".$extension);
-          $unidad->tipologia = $url;
-          $unidad->save();
-        }
+      if ((int)$request->tipologia !== 0) {
+        $tipo = Tipografia::findOrFail($request->tipologia);
+        $tipo->unidades()->save($unidad);
       }
       $status = 'La unidad ha sido agregada exitosamente.';
       $proyecto = Proyecto::findOrFail($request->proyect_id);
@@ -87,9 +65,10 @@ class UnidadController extends Controller
      */
     public function edit($id){
       $unidad = Unidad::findOrFail($id);
+      $proyecto = $unidad->proyecto;
       // dd($unidad->proyecto);
       return view('admin.proyects.unidades.edit')
-        ->with(compact('unidad'));
+        ->with(compact('unidad', 'proyecto'));
     }
 
     /**
@@ -102,43 +81,19 @@ class UnidadController extends Controller
     public function update(Request $request, $id){
       // dd($id);
       $unidad = Unidad::findOrFail($id);
-      $unidad->modelo = $request->modelo;
-      $unidad->nombre = $request->nombre;
-      $unidad->status = $request->status;
-      $unidad->vulnerable = $request->vulnerable;
-      $unidad->uf_m2 = $request->uf_m2;
-      $unidad->lote = $request->lote;
-      $unidad->piso = $request->piso;
-      $unidad->orientacion = $request->orientacion;
-      $unidad->dormitorios = $request->dormitorios;
-      $unidad->banos = $request->banos;
-      $unidad->superficie_municipal = $request->superficie_municipal;
-      $unidad->superficie_total = $request->superficie_total;
-      $unidad->superficie_inferior = $request->superficie_inferior;
-      $unidad->superficie_terrazas = $request->superficie_terrazas;
-      $unidad->superficie_loggia = $request->superficie_loggia;
-      $unidad->precio_lista = $request->precio_lista;
-      $unidad->precio_venta = $request->precio_venta;
-      if ($request->hasFile('tipologia')) {
-        if ($request->file('tipologia')->isValid()) {
-          $validated = $request->validate([
-            'tipologia'=>'mimes:jpeg,png|max:1000',
-          ]);
-          //erases previos img
-          $delUni = str_replace('/storage/', "",$unidad->tipologia);
-          Storage::delete('public/'.$delUni);
-          //nueva img
-          $extension = $request->tipologia->extension();
-          $request->tipologia->storeAs('/public/tipologias', 'tipologia_'.$unidad->id.".".$extension);
-          $url = Storage::url('tipologias/tipologia_'.$unidad->id.".".$extension);
-          $unidad->tipologia = $url;
-        }
+      $unidad->label = $request->label;
+      $unidad->status = (int)$request->status;
+      $unidad->tipografia()->dissociate();
+      if ((int)$request->tipologia !== 0) {
+        $tipo = Tipografia::findOrFail($request->tipologia);
+        $tipo->unidades()->save($unidad);
       }
       $unidad->save();
       // dd($unidad->proyecto);
+      $proyecto = $unidad->proyecto;
       $status = 'La unidad ha sido actualizada exitosamente.';
       return view('admin.proyects.unidades.edit')
-        ->with(compact('unidad', 'status'));
+        ->with(compact('unidad', 'status', 'proyecto'));
     }
 
     /**
@@ -151,8 +106,6 @@ class UnidadController extends Controller
       $unidad = Unidad::findOrFail($id);
       $proyecto = Proyecto::findOrFail($unidad->proyecto->id);
       // dd($proyecto);
-      $delUni = str_replace('/storage/', "",$unidad->tipologia);
-      Storage::delete('public/'.$delUni);
       $unidad->delete();
       $status = 'La unidad ha sido eliminada exitosamente.';
       return view('admin.proyects.unidades.index')

@@ -4,7 +4,11 @@
 <a href="{{ route('proyect.show', $proyect->id )}}" class="text-light">
   <div class="slider-cont-cards">
   <div class="card text-white singlePanelSlider section-slide1"
-    style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
+    @if ($proyect->media->where('name', 'main')->first() === null)
+      style="background-image:url({{ asset('assets/images/main_default.png') }})"
+    @else 
+      style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
+    @endif
   >
     <div class="card-body">
       <!-- Badges -->

@@ -42,7 +42,7 @@
             {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-3">
+              <div class="col-4">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
@@ -52,7 +52,7 @@
                 </select>
               </div>
               {{-- Provincia --}}
-              <div class="col-3">
+              <div class="col-4">
                 <label for="provincia">Provincia</label>
                 <select class="form-control" name="provincia" id="provincia">
                   @foreach ($regions[0]->provincias as $provincia)
@@ -61,23 +61,13 @@
                 </select>
               </div>
               {{-- Comuna --}}
-              <div class="col-3">
+              <div class="col-4">
                 <label for="comuna">Comuna</label>
                 <select class="form-control" name="comuna" id="comuna">
                   @foreach ($regions[0]->provincias[0]->comunas as $comuna)
                     <option value="{{ $comuna->id }}">{{ $comuna->name }}</option>
                   @endforeach
                 </select>
-              </div>
-              {{-- Ciudad --}}
-              <div class="col-3">
-                <label for="ciudad">Ciudad</label>
-                <input type="text" name="ciudad" class="form-control @error('ciudad') is-invalid @enderror" value="">
-                @error('ciudad')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
               </div>
             </div>
             {{-- long/lat/inmo --}}

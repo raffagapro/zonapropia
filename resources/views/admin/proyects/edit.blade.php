@@ -49,7 +49,7 @@
             {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-3">
+              <div class="col-4">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
@@ -63,7 +63,7 @@
                 </select>
               </div>
               {{-- Provincia --}}
-              <div class="col-3">
+              <div class="col-4">
                 <label for="region">Provincia</label>
                 <select class="form-control" name="provincia" id="provincia">
                   @foreach ($proyect->region->provincias as $provincia)
@@ -76,7 +76,7 @@
                 </select>
               </div>
               {{-- Comuna --}}
-              <div class="col-3">
+              <div class="col-4">
                 <label for="comuna">Comuna</label>
                 <select class="form-control" name="comuna" id="comuna">
                   @foreach ($proyect->provincia->comunas as $comuna)
@@ -87,19 +87,6 @@
                     @endif
                   @endforeach
                 </select>
-              </div>
-              {{-- Ciudad --}}
-              <div class="col-3">
-                <label for="ciudad">Ciudad</label>
-                <input type="text" name="ciudad"
-                  class="form-control @error('ciudad') is-invalid @enderror"
-                  placeholder="Ciudad" value="{{ $proyect->ciudad }}"
-                >
-                @error('ciudad')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
               </div>
             </div>
             {{-- long/lat/inmo --}}
@@ -395,6 +382,39 @@
                 >{{ $proyect->terminos }}</textarea>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
+          </form>
+        </div>
+      </div>
+
+      {{-- Sales Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Vendedores</h4>
+        {{-- Tags Form --}}
+        <div class="container">
+          <form action="{{ route('aProyect.addTag', $proyect->id) }}" method="POST">
+            @csrf
+            <div class="row">
+              <div class="col-md-8 col-lg-10">
+                <select class="form-control" name="tag">
+                  <option selected disabled>Seleccionar Vendedor</option>
+                  @foreach ($proyect->users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar Vendedor</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              @foreach ($proyect->users as $user)
+                <span class="badge badge-primary">
+                  <a href="{{ route('aProyect.rmTag', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                  {{ $user->name }}
+                </span>
+              @endforeach
+            </div>
           </form>
         </div>
       </div>
