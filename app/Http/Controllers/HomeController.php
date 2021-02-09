@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Categoria;
+
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        $cats = Categoria::all();
+        return view('home.index')
+            ->with(compact('cats'));
     }
 }

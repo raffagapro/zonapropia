@@ -392,14 +392,14 @@
         <h4 class="card-title mb-section-card-title mt-1 mb-4">Vendedores</h4>
         {{-- Tags Form --}}
         <div class="container">
-          <form action="{{ route('aProyect.addTag', $proyect->id) }}" method="POST">
+          <form action="{{ route('aProyect.addVendedor', $proyect->id) }}" method="POST">
             @csrf
             <div class="row">
               <div class="col-md-8 col-lg-10">
-                <select class="form-control" name="tag">
+                <select class="form-control" name="vendor">
                   <option selected disabled>Seleccionar Vendedor</option>
-                  @foreach ($proyect->users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                  @foreach ($vendedores as $v)
+                    <option value="{{ $v->id }}">{{ $v->name }}</option>
                   @endforeach
                 </select>
               </div>
@@ -410,7 +410,7 @@
             <div class="mb-3">
               @foreach ($proyect->users as $user)
                 <span class="badge badge-primary">
-                  <a href="{{ route('aProyect.rmTag', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                  <a href="{{ route('aProyect.rmVendedor', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
                   {{ $user->name }}
                 </span>
               @endforeach
@@ -526,7 +526,7 @@
             enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-              <label for="banner">Banner (1920 × 927px, 3MB max, jpeg, png)</label><br>
+              <label for="banner">Banner (1920 × 927px, 2MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('banner'))
                 <img src="{{ asset($proyect->media->where('name', 'banner')->first()->loc) }}" class="mediaProyect mb-2">
                 {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
@@ -536,7 +536,6 @@
               <input
                 type="file"
                 class="form-control-file @error('banner') is-invalid @enderror"
-                data-default-file="url_of_your_file"
                 name="banner"/>
               @error('banner')
                   <span class="invalid-feedback" role="alert">
@@ -622,7 +621,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal caracteristic image -->
   <div class="modal fade" id="charImgModal" tabindex="-1" role="dialog" aria-labelledby="charImgModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -658,9 +657,13 @@
       </div>
     </div>
   </div>
+  
   @if(session('status'))
     <x-sweet-alert-admin :message="session('status')"/>
   @endif
+  @isset($status)
+    <x-sweet-alert-admin :message="$status"/>
+  @endisset
 @endsection
 
 @section('scripts')

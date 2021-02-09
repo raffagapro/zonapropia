@@ -128,24 +128,24 @@ class Proyecto extends Model
     }
     public function getUF()
     {
-      $unidades = $this->unidades;
-      $unidades = $unidades->sortBy('precio_venta');
-      if (count($unidades) > 0) {
-        $unidad = $unidades->first();
-        return "UF ".$unidad->precio_venta;
+      $tipos = $this->tipografias;
+      $tipos = $tipos->sortBy('precio_venta');
+      if (count($tipos) > 0) {
+        $tipos = $tipos->first();
+        return "UF ".$tipos->precio_venta;
       }else {
         return false;
       }
     }
     public function getPrecioPromedio()
     {
-      $unidades = $this->unidades;
-      if (count($unidades) > 0) {
+      $tipos = $this->tipografias;
+      if (count($tipos) > 0) {
         $total = 0;
-        foreach ($unidades as $unidad) {
-          $total += $unidad->precio_venta;
+        foreach ($tipos as $tipo) {
+          $total += $tipo->precio_venta;
         }
-        $total = $total / count($unidades);
+        $total = $total / count($tipos);
         return $total ;
       }else {
         return false;
@@ -154,22 +154,16 @@ class Proyecto extends Model
 
     public function getUF_M2()
     {
-      $unidades = $this->unidades;
-      if (count($unidades) > 0) {
+      $tipos = $this->tipografias;
+      if (count($tipos) > 0) {
         $total = 0;
-        foreach ($unidades as $unidad) {
-          $total += $unidad->uf_m2;
+        foreach ($tipos as $tipo) {
+          $total += $tipo->uf_m2;
         }
-        $total = $total / count($unidades);
+        $total = $total / count($tipos);
         return $total ;
       }else {
         return false;
       }
     }
-
-    public function getVendedores()
-    {
-      // $vendedores = User::where('role_id', $this->id)->where('caracteristica_id', $car_id)->get();
-    }
-
 }

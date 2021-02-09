@@ -22,6 +22,10 @@ class Categoria extends Model
     {
         return $this->hasMany(Proyecto::class);
     }
+    public function contactLeads()
+    {
+        return $this->hasMany(ContactLeads::class);
+    }
     public function getNameAttribute($name)
     {
       return ucwords($name);

@@ -331,6 +331,9 @@
   @if(session('status'))
     <x-sweet-alert-admin :message="session('status')"/>
   @endif
+  @isset($status)
+    <x-sweet-alert-admin :message="$status"/>
+  @endisset
 @endsection
 
 @section('scripts')

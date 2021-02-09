@@ -6,7 +6,11 @@
 <div class="col-md-6 mb-4">
   <a href="{{ route('proyect.show', $proyect->id )}}" class="grid-item-link">
     <div class="card item-main-grid">
-      <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
+      @if ($proyect->media->where('name', 'main')->first() === null)
+        <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-grid-img2">
+      @else 
+        <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
+      @endif
       <!-- Badges -->
       <div class="row badge-cont">
         @foreach ($proyect->tags as $tag)

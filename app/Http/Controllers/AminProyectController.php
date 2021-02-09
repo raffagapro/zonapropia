@@ -12,6 +12,8 @@ use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 use App\Models\Taggable;
 use App\Models\Caracteristica;
+use App\Models\User;
+use App\Models\Role;
 
 
 
@@ -108,10 +110,11 @@ class AminProyectController extends Controller
      */
     public function edit($id){
       $proyect = Proyecto::findOrFail($id);
-      // $unidades = $proyect->unidades;
-      // $unidades = $unidades->sortBy('precio_venta');
-      // $unidad = $unidades->first();
-      // dd($unidad->precio_venta);
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $cats = Categoria::all();
       $caracs = Caracteristica::all();
       $inmos = Inmobiliaria::all();
@@ -124,7 +127,8 @@ class AminProyectController extends Controller
           'inmos',
           'regions',
           'tags',
-          'caracs'
+          'caracs',
+          'vendedores'
         ));
     }
 
@@ -137,6 +141,11 @@ class AminProyectController extends Controller
       }else {
         $status = 'El Tag ya se esta asociado con el proyecto.';
       }
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $caracs = Caracteristica::all();
       $tags = Taggable::all();
       $cats = Categoria::all();
@@ -149,7 +158,8 @@ class AminProyectController extends Controller
         'inmos',
         'regions',
         'tags',
-        'caracs'
+        'caracs',
+        'vendedores'
       ));
     }
 
@@ -162,6 +172,11 @@ class AminProyectController extends Controller
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'El tag ha sido eliminado.';
       return back()->with(compact(
         'status',
@@ -170,7 +185,67 @@ class AminProyectController extends Controller
         'inmos',
         'regions',
         'tags',
-        'caracs'
+        'caracs',
+        'vendedores'
+      ));
+    }
+
+    public function addVendedor(Request $request, $id){
+      $proyect = Proyecto::findOrFail($id);
+      $user = User::findOrFail($request->vendor);
+      if (!$proyect->users()->where('user_id', $user->id)->first()) {
+        // dd('no se encontro nada chavo');
+        $proyect->users()->attach($user);
+        $status = 'El vendedor ha sido agregado.';
+      }else {
+        $status = 'El vendedor ya se esta asociado con el proyecto.';
+      }
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      $caracs = Caracteristica::all();
+      $tags = Taggable::all();
+      $cats = Categoria::all();
+      $inmos = Inmobiliaria::all();
+      $regions = Region::all();
+      return view('admin.proyects.edit')->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs',
+        'vendedores'
+      ));
+    }
+
+    public function rmVendedor($id, $user_id){
+      $proyect = Proyecto::findOrFail($id);
+      $user = Taggable::findOrFail($user_id);
+      $proyect->users()->detach($user);
+      $caracs = Caracteristica::all();
+      $tags = Taggable::all();
+      $cats = Categoria::all();
+      $inmos = Inmobiliaria::all();
+      $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      $status = 'El vendedor ha sido eliminado.';
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'cats',
+        'inmos',
+        'regions',
+        'tags',
+        'caracs',
+        'vendedores'
       ));
     }
 
@@ -188,6 +263,11 @@ class AminProyectController extends Controller
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       return back()->with(compact(
         'status',
         'proyect',
@@ -195,7 +275,8 @@ class AminProyectController extends Controller
         'inmos',
         'regions',
         'tags',
-        'caracs'
+        'caracs',
+        'vendedores'
       ));
     }
 
@@ -216,6 +297,11 @@ class AminProyectController extends Controller
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'La caracteristica ha sido eliminada.';
       return back()->with(compact(
         'status',
@@ -224,7 +310,8 @@ class AminProyectController extends Controller
         'inmos',
         'regions',
         'tags',
-        'caracs'
+        'caracs',
+        'vendedores'
       ));
     }
 
@@ -313,7 +400,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
       $proyect->direccion = $request->direccion;
-      $proyect->ciudad = $request->ciudad;
       $proyect->descripcion = $request->descripcion;
       $proyect->latitud = $request->latitud;
       $proyect->longitud = $request->longitud;
@@ -375,8 +461,20 @@ class AminProyectController extends Controller
       $cats = Categoria::all();
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'El proyecto ha sido actualizado exitosamente.';
-      return back()->with(compact('proyect', 'status', 'cats', 'inmos', 'regions'));
+      return back()->with(compact(
+        'proyect',
+        'status',
+        'cats',
+        'inmos',
+        'regions',
+        'vendedores'
+      ));
     }
 
     /**

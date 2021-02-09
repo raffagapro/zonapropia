@@ -18,6 +18,7 @@ use App\Http\Controllers\UserProfile;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\CaracteristicasController;
 use App\Http\Controllers\TipografiasController;
+use App\Http\Controllers\ContactFromController;
 
 
 /*
@@ -34,6 +35,7 @@ use App\Http\Controllers\TipografiasController;
 // Route::post('/tejjhkhst', 'App\Http\Controllers\LogOutController@store')->name('erkfhekru');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource('contactForm', ContactFromController::class);
 Route::resource('proyects', ProyectsController::class);
 Route::post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
@@ -64,6 +66,11 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('aProyect', AminProyectController::class, ['except'=>['show']]);
         Route::post('aProyect/{proyect}/addTag', [AminProyectController::class, 'addTag'])->name('aProyect.addTag');
         Route::get('aProyect/{proyect}/{tag}/rmTag', [AminProyectController::class, 'rmTag'])->name('aProyect.rmTag');
+
+        Route::post('aProyect/{proyect}/addvendedor', [AminProyectController::class, 'addVendedor'])->name('aProyect.addVendedor');
+        Route::get('aProyect/{proyect}/{vendedor}/rmvendedor', [AminProyectController::class, 'rmVendedor'])->name('aProyect.rmVendedor');
+
+
         Route::post('aProyect/{proyect}/addCar', [AminProyectController::class, 'addCar'])->name('aProyect.addCar');
         Route::get('aProyect/{proyect}/{car}/rmCar', [AminProyectController::class, 'rmCar'])->name('aProyect.rmCar');
         Route::post('aProyect/{proyect}/highlight', [AminProyectController::class, 'highlight'])->name('aProyect.highlight');

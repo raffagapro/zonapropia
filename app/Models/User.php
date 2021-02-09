@@ -82,3 +82,9 @@ class User extends Authenticatable
       return $this->belongsToMany(Proyecto::class);
     }
 }
+
+// $utest = User::whereHas(
+//   'roles', function($q){
+//       $q->where('name', 'vendedor');
+//   }
+// )->get();

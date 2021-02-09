@@ -10,6 +10,8 @@ use App\Models\Region;
 use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 use App\Models\Taggable;
+use App\Models\User;
+use App\Models\Caracteristica;
 
 
 class MediaController extends Controller
@@ -22,40 +24,61 @@ class MediaController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function storeBanner(Request $request){
-       // dd($request->all());
-       $proyect = Proyecto::findOrFail($request->proyect_id);
-       if ($proyect->proyectHasMedia($request->name)) {
-         //erases previos image
-         $mediaz = $proyect->media->where('name', 'banner')->first();
-         $delInmo = str_replace('/storage/', "",$mediaz->loc);
-         Storage::delete('public/'.$delInmo);
-         $mediaz->delete();
-       }
-       // dd($proyect->proyectHasMedia($request->name));
-       if ($request->hasFile('banner')) {
-         if ($request->file('banner')->isValid()) {
-           $validated = $request->validate([
-             'banner'=>'mimes:jpeg,png|max:3000',
-           ]);
-           $extension = $request->banner->extension();
-           $request->banner->storeAs('/public/media', $request->name.'_'.$proyect->id.".".$extension);
-           $url = Storage::url('media/'.$request->name.'_'.$proyect->id.".".$extension);
-           $proyect->Media()->save(new Media([
-             'name' => $request->name,
-             'loc' => $url,
-           ]));
-         }
-         //call proyect again with new image
-         $proyect = Proyecto::findOrFail($request->proyect_id);
-         $status = 'La imagen ha sido guardada exitosamente.';
-         $cats = Categoria::all();
-         $inmos = Inmobiliaria::all();
-         $regions = Region::all();
-         $tags = Taggable::all();
-         return view('admin.proyects.edit')
-           ->with(compact('proyect', 'status', 'cats', 'inmos', 'regions', 'tags'));
-       }
-     }
+      // dd($request->all());
+      $proyect = Proyecto::findOrFail($request->proyect_id);
+      if ($proyect->proyectHasMedia($request->name)) {
+        //erases previos image
+        $mediaz = $proyect->media->where('name', 'banner')->first();
+        $delInmo = str_replace('/storage/', "",$mediaz->loc);
+        Storage::delete('public/'.$delInmo);
+        $mediaz->delete();
+      }
+      // dd($proyect->proyectHasMedia($request->name));
+      if ($request->hasFile('banner')) {
+        if ($request->file('banner')->isValid()) {
+          $validated = $request->validate([
+            'banner'=>'mimes:jpeg,png|max:2000',
+          ]);
+          $extension = $request->banner->extension();
+          $request->banner->storeAs('/public/media', $request->name.'_'.$proyect->id.".".$extension);
+          $url = Storage::url('media/'.$request->name.'_'.$proyect->id.".".$extension);
+          $proyect->Media()->save(new Media([
+            'name' => $request->name,
+            'loc' => $url,
+          ]));
+          // dd('imagen valida')
+        }else {
+          // dd('image no valida');∫
+        }
+
+        //call proyect again with new image
+        $proyect = Proyecto::findOrFail($request->proyect_id);
+        $status = 'La imagen ha sido guardada exitosamente.';
+        $cats = Categoria::all();
+        $caracs = Caracteristica::all();
+        $inmos = Inmobiliaria::all();
+        $regions = Region::all();
+        $tags = Taggable::all();
+        $vendedores = User::whereHas(
+          'roles', function($q){
+            $q->where('name', 'vendedor');
+          }
+        )->get();
+        return view('admin.proyects.edit')
+          ->with(compact(
+            'proyect',
+            'status',
+            'cats',
+            'inmos',
+            'regions',
+            'tags',
+            'vendedores',
+            'caracs'
+          ));
+      }else {
+        dd('bada chavo', $request->all());
+      }
+    }
 
     /**
     * Store a newly created resource in storage.
@@ -94,8 +117,23 @@ class MediaController extends Controller
         $inmos = Inmobiliaria::all();
         $regions = Region::all();
         $tags = Taggable::all();
+        $caracs = Caracteristica::all();
+        $vendedores = User::whereHas(
+          'roles', function($q){
+            $q->where('name', 'vendedor');
+          }
+        )->get();
         return view('admin.proyects.edit')
-          ->with(compact('proyect', 'status', 'cats', 'inmos', 'regions', 'tags'));
+          ->with(compact(
+            'proyect', 
+            'status', 
+            'cats', 
+            'inmos', 
+            'regions', 
+            'tags', 
+            'vendedores', 
+            'caracs'
+          ));
       }
     }
 
@@ -132,8 +170,23 @@ class MediaController extends Controller
        $inmos = Inmobiliaria::all();
        $regions = Region::all();
        $tags = Taggable::all();
+       $caracs = Caracteristica::all();
+        $vendedores = User::whereHas(
+          'roles', function($q){
+            $q->where('name', 'vendedor');
+          }
+        )->get();
        return view('admin.proyects.edit')
-         ->with(compact('proyect', 'status', 'cats', 'inmos', 'regions', 'tags'));
+         ->with(compact(
+            'proyect', 
+            'status', 
+            'cats', 
+            'inmos', 
+            'regions', 
+            'tags',
+            'vendedores', 
+            'caracs'
+          ));
      }
    }
 
@@ -153,7 +206,22 @@ class MediaController extends Controller
       $inmos = Inmobiliaria::all();
       $regions = Region::all();
       $tags = Taggable::all();
+      $caracs = Caracteristica::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+          $q->where('name', 'vendedor');
+        }
+      )->get();
       return view('admin.proyects.edit')
-        ->with(compact('proyect', 'status', 'cats', 'inmos', 'regions', 'tags'));
+        ->with(compact(
+          'proyect', 
+          'status', 
+          'cats', 
+          'inmos', 
+          'regions', 
+          'tags',
+          'vendedores', 
+          'caracs'
+        ));
     }
 }

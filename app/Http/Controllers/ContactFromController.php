@@ -3,29 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Proyecto;
-use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
-class ProyectsController extends Controller
+use App\Models\Categoria;
+use App\Models\ContactLeads;
+use App\Mail\ContactFormMail;
+
+class ContactFromController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-      $g = true;
-      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
-      // dd($proyectos);
-      return view('proyects.index')
-        ->with(compact('proyectos', 'g'));
-    }
-    public function indexList(){
-      $g = false;
-      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
-      // dd($proyectos);
-      return view('proyects.index')
-        ->with(compact('proyectos', 'g'));
+    public function index()
+    {
+        //
     }
 
     /**
@@ -46,7 +39,21 @@ class ProyectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cat = Categoria::findOrFail($request->category);
+        $status = 0;
+        $contact = ContactLeads::create([
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'mail' => $request->mail,
+            'phone' => $request->phone,
+            'priceRange' => $request->priceRange,
+            'message' => $request->message,
+            'status' => $status,
+        ]);
+        $cat->contactLeads()->save($contact);
+
+        Mail::to($request->mail)->send(new ContactFormMail($contact));
+        return back();
     }
 
     /**

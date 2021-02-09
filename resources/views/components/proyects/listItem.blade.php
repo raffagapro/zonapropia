@@ -8,7 +8,11 @@
       <div class="row align-items-center">
         <!-- IMG -->
         <div class="col-md-6">
-          <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-list-img">
+          @if ($proyect->media->where('name', 'main')->first() === null)
+            <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-list-img">
+          @else 
+            <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-list-img">
+          @endif
           <!-- Badges -->
           <div class="row list-badge-cont">
             @foreach ($proyect->tags as $tag)
