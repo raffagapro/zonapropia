@@ -186,21 +186,29 @@
       <div class="card-body row mt-2 mb-5">
         <div class="col-12 mt-4">
           <h5>Contacto</h5>
-          <form class="mt-4">
+          <form action="{{ route('contactForm.store') }}" method="POST" class="mt-4">
+            @csrf
+            {{-- proeyct id  --}}
+            <input type="hidden" name="proyect" value="{{ $proyect->id }}">
+            {{-- name  --}}
             <div class="form-group">
-              <input type="text" class="form-control mb-contact-from-input" id="exampleFormControlInput1" placeholder="Nombre">
+              <input type="text" class="form-control mb-contact-from-input" name="name" placeholder="Nombre">
             </div>
+            {{-- last name  --}}
             <div class="form-group">
-              <input type="text" class="form-control mb-contact-from-input" id="exampleFormControlInput1" placeholder="Apellido">
+              <input type="text" class="form-control mb-contact-from-input" name="last_name" placeholder="Apellido">
             </div>
+            {{-- mail  --}}
             <div class="form-group">
-              <input type="email" class="form-control mb-contact-from-input" id="exampleFormControlInput1" placeholder="Mail">
+              <input type="email" class="form-control mb-contact-from-input" name="mail" placeholder="Mail">
             </div>
+            {{-- telephone  --}}
             <div class="form-group">
-              <input type="text" class="form-control mb-contact-from-input" id="exampleFormControlInput1" placeholder="Teléfono">
+              <input type="text" class="form-control mb-contact-from-input" name="phone" placeholder="Teléfono">
             </div>
+            {{-- message  --}}
             <div class="form-group">
-              <textarea class="form-control mb-contact-from-input" id="exampleFormControlTextarea1" rows="5" placeholder="Comentario"></textarea>
+              <textarea class="form-control mb-contact-from-input" name="message" rows="5" placeholder="Comentario"></textarea>
             </div>
             <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Contactar</button>
           </form>

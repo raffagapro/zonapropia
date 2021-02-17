@@ -21,8 +21,7 @@ class AdminController extends Controller
      */
     public function index(){
       $users = User::paginate(25);
-      $roles = Role::all();
-      return view('admin.index')->with(compact('users', 'roles'));
+      return view('admin.index')->with(compact('users'));
     }
 
     public function filter(Request $request){
@@ -52,12 +51,10 @@ class AdminController extends Controller
       }else {
         $roleHolder = null;
       }
-      $roles = Role::all();
       return view('admin.index')->with(compact(
         'users',
         'selector',
         'searched',
-        'roles',
         'roleHolder'
       ));
     }
@@ -75,7 +72,6 @@ class AdminController extends Controller
       if (!$user->hasRoles($role->name)) {
         $user->roles()->attach($role);
       }
-      $roles = Role::all();
       $status = 'El role del usuario ha sido actualizado.';
       return back()->with(compact('status', 'user'));
     }
@@ -85,8 +81,6 @@ class AdminController extends Controller
       $user = User::findOrFail($id);
       $role = Role::findOrFail($role_id);
       $user->roles()->detach($role);
-
-      $roles = Role::all();
       $status = 'El role del usuario ha sido actualizado.';
       return back()->with(compact('status', 'user'));
     }
@@ -100,8 +94,7 @@ class AdminController extends Controller
     public function edit($id)
     {
       $user = User::findOrFail($id);
-      $roles = Role::all();
-      return view('admin.edit')->with(compact('user', 'roles'));
+      return view('admin.edit')->with(compact('user'));
     }
 
     /**
@@ -145,15 +138,13 @@ class AdminController extends Controller
       $user = User::findOrFail($id);
       $user->delete();
       $users = User::paginate(25);
-      $roles = Role::all();
-      return back()->with(compact('users', 'roles'));
+      return back()->with(compact('users'));
     }
 
     public function restore($id){
       $user = User::onlyTrashed()->findOrFail($id);
       $user->restore();
       $users = User::paginate(25);
-      $roles = Role::all();
-      return back()->with(compact('users', 'roles'));
+      return back()->with(compact('users'));
     }
 }

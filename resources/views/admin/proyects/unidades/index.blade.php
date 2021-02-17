@@ -29,37 +29,54 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Label</th>
-                <th scope="col">Tipologia</th>
+                <th scope="col">Model</th>
+                <th scope="col">Codigo</th>
                 <th scope="col">Status</th>
+                <th scope="col">Piso</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">UF m<sup>2</sup></th>
+                <th scope="col">Tipologias</th>
                 <th scope="col">Control</th>
               </tr>
             </thead>
             <tbody>
-              @forelse ($proyecto->unidades as $uni)
+              @forelse ($proyecto->unidades as $unidad)
                 <tr>
-                  <th scope="row">{{ $uni->id }}</th>
-                  {{-- label  --}}
+                  <th scope="row">{{ $unidad->id }}</th>
                   <td>
-                    <a href="{{ route('unidad.edit', $uni->id) }}">
-                      {{ $uni->label }}
+                    <a href="{{ route('unidad.edit', $unidad->id) }}">
+                      {{ $unidad->modelo }}
                     </a>
                   </td>
-                  {{-- tipologia  --}}
                   <td>
-                    @if ($uni->tipografia === null)
-                      Sin Tipologia
+                    @if ($unidad->code === null)
+                      Sin codigo
                     @else
-                      {{ $uni->tipografia->modelo }}
+                      {{ $unidad->code }}
                     @endif
                   </td>
-                  {{-- status  --}}
                   <td>
-                    @if ($uni->status === 0)
+                    @if ($unidad->status === 0)
                       <span class="badge badge-danger">Bloqueada</span>
                     @else
                       <span class="badge badge-primary">Disponible</span>
                     @endif
+                  </td>
+                  <td>
+                    @if ($unidad->piso === null)
+                      N/A
+                    @else
+                      {{ $unidad->piso }}
+                    @endif
+                  </td>
+                  <td>
+                    ${{ $unidad->precio_venta }}
+                  </td>
+                  <td>
+                    {{ $unidad->uf_m2 }}
+                  </td>
+                  <td>
+                    {{ count($unidad->tipologias) }}
                   </td>
                   <td>
                     {{-- delete --}}
@@ -78,15 +95,15 @@
                           icon:'error',
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            document.getElementById('{{ 'unidadDestroy'.$uni->id }}').submit();
+                            document.getElementById('{{ 'unidadDestroy'.$unidad->id }}').submit();
                           }
                         });
                       "
                       data-toggle="tooltip" data-placement="top" title="Borrar Unidad">
                       <i class="fas fa-trash"></i>
                     </a>
-                    <form id="{{ 'unidadDestroy'.$uni->id }}"
-                      action="{{ route('unidad.destroy', $uni->id) }}"
+                    <form id="{{ 'unidadDestroy'.$unidad->id }}"
+                      action="{{ route('unidad.destroy', $unidad->id) }}"
                       method="POST"
                       style="display: none;"
                       >@method('DELETE') @csrf

@@ -17,7 +17,7 @@
           <div class="card-body">
             <form class="mainSearchPanel">
               <div class="form-group">
-                <h3>Buscador</h3>
+                <h3 class="second-color">Buscador</h3>
               </div>
               <div class="form-group">
                 <select class="form-control" id="exampleFormControlSelect1">
@@ -49,7 +49,7 @@
               </div>
 
               <div class="form-group">
-                <label for="formControlRange">Precio: UF 0 - UF 1.200</label>
+                <label for="formControlRange" class="second-color">Precio: UF 0 - UF 1.200</label>
                 <input type="range" class="form-control-range custom-range" id="formControlRange">
               </div>
 

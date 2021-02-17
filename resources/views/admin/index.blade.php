@@ -43,14 +43,16 @@
           <div class="col">
             <select class="form-control form-control-sm" name="role">
               <option value=0>Seleccionar Role</option>
-              @foreach ($roles as $rolex)
+              @forelse (App\Models\Role::all() as $rolex)
                 <option value="{{ $rolex->id }}"
                   @isset($roleHolder)
                     @if ($roleHolder->id === $rolex->id) selected @endif
                   @endisset
                   >{{ $rolex->name }}
                 </option>
-              @endforeach
+              @empty
+                  -
+              @endforelse
             </select>
           </div>
           {{-- Btns --}}

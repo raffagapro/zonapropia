@@ -55,7 +55,7 @@
             <div class="row">
               <div class="col-md-8 col-lg-10">
                 <select class="form-control" name="role">
-                  @foreach ($roles as $role)
+                  @foreach (App\Models\Role::all() as $role)
                     <option value="{{ $role->id }}">{{ $role->name }}</option>
                   @endforeach
                 </select>

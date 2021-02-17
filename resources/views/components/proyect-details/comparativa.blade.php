@@ -31,13 +31,13 @@
         <!-- Tipologia Lista -->
         <div class="col-12 mt-5">
           <div class="row">
-            @forelse ($proyect->tipografias as $tipo)
+            @forelse ($proyect->getTipologias() as $tipo)
               <!-- Item List -->
               <div class="col-12 mb-4">
                 <div class="row align-items-center">
                   <!-- Floor plan -->
                   <div class="col-12 col-md-3">
-                    <img src="{{ asset($tipo->tipologia) }}" class="cl-floor-img">
+                    <img src="{{ asset($tipo->media) }}" class="cl-floor-img">
                   </div>
                   <!-- Info -->
                   <div class="col-12 col-md-9">
@@ -47,7 +47,7 @@
                         <div class="row">
                           <!-- Title -->
                           <div class="col-md-6 col-lg-3">
-                            <h4>Tipología {{ $tipo->modelo }}</h4>
+                            <h4>Unidad: {{ $tipo->unidad->modelo }} Tipología: {{ $tipo->titulo }}</h4>
                           </div>
                           <div class="col-lg-1 cl-placeholder-ts"></div>
                           <div class="col-lg-2 cl-placeholder-ts"></div>
@@ -70,34 +70,34 @@
                           <div class="col-lg-2"><small>Nº de baños</small></div>
                           <div class="col-lg-2"><small>Nº Dormitorios</small></div>
                           <!-- Info -->
-                          <div class="col-lg-2"><h5>{{ $tipo->superficie_total }}m<sup>2</sup></h5></div>
-                          <div class="col-lg-2"><h5>UF {{ $tipo->uf_m2 }}</h5></div>
-                          <div class="col-lg-2"><h5>UF {{ $tipo->precio_venta }}</h5></div>
+                          <div class="col-lg-2"><h5>{{ $tipo->unidad->superficie_total }}m<sup>2</sup></h5></div>
+                          <div class="col-lg-2"><h5>UF {{ $tipo->unidad->uf_m2 }}</h5></div>
+                          <div class="col-lg-2"><h5>UF {{ $tipo->unidad->precio_venta }}</h5></div>
                           <div class="col-lg-2">
-                            @if ((int)$tipo->superficie_terrazas === 0 || $tipo->superficie_terrazas === null)
+                            @if ((int)$tipo->unidad->superficie_terrazas === 0 || $tipo->unidad->superficie_terrazas === null)
                               <h5>No</h5>
                             @else
                               <h5>Si</h5>
                             @endif
                           </div>
-                          <div class="col-lg-2"><h5>{{ $tipo->banos }}</h5></div>
-                          <div class="col-lg-2"><h5>{{ $tipo->dormitorios }}</h5></div>
+                          <div class="col-lg-2"><h5>{{ $tipo->unidad->banos }}</h5></div>
+                          <div class="col-lg-2"><h5>{{ $tipo->unidad->dormitorios }}</h5></div>
                         </div>
                         <!-- Info for Tablet & Mobile version -->
                         <div class="row text-right cl-info-cont">
                           <!-- row -->
                           <div class="col-6"><small>m<sup>2</sup> Promedio</small></div>
-                          <div class="col-6 text-center"><h5>{{ $tipo->superficie_total }}m<sup>2</sup></h5></div>
+                          <div class="col-6 text-center"><h5>{{ $tipo->unidad->superficie_total }}m<sup>2</sup></h5></div>
                           <!-- row -->
                           <div class="col-6"><small>UF m<sup>2</sup> Promedio</small></div>
-                          <div class="col-6 text-center"><h5>UF {{ $tipo->uf_m2 }}</h5></div>
+                          <div class="col-6 text-center"><h5>UF {{ $tipo->unidad->uf_m2 }}</h5></div>
                           <!-- row -->
                           <div class="col-6"><small>Precio Promedio</small></div>
-                          <div class="col-6 text-center"><h5>UF {{ $tipo->precio_venta }}</h5></div>
+                          <div class="col-6 text-center"><h5>UF {{ $tipo->unidad->precio_venta }}</h5></div>
                           <!-- row -->
                           <div class="col-6"><small>Posee terraza</small></div>
                           <div class="col-6 text-center">
-                            @if ((int)$tipo->superficie_terrazas === 0 || $tipo->superficie_terrazas === null)
+                            @if ((int)$tipo->unidad->superficie_terrazas === 0 || $tipo->unidad->superficie_terrazas === null)
                               <h5>No</h5>
                             @else
                               <h5>Si</h5>
@@ -105,10 +105,10 @@
                           </div>
                           <!-- row -->
                           <div class="col-6"><small>Nº de baños</small></div>
-                          <div class="col-6 text-center"><h5>{{ $tipo->banos }}</h5></div>
+                          <div class="col-6 text-center"><h5>{{ $tipo->unidad->banos }}</h5></div>
                           <!-- row -->
                           <div class="col-6"><small>Nº Dormitorios</small></div>
-                          <div class="col-6 text-center"><h5>{{ $tipo->dormitorios }}</h5></div>
+                          <div class="col-6 text-center"><h5>{{ $tipo->unidad->dormitorios }}</h5></div>
                         </div>
                       </div>
                     </div>

@@ -15,10 +15,24 @@ class CreateUnidadsTable extends Migration
     {
         Schema::create('unidads', function (Blueprint $table) {
             $table->id();
-            $table->string('label')->nullable();
-            $table->string('status')->nullable();
             $table->integer('proyecto_id')->unsigned()->nullable()->onDelete('cascade');
-            $table->integer('tipografia_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->string('modelo')->nullable();;
+            $table->string('code')->nullable();
+            $table->string('orientacion')->nullable();
+            $table->string('piso')->nullable();
+            $table->integer('dormitorios')->nullable();
+            $table->integer('banos')->nullable();
+            $table->integer('lote')->nullable();
+            $table->decimal('superficie_municipal', 6, 2)->nullable();
+            $table->decimal('superficie_total', 6, 2)->nullable();
+            $table->decimal('superficie_inferior', 6, 2)->nullable();
+            $table->decimal('superficie_terrazas', 6, 2)->nullable();
+            $table->decimal('superficie_loggia', 6, 2)->nullable();
+            $table->decimal('precio_lista', 6, 2)->nullable();
+            $table->decimal('precio_venta', 6, 2)->nullable();
+            $table->string('status')->nullable();
+            $table->integer('vulnerable')->nullable();
+            $table->decimal('uf_m2', 6)->nullable();
             $table->timestamps();
         });
     }

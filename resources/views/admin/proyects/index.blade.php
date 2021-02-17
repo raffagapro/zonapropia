@@ -53,7 +53,6 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Inmobiliaria</th>
                 <th scope="col">Tags</th>
-                <th scope="col">Tipologias</th>
                 <th scope="col">Unidades</th>
                 <th scope="col">Control</th>
               </tr>
@@ -84,22 +83,6 @@
                     @foreach ($proyect->tags as $tag)
                       <span class="badge badge-primary">{{ $tag->name }}</span>
                     @endforeach
-                  </td>
-                  {{-- tipologias  --}}
-                  <td>
-                    <a
-                      href="javascript:void(0);"
-                      class="btn btn-sm btn-primary"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'tipoPro'.$proyect->id }}').submit();"
-                      data-toggle="tooltip" data-placement="top" title="Ver unidades">
-                      {{ count($proyect->tipografias)}}
-                    </a>
-                    <form id="{{ 'tipoPro'.$proyect->id }}"
-                      action="{{ route('tipo.index', $proyect->id) }}"
-                      method="Post"
-                      style="display: none;"
-                      >@csrf
-                    </form>
                   </td>
                   {{-- unidades  --}}
                   <td>

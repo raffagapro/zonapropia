@@ -3,7 +3,7 @@
 ])
 
 <!-- Grid Item -->
-<div class="col-md-6 mb-4">
+<div class="col-md-4 mb-4">
   <a href="{{ route('proyect.show', $proyect->id )}}" class="grid-item-link">
     <div class="card item-main-grid">
       @if ($proyect->media->where('name', 'main')->first() === null)

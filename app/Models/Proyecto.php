@@ -122,30 +122,30 @@ class Proyecto extends Model
     {
         return $this->hasMany(Unidad::class);
     }
-    public function tipografias()
+    public function contactLeads()
     {
-        return $this->hasMany(Tipografia::class);
+        return $this->hasMany(ContactLeads::class);
     }
     public function getUF()
     {
-      $tipos = $this->tipografias;
-      $tipos = $tipos->sortBy('precio_venta');
-      if (count($tipos) > 0) {
-        $tipos = $tipos->first();
-        return "UF ".$tipos->precio_venta;
+      $unidades = $this->unidades;
+      $unidades = $unidades->sortBy('precio_venta');
+      if (count($unidades) > 0) {
+        $unidades = $unidades->first();
+        return "UF ".$unidades->precio_venta;
       }else {
         return false;
       }
     }
     public function getPrecioPromedio()
     {
-      $tipos = $this->tipografias;
-      if (count($tipos) > 0) {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
         $total = 0;
-        foreach ($tipos as $tipo) {
-          $total += $tipo->precio_venta;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->precio_venta;
         }
-        $total = $total / count($tipos);
+        $total = $total / count($unidades);
         return $total ;
       }else {
         return false;
@@ -154,16 +154,28 @@ class Proyecto extends Model
 
     public function getUF_M2()
     {
-      $tipos = $this->tipografias;
-      if (count($tipos) > 0) {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
         $total = 0;
-        foreach ($tipos as $tipo) {
-          $total += $tipo->uf_m2;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->uf_m2;
         }
-        $total = $total / count($tipos);
+        $total = $total / count($unidades);
         return $total ;
       }else {
         return false;
       }
+    }
+    public function getTipologias(){
+      $models = [];
+      foreach ($this->unidades as $unidad) {
+        foreach ($unidad->tipologias as $tipo) {
+          if ($tipo->media !== null) {
+            array_push($models, $tipo);
+          }
+        }
+      }
+
+      return $models;
     }
 }

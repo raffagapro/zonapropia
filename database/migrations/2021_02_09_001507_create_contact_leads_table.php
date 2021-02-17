@@ -23,6 +23,7 @@ class CreateContactLeadsTable extends Migration
             $table->string('priceRange')->nullable();
             $table->longText('message')->nullable();
             $table->integer('status')->nullable();
+            $table->integer('proyecto_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }

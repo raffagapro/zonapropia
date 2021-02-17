@@ -46,6 +46,7 @@
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
+                  @php $regions = App\Models\Region::all(); @endphp
                   @foreach ($regions as $region)
                     <option value="{{ $region->id }}">{{ $region->name }}</option>
                   @endforeach
@@ -97,7 +98,7 @@
                 <label for="inmo">Inmobiliaria</label>
                 <select class="form-control" name="inmo">
                   <option value=0>Sin Inmobiliaria</option>
-                  @foreach ($inmos as $inmo)
+                  @foreach (App\Models\Inmobiliaria::all() as $inmo)
                     <option value="{{ $inmo->id }}">{{ $inmo->name }}</option>
                   @endforeach
                 </select>
@@ -109,7 +110,7 @@
               <div class="col-4">
                 <label for="cat">Categoria</label>
                 <select class="form-control" name="cat">
-                  @foreach ($cats as $cat)
+                  @foreach (App\Models\Categoria::all() as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                   @endforeach
                 </select>

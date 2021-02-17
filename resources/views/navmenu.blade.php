@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-bg">
   <div class="container">
     {{-- Main Logo --}}
-    <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}">
-      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy">
+    <a class="navbar-brand mb-2" href="{{ route('home')}}">
+    {{-- <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}"> --}}
+      {{-- <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy"> --}}
+      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo2.png') }}" alt="" loading="lazy">
     </a>
     {{-- Responsive BTNs --}}
     <div>
@@ -80,15 +82,6 @@
             </span>
           </a>
         </li>
-        @auth
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('userProfile.index')}}">
-              <span class="nav-link-text">
-                Perfil
-              </span>
-            </a>
-          </li>
-        @endauth
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
@@ -105,7 +98,6 @@
               <i class="fas fa-user-cog"></i>
             </a>
           @endif
-
           <a 
             href="{{ route('userProfile.index')}}"
             class="newProfileBtn main-color"
@@ -132,6 +124,7 @@
   @if (old('originTab') === 'register')
     <script type="text/javascript">
       $( document ).ready(function() {
+        $('#loginModal').modal('show');
         $('#loginTabs a[href="#register"]').tab('show')
       });
     </script>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\Categoria;
 use App\Models\ContactLeads;
+use App\Models\Proyecto;
 use App\Mail\ContactFormMail;
 
 class ContactFromController extends Controller
@@ -39,7 +40,6 @@ class ContactFromController extends Controller
      */
     public function store(Request $request)
     {
-        $cat = Categoria::findOrFail($request->category);
         $status = 0;
         $contact = ContactLeads::create([
             'name' => $request->name,
@@ -50,8 +50,15 @@ class ContactFromController extends Controller
             'message' => $request->message,
             'status' => $status,
         ]);
-        $cat->contactLeads()->save($contact);
-
+        if ($request->category !== null) {
+            $cat = Categoria::findOrFail($request->category);
+            $cat->contactLeads()->save($contact);
+        }
+        if ($request->proyect !== null) {
+            // dd($request->proyect);
+            $proyecto = Proyecto::findOrFail((int)$request->proyect);
+            $proyecto->contactLeads()->save($contact);
+        }
         Mail::to($request->mail)->send(new ContactFormMail($contact));
         return back();
     }

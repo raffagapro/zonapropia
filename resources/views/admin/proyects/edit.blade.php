@@ -53,6 +53,7 @@
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
+                  @php $regions = App\Models\Region::all(); @endphp
                   @foreach ($regions as $region)
                     @if ((int)$proyect->region->id === (int)$region->id)
                       <option value="{{ $region->id }}" selected>{{ $region->name }}</option>
@@ -122,7 +123,7 @@
                 <label for="inmo">Inmobiliarias</label>
                 <select class="form-control" name="inmo">
                   <option  value=0 >Sin Inmobiliaria</option>
-                  @foreach ($inmos as $inmo)
+                  @foreach (App\Models\Inmobiliaria::all() as $inmo)
                     @if ($proyect->inmobiliaria !== null)
                       @if ((int)$proyect->inmobiliaria->id === (int)$inmo->id)
                         <option value="{{ $inmo->id }}" selected>{{ $inmo->name }}</option>
@@ -142,7 +143,7 @@
               <div class="col-4">
                 <label for="cat">Categoria</label>
                 <select class="form-control" name="cat">
-                  @foreach ($cats as $cat)
+                  @foreach (App\Models\Categoria::all() as $cat)
                     @if ((int)$proyect->categoria->id === (int)$cat->id)
                       <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
                     @else
@@ -390,7 +391,7 @@
       <div class="card mb-section-card">
         {{-- Title --}}
         <h4 class="card-title mb-section-card-title mt-1 mb-4">Vendedores</h4>
-        {{-- Tags Form --}}
+        {{-- Sales Form --}}
         <div class="container">
           <form action="{{ route('aProyect.addVendedor', $proyect->id) }}" method="POST">
             @csrf
@@ -398,9 +399,11 @@
               <div class="col-md-8 col-lg-10">
                 <select class="form-control" name="vendor">
                   <option selected disabled>Seleccionar Vendedor</option>
-                  @foreach ($vendedores as $v)
+                  @forelse ($vendedores as $v)
                     <option value="{{ $v->id }}">{{ $v->name }}</option>
-                  @endforeach
+                  @empty
+                  <option selected disabled>Sin vendedores</option>
+                  @endforelse
                 </select>
               </div>
               <div class="col-md-4 col-lg-2">
@@ -431,7 +434,7 @@
               <div class="col-md-8 col-lg-10">
                 <select class="form-control" name="tag">
                   <option selected disabled>Seleccionar Tag</option>
-                  @foreach ($tags as $tag)
+                  @foreach (App\Models\Taggable::all() as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                   @endforeach
                 </select>
@@ -464,7 +467,7 @@
               <div class="col-md-8 col-lg-10">
                 <select class="form-control" name="car">
                   <option selected disabled>Seleccionar Caracteristica</option>
-                  @foreach ($caracs as $car)
+                  @foreach (App\Models\Caracteristica::all() as $car)
                     <option value="{{ $car->id }}">{{ $car->name }}</option>
                   @endforeach
                 </select>

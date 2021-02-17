@@ -21,4 +21,8 @@ class ContactLeads extends Model
     {
       return $this->belongsTo(Categoria::class);
     }
+    public function proyecto()
+    {
+      return $this->belongsTo(Proyecto::class);
+    }
 }

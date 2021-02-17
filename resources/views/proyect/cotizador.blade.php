@@ -1,4 +1,4 @@
-@if (count($proyect->tipografias) !== 0)
+@if (count($proyect->getTipologias()) !== 0)
     <div class="card mb-section-card mt-0">
         <div class="card-body row mt-5 mb-5">
             <!-- Title -->
@@ -6,40 +6,44 @@
                 <h3 class="mb-info-title">Cotizador</h3>
             </div>
             <div class="col-6 text-right">
-                @if (count($proyect->tipografias) !== 0)
+                @if (count($proyect->getTipologias()) !== 0)
                     <h4 class="mb-info-title">Tipologias</h4>
                     {{-- <h4 class="mb-info-title">Tipologia: {{ $proyect->tipografias->first()->modelo }}</h4> --}}
                 @endif
             </div>
             
             <!-- Map Carrousel -->
-            @if (count($proyect->tipografias) !== 0)
+            @if (count($proyect->getTipologias()) !== 0)
                 <div class="col-12 mt-4">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         @php $hGo = 0;@endphp
-                        @foreach ($proyect->tipografias as $tipo)
+                        @foreach ($proyect->unidades as $u2)
+                            @foreach ($u2->tipologias as $t2)
                             @if ($hGo === 0)
                                 <li data-target="#carouselExampleIndicators" data-slide-to="{{ $hGo }}" class="active"></li>
                             @else
                                 <li data-target="#carouselExampleIndicators" data-slide-to={{ $hGo }}></li>
                             @endif
                             @php $hGo++;@endphp
+                            @endforeach
                         @endforeach
                     </ol>
                     <div class="carousel-inner">
                         @php $gGo = 0;@endphp
-                        @foreach ($proyect->tipografias as $tipo)
+                        @foreach ($proyect->unidades as $u3)
+                            @foreach ($u3->tipologias as $t3)
                             @if ($gGo === 0)
                                 <div class="carousel-item active">
-                                    <img src="{{ asset($tipo->tipologia) }}" class="d-block h-40" alt="...">
+                                    <img src="{{ asset($t3->media) }}" class="d-block h-40" alt="...">
                                 </div>
                             @else
                                 <div class="carousel-item">
-                                    <img src="{{ asset($tipo->tipologia) }}" class="d-block h-40" alt="...">
+                                    <img src="{{ asset($t3->media) }}" class="d-block h-40" alt="...">
                                 </div>
                             @endif
                             @php $gGo++;@endphp
+                            @endforeach
                         @endforeach
                         
                     </div>
@@ -62,9 +66,9 @@
                         {{-- Tipologias  --}}
                         <div class="col-md-6 mb-3">
                             <select class="form-control" name="tipologia">
-                                <option selected disabled>Tipologia</option> 
-                                @foreach ($proyect->tipografias as $tipo)
-                                    <option value="{{ $tipo->id }}">{{ $tipo->modelo }}</option> 
+                                <option selected disabled>Tipologias</option> 
+                                @foreach ($proyect->unidades as $unidad)
+                                    <option value="{{ $unidad->id }}">{{ $unidad->dormitorios }} Drom. - {{ $unidad->banos }} Baños</option> 
                                 @endforeach
                             </select>
                         </div>
@@ -113,5 +117,5 @@
                 </form>
             </div>
         </div>
-    </div>    
-@endif
+    </div>
+@endif   

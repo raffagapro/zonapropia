@@ -1,33 +1,39 @@
-<div class="col-md-4 leftbar-cont">
+<div class="col-md-2 leftbar-cont">
   <!-- Main Form -->
   <form class="lb-form">
     <div class="form-group">
-      <select class="form-control" id="exampleFormControlSelect1">
+      <select class="form-control" name="tag">
         <option value="" disabled selected>Tipo de compra</option>
-        <option>1</option>
+        @foreach (App\Models\Taggable::all() as $tag)
+          <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+        @endforeach
       </select>
     </div>
 
     <div class="form-group">
       <select class="form-control" id="exampleFormControlSelect1">
         <option value="" disabled selected>Comuna</option>
-        <option>1</option>
+        @foreach (App\Models\Comuna::all() as $comuna)
+          <option value="{{ $comuna->id }}">{{ $comuna->provincia->name }}, {{ $comuna->name }}</option>
+        @endforeach
       </select>
     </div>
 
     <div class="form-group">
       <select class="form-control" id="exampleFormControlSelect1">
         <option value="" disabled selected>Tipo de propiedad</option>
-        <option>1</option>
+        @foreach (App\Models\Categoria::all() as $cat)
+          <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+        @endforeach
       </select>
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
       <select class="form-control" id="exampleFormControlSelect1">
-        <option value="" disabled selected>Proyectos</option>
+        <option value="" disabled selected>Unidad</option>
         <option>1</option>
       </select>
-    </div>
+    </div> --}}
 
     <button type="submit" class="btn bg-main-color general-btn">Buscar</button>
   </form>

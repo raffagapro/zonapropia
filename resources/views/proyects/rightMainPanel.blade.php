@@ -1,4 +1,4 @@
-<div class="col-md-8 rightpanel">
+<div class="col-md-10 rightpanel">
   <!-- Mini Filter Bar -->
   @include('proyects.miniFilterBar')
   <!-- Propety List -->

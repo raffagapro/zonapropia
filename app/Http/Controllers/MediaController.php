@@ -54,11 +54,6 @@ class MediaController extends Controller
         //call proyect again with new image
         $proyect = Proyecto::findOrFail($request->proyect_id);
         $status = 'La imagen ha sido guardada exitosamente.';
-        $cats = Categoria::all();
-        $caracs = Caracteristica::all();
-        $inmos = Inmobiliaria::all();
-        $regions = Region::all();
-        $tags = Taggable::all();
         $vendedores = User::whereHas(
           'roles', function($q){
             $q->where('name', 'vendedor');
@@ -68,12 +63,7 @@ class MediaController extends Controller
           ->with(compact(
             'proyect',
             'status',
-            'cats',
-            'inmos',
-            'regions',
-            'tags',
             'vendedores',
-            'caracs'
           ));
       }else {
         dd('bada chavo', $request->all());
@@ -113,11 +103,6 @@ class MediaController extends Controller
         //call proyect again with new image
         $proyect = Proyecto::findOrFail($request->proyect_id);
         $status = 'La imagen ha sido guardada exitosamente.';
-        $cats = Categoria::all();
-        $inmos = Inmobiliaria::all();
-        $regions = Region::all();
-        $tags = Taggable::all();
-        $caracs = Caracteristica::all();
         $vendedores = User::whereHas(
           'roles', function($q){
             $q->where('name', 'vendedor');
@@ -127,12 +112,7 @@ class MediaController extends Controller
           ->with(compact(
             'proyect', 
             'status', 
-            'cats', 
-            'inmos', 
-            'regions', 
-            'tags', 
             'vendedores', 
-            'caracs'
           ));
       }
     }
@@ -166,11 +146,6 @@ class MediaController extends Controller
        //call proyect again with new image
        $proyect = Proyecto::findOrFail($request->proyect_id);
        $status = 'La imagen ha sido guardada exitosamente.';
-       $cats = Categoria::all();
-       $inmos = Inmobiliaria::all();
-       $regions = Region::all();
-       $tags = Taggable::all();
-       $caracs = Caracteristica::all();
         $vendedores = User::whereHas(
           'roles', function($q){
             $q->where('name', 'vendedor');
@@ -180,12 +155,7 @@ class MediaController extends Controller
          ->with(compact(
             'proyect', 
             'status', 
-            'cats', 
-            'inmos', 
-            'regions', 
-            'tags',
             'vendedores', 
-            'caracs'
           ));
      }
    }
@@ -202,11 +172,6 @@ class MediaController extends Controller
       //call proyect again with new image
       $proyect = Proyecto::findOrFail($proyect_id);
       $status = 'La imagen ha sido guardada exitosamente.';
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      $tags = Taggable::all();
-      $caracs = Caracteristica::all();
       $vendedores = User::whereHas(
         'roles', function($q){
           $q->where('name', 'vendedor');
@@ -216,12 +181,7 @@ class MediaController extends Controller
         ->with(compact(
           'proyect', 
           'status', 
-          'cats', 
-          'inmos', 
-          'regions', 
-          'tags',
           'vendedores', 
-          'caracs'
         ));
     }
 }

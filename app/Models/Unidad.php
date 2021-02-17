@@ -9,15 +9,31 @@ class Unidad extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'label',
-        'status',
+      'modelo',
+      'code',
+      'orientacion',
+      'piso',
+      'dormitorios',
+      'banos',
+      'lote',
+      'superficie_municipal',
+      'superficie_total',
+      'superficie_inferior',
+      'superficie_terrazas',
+      'superficie_loggia',
+      'precio_lista',
+      'precio_venta',
+      'status',
+      'vulnerable',
+      'uf_m2',
+      'tipologia',
     ];
     public function proyecto()
     {
       return $this->belongsTo(Proyecto::class);
     }
-    public function tipografia()
+    public function tipologias()
     {
-      return $this->belongsTo(Tipografia::class);
+      return $this->hasMany(Tipologia::class);
     }
 }

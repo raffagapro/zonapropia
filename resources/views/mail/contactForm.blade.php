@@ -4,5 +4,12 @@
 <h5>Tu informacion</h5>
 <p>Telefono: {{ $contact->phone }}</p>
 <p>Correo: {{ $contact->mail }}</p>
-<p>Rango de Precio: {{ $contact->priceRange }}</p>
-<p>Categoria: {{ $contact->categoria->name }}</p>
+@if ($contact->priceRange !== null)
+    <p>Rango de Precio: {{ $contact->priceRange }}</p>
+@endif
+@if ($contact->categoria !== null)
+    <p>Categoria: {{ $contact->categoria->name }}</p>
+@endif
+@if ($contact->proyecto !== null)
+    <p>Proyecto: {{ $contact->proyecto->name }}</p>
+@endif

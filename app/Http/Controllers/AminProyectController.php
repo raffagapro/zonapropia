@@ -35,11 +35,7 @@ class AminProyectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      return view('admin.proyects.create')
-        ->with(compact('regions', 'inmos', 'cats'));
+      return view('admin.proyects.create');
     }
 
     /**
@@ -92,14 +88,18 @@ class AminProyectController extends Controller
 
       $cat= Categoria::findOrFail((int)$request->cat);
       $cat->proyects()->save($proyect);
-      $regions = Region::all();
-      $inmos = Inmobiliaria::all();
-      $caracs = Caracteristica::all();
-      $cats = Categoria::all();
-      $tags = Taggable::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'El proyecto ha sido creado exitosamente.';
       return view('admin.proyects.edit')
-        ->with(compact('proyect', 'status', 'regions', 'inmos', 'cats', 'tags', 'caracs'));
+        ->with(compact(
+          'proyect',
+          'status',
+          'vendedores'
+        ));
     }
 
     /**
@@ -115,19 +115,9 @@ class AminProyectController extends Controller
             $q->where('name', 'vendedor');
         }
       )->get();
-      $cats = Categoria::all();
-      $caracs = Caracteristica::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      $tags = Taggable::all();
       return view('admin.proyects.edit')
         ->with(compact(
           'proyect',
-          'cats',
-          'inmos',
-          'regions',
-          'tags',
-          'caracs',
           'vendedores'
         ));
     }
@@ -146,19 +136,9 @@ class AminProyectController extends Controller
             $q->where('name', 'vendedor');
         }
       )->get();
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       return back()->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -167,11 +147,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::findOrFail($id);
       $tag = Taggable::findOrFail($tag_id);
       $proyect->tags()->detach($tag);
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       $vendedores = User::whereHas(
         'roles', function($q){
             $q->where('name', 'vendedor');
@@ -181,11 +156,6 @@ class AminProyectController extends Controller
       return back()->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -205,19 +175,9 @@ class AminProyectController extends Controller
             $q->where('name', 'vendedor');
         }
       )->get();
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       return view('admin.proyects.edit')->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -226,25 +186,15 @@ class AminProyectController extends Controller
       $proyect = Proyecto::findOrFail($id);
       $user = Taggable::findOrFail($user_id);
       $proyect->users()->detach($user);
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       $vendedores = User::whereHas(
         'roles', function($q){
             $q->where('name', 'vendedor');
         }
       )->get();
       $status = 'El vendedor ha sido eliminado.';
-      return back()->with(compact(
+      return view('admin.proyects.edit')->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -258,11 +208,6 @@ class AminProyectController extends Controller
       }else {
         $status = 'La caracteristica ya esta asociada con el proyecto.';
       }
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       $vendedores = User::whereHas(
         'roles', function($q){
             $q->where('name', 'vendedor');
@@ -271,11 +216,6 @@ class AminProyectController extends Controller
       return back()->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -292,11 +232,6 @@ class AminProyectController extends Controller
         $mc->delete();
       }
       $proyect->caracteristicas()->detach($car);
-      $caracs = Caracteristica::all();
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       $vendedores = User::whereHas(
         'roles', function($q){
             $q->where('name', 'vendedor');
@@ -306,11 +241,6 @@ class AminProyectController extends Controller
       return back()->with(compact(
         'status',
         'proyect',
-        'cats',
-        'inmos',
-        'regions',
-        'tags',
-        'caracs',
         'vendedores'
       ));
     }
@@ -397,6 +327,7 @@ class AminProyectController extends Controller
      */
     public function update(Request $request, $id){
       // dd($request->destacar);
+      // dd($request->all());
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
       $proyect->direccion = $request->direccion;
@@ -457,10 +388,6 @@ class AminProyectController extends Controller
         $cat->proyects()->save($proyect);
       }
       $proyect->save();
-
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
       $vendedores = User::whereHas(
         'roles', function($q){
             $q->where('name', 'vendedor');
@@ -470,9 +397,6 @@ class AminProyectController extends Controller
       return back()->with(compact(
         'proyect',
         'status',
-        'cats',
-        'inmos',
-        'regions',
         'vendedores'
       ));
     }

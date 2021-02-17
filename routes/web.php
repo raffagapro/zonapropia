@@ -17,7 +17,7 @@ use App\Http\Controllers\ProyectController;
 use App\Http\Controllers\UserProfile;
 use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\CaracteristicasController;
-use App\Http\Controllers\TipografiasController;
+use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\ContactFromController;
 
 
@@ -99,12 +99,12 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('caracs', CaracteristicasController::class, ['except'=>['show', 'create']]);
         Route::post('caracs/addMedia', [CaracteristicasController::class, 'addMedia'])->name('caracs.addMedia');
         Route::get('caracs/rmMedia/{media}', [CaracteristicasController::class, 'rmMedia'])->name('caracs.rmMedia');
-        Route::resource('tipo', TipografiasController::class, ['except'=>['index, create']]);
-        Route::post('tipo/{proyect}', [TipografiasController::class, 'index'])->name('tipo.index');
-        Route::get('tipo/create/{proyect}', [TipografiasController::class, 'create'])->name('tipo.create');
+        Route::resource('tipo', TipologiaController::class, ['except'=>['index, create']]);
+        Route::get('tipo/create/{proyect}', [TipologiaController::class, 'create'])->name('tipo.create');
 
 
 
       });
     });
 });
+
