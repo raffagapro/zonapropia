@@ -12,7 +12,7 @@
       <!-- Responsabilidad -->
       <div class="row ventajas-item">
         <div class="col-md-2 vi-icon">
-          <img src="./assets/images/responsabilidad-icon.png" alt="">
+          <img src="./assets/images/responsabilidad-icon2.png" alt="">
         </div>
         <div class="col-md-9 vi-body">
           <h6>Responsabilidad</h6>
@@ -22,7 +22,7 @@
       <!-- Seguridad -->
       <div class="row ventajas-item">
         <div class="col-md-2 vi-icon">
-          <img src="./assets/images/seguridad-icon.png" alt="" width="100%">
+          <img src="./assets/images/seguridad-icon2.png" alt="" width="100%">
         </div>
         <div class="col-md-9 vi-body">
           <h6>Seguridad</h6>
@@ -32,7 +32,7 @@
       <!-- Confianza -->
       <div class="row ventajas-item">
         <div class="col-md-2 vi-icon">
-          <img src="./assets/images/confianza-icon.png" alt="" width="100%">
+          <img src="./assets/images/confianza-icon2.png" alt="" width="100%">
         </div>
         <div class="col-md-9 vi-body">
           <h6>Confianza</h6>
@@ -42,7 +42,7 @@
       <!-- Compania -->
       <div class="row ventajas-item">
         <div class="col-md-2 vi-icon">
-          <img src="./assets/images/comp-icon.png" alt="" width="100%">
+          <img src="./assets/images/comp-icon2.png" alt="" width="100%">
         </div>
         <div class="col-md-9 vi-body">
           <h6>Compañía</h6>

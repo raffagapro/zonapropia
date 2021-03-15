@@ -17,7 +17,6 @@ class Proyecto extends Model
         'name',
         'direccion',
         'comuna',
-        'ciudad',
         'region',
         'descripcion',
         'latitud',
@@ -47,6 +46,9 @@ class Proyecto extends Model
         'maxBathrooms',
         'minMC',
         'maxMC',
+        'seguridad',
+        'etapa_venta',
+        'fecha_entrega',
     ];
 
     // public function estado()
@@ -61,6 +63,14 @@ class Proyecto extends Model
     {
       return $this->belongsToMany(Taggable::class);
     }
+    public function users()
+    {
+      return $this->belongsToMany(User::class);
+    }
+    public function caracteristicas()
+    {
+      return $this->belongsToMany(Caracteristica::class);
+    }
     public function inmobiliaria()
     {
       return $this->belongsTo(Inmobiliaria::class);
@@ -68,6 +78,18 @@ class Proyecto extends Model
     public function region()
     {
       return $this->belongsTo(Region::class);
+    }
+    public function provincia()
+    {
+      return $this->belongsTo(Provincia::class);
+    }
+    public function comuna()
+    {
+      return $this->belongsTo(Comuna::class);
+    }
+    public function proyects()
+    {
+        return $this->hasMany(Proyecto::class);
     }
     public function media()
     {
@@ -82,8 +104,98 @@ class Proyecto extends Model
       }
       return false;
     }
+    public function media_cara()
+    {
+      return $this->hasMany(Media_Cara::class);
+    }
+    public function getMediaCara($car_id)
+    {
+      $mc = Media_Cara::where('proyecto_id', $this->id)->where('caracteristica_id', $car_id)->get();
+      return $mc;
+    }
+    public function getAllMediaCara()
+    {
+      $mc = Media_Cara::where('proyecto_id', $this->id)->get();
+      return $mc;
+    }
     public function destacado()
     {
         return $this->hasOne(Destacado::class);
+    }
+    public function unidades()
+    {
+        return $this->hasMany(Unidad::class);
+    }
+    public function contactLeads()
+    {
+        return $this->hasMany(ContactLeads::class);
+    }
+    public function getUF()
+    {
+      $unidades = $this->unidades;
+      $unidades = $unidades->sortBy('precio_venta');
+      if (count($unidades) > 0) {
+        $unidades = $unidades->first();
+        return "UF ".$unidades->precio_venta;
+      }else {
+        return false;
+      }
+    }
+    public function getPrecioPromedio()
+    {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
+        $total = 0;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->precio_venta;
+        }
+        $total = $total / count($unidades);
+        return $total ;
+      }else {
+        return false;
+      }
+    }
+
+    public function getUF_M2()
+    {
+      $unidades = $this->unidades;
+      if (count($unidades) > 0) {
+        $total = 0;
+        foreach ($unidades as $unidad) {
+          $total += $unidad->uf_m2;
+        }
+        $total = $total / count($unidades);
+        return $total ;
+      }else {
+        return false;
+      }
+    }
+    public function getTipologias(){
+      $models = [];
+      foreach ($this->unidades as $unidad) {
+        foreach ($unidad->tipologias as $tipo) {
+          if ($tipo->media !== null) {
+            array_push($models, $tipo);
+          }
+        }
+      }
+      return $models;
+    }
+
+    public function getPisos(){
+      $pisos = [];
+      $go = true;
+      foreach ($this->unidades as $unidad) {
+        foreach ($pisos as $p) {
+          if ($unidad->piso === $p) {
+            $go = false;
+          }
+        }
+        if ($go) {
+          array_push($pisos, $unidad->piso);
+          $go = true;
+        }
+      }
+      return $pisos;
     }
 }

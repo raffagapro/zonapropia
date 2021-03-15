@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Destacado extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'orden',
+    ];
     public function proyecto()
     {
         return $this->belongsTo(Proyecto::class);

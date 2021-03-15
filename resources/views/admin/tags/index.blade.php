@@ -39,7 +39,22 @@
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'tagDestroy'.$tag->id }}').submit();"
+                      onclick="
+                        event.preventDefault();
+                        swal.fire({
+                          text: '¿Deseas eliminar el Tag?',
+                          showCancelButton: true,
+                          cancelButtonText: `Cancelar`,
+                          cancelButtonColor:'#62A4C0',
+                          confirmButtonColor:'red',
+                          confirmButtonText:'Eliminar',
+                          icon:'error',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            document.getElementById('{{ 'tagDestroy'.$tag->id }}').submit();
+                          }
+                        });
+                      "
                       data-toggle="tooltip" data-placement="top" title="Borrar Tag">
                       <i class="fas fa-trash"></i>
                     </a>
@@ -63,7 +78,7 @@
         </div>
       </div>
 
-      {{-- Add Notice --}}
+      {{-- Add Tag --}}
       <div class="card mb-section-card">
         <div class="card-body pt-0">
           {{-- Title --}}

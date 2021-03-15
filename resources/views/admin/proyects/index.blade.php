@@ -1,5 +1,5 @@
 @extends('layouts.adminDashboard')
-@section('title', 'Panel de Inmobiliarias')
+@section('title', 'Panel de Proyectos')
 
 @section('content')
   <div style="background-color:#f5f5f5;">
@@ -53,18 +53,22 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Inmobiliaria</th>
                 <th scope="col">Tags</th>
+                <th scope="col">Unidades</th>
                 <th scope="col">Control</th>
               </tr>
             </thead>
             <tbody>
               @forelse ($proyects as $proyect)
                 <tr>
+                  {{-- id  --}}
                   <th scope="row">{{ $proyect->id }}</th>
+                  {{-- name  --}}
                   <td>
                     <a href="{{ route('aProyect.edit', $proyect->id) }}">
                       {{ $proyect->name }}
                     </a>
                   </td>
+                  {{-- inmo  --}}
                   <td>
                     @if ($proyect->inmobiliaria)
                       <a href="{{ route('inmo.edit', $proyect->inmobiliaria->id) }}">
@@ -74,11 +78,29 @@
                       Sin Inmobiliaria
                     @endif
                   </td>
+                  {{-- tags  --}}
                   <td>
                     @foreach ($proyect->tags as $tag)
                       <span class="badge badge-primary">{{ $tag->name }}</span>
                     @endforeach
                   </td>
+                  {{-- unidades  --}}
+                  <td>
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-primary"
+                      onclick="event.preventDefault(); document.getElementById('{{ 'unidadesPro'.$proyect->id }}').submit();"
+                      data-toggle="tooltip" data-placement="top" title="Ver unidades">
+                      {{ count($proyect->unidades)}}
+                    </a>
+                    <form id="{{ 'unidadesPro'.$proyect->id }}"
+                      action="{{ route('unidad.zIndex', $proyect->id) }}"
+                      method="Post"
+                      style="display: none;"
+                      >@csrf
+                    </form>
+                  </td>
+                  {{-- Control  --}}
                   <td>
                     {{-- publicado --}}
                     @if ( (int)$proyect->estado_id === 1 )
@@ -146,7 +168,22 @@
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();"
+                      onclick="
+                        event.preventDefault();
+                        swal.fire({
+                          text: '¿Deseas eliminar el proyecto?',
+                          showCancelButton: true,
+                          cancelButtonText: `Cancelar`,
+                          cancelButtonColor:'#62A4C0',
+                          confirmButtonColor:'red',
+                          confirmButtonText:'Eliminar',
+                          icon:'error',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            document.getElementById('{{ 'proyectDestroy'.$proyect->id }}').submit();
+                          }
+                        });
+                      "
                       data-toggle="tooltip" data-placement="top" title="Borrar Proyecto">
                       <i class="fas fa-trash"></i>
                     </a>

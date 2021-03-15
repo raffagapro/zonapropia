@@ -25,7 +25,7 @@ class ProyectHighlightSlider extends Component
      */
     public function render()
     {
-      $dests = Destacado::all();
+      $dests = Destacado::orderBy('orden')->get();
       if (count($dests) < 1) {
         $proyects = Proyecto::where('estado_id', 1)->where('destacado', 1)->get();
         $d = false;

@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-bg">
   <div class="container">
     {{-- Main Logo --}}
-    <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}">
-      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy">
+    <a class="navbar-brand mb-2" href="{{ route('home')}}">
+    {{-- <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}"> --}}
+      {{-- <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy"> --}}
+      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo2.png') }}" alt="" loading="lazy">
     </a>
     {{-- Responsive BTNs --}}
     <div>
@@ -51,7 +53,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {{-- Main Links --}}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto mr-1">
         <li class="nav-item">
           <a class="nav-link active" href="{{ route('proyects.index')}}">
             <span class="nav-link-text">
@@ -80,13 +82,6 @@
             </span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span class="nav-link-text">
-              Respaldo
-            </span>
-          </a>
-        </li>
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
@@ -103,12 +98,12 @@
               <i class="fas fa-user-cog"></i>
             </a>
           @endif
-          <form action="{{ route('logout')}}" method="post">
-            @csrf
-            <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
-              <i class="fas fa-sign-out-alt"></i>
-            </button>
-          </form>
+          <a 
+            href="{{ route('userProfile.index')}}"
+            class="newProfileBtn main-color"
+            data-toggle="tooltip" data-placement="top" title="{{ auth()-> user()->name }}">
+            <i class="fas fa-user" class="main-color"></i>
+          </a>
         @endauth
       </div>
     </div>
@@ -118,7 +113,7 @@
 
 @guest
   {{-- This opens the modal if there is a validation error --}}
-  @if (count($errors) > 0)
+  @if (old('originTab') === 'login')
     <script type="text/javascript">
       $( document ).ready(function() {
         $('#loginModal').modal('show');
@@ -129,6 +124,7 @@
   @if (old('originTab') === 'register')
     <script type="text/javascript">
       $( document ).ready(function() {
+        $('#loginModal').modal('show');
         $('#loginTabs a[href="#register"]').tab('show')
       });
     </script>
@@ -167,7 +163,7 @@
             </div>
             {{-- Right Panel --}}
             <div class="col-md-6">
-              <img src="./assets/images/login-modal-img.png" width="100%">
+              <img src="{{ asset('assets/images/login-modal-img.png') }}" width="100%">
             </div>
           </div>
         </div>

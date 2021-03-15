@@ -3,7 +3,7 @@
     <span class="lcbar-item lcbar-item-rbordered"><b>Dolar: </b>${{ $dollar }}</span>
     <span class="lcbar-item"><b>UF: </b>{{ $uf }}</span>
   </div>
-  <div class="col-lg r-currency-Bar bg-light justify-content-center align-items-center">
+  <div class="col-lg r-currency-Bar justify-content-center align-items-center">
     @forelse ($news as $new)
       @php
         $regNew = substr($new->body, 0, 140);

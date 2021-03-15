@@ -2,7 +2,9 @@
   <div class="container">
     {{-- Main Logo --}}
     <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}">
-      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy">
+      {{-- <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy"> --}}
+      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo2.png') }}" alt="" loading="lazy">
+
     </a>
     {{-- Responsive BTNs --}}
     <div>
@@ -68,6 +70,14 @@
           </a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ route('tipo.index')}}">
+            <span class="nav-link-text">
+              Tipologias
+            </span>
+          </a>
+        </li>
+
         <li class="nav-item dropdown main-color">
           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="nav-link-text">
@@ -78,6 +88,7 @@
             <a class="dropdown-item main-color" href="{{ route('dest.index')}}">Destacados</a>
             <a class="dropdown-item main-color" href="{{ route('region.index')}}">Regiones</a>
             <a class="dropdown-item main-color" href="{{ route('category.index')}}">Categorias</a>
+            <a class="dropdown-item main-color" href="{{ route('caracs.index')}}">Caracteristicas</a>
             <a class="dropdown-item main-color" href="{{ route('tag.index')}}">Tags</a>
           </div>
         </li>
@@ -88,12 +99,12 @@
         <a href="{{ route('home')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Sitio Principal">
           <i class="fas fa-home"></i>
         </a>
-        <form action="{{ route('logout')}}" method="post">
-          @csrf
-          <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="submit" data-toggle="tooltip" data-placement="top" title="Terminar sesión">
-            <i class="fas fa-sign-out-alt"></i>
-          </button>
-        </form>
+        <a 
+          href="{{ route('userProfile.index')}}"
+          class="newProfileBtn main-color"
+          data-toggle="tooltip" data-placement="top" title="{{ auth()-> user()->name }}">
+          <i class="fas fa-user" class="main-color"></i>
+        </a>
       </div>
     </div>
   </div>

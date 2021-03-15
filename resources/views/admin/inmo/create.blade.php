@@ -19,6 +19,7 @@
         <div class="container">
           <form action="{{ route('inmo.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            {{-- nombre  --}}
             <div class="form-group">
               <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Nombre" value="">
               @error('nombre')

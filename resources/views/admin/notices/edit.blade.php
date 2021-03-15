@@ -21,6 +21,7 @@
             @csrf
             @method('PUT')
             <div class="form-group">
+              <label for="titulo">Titulo</label>
               <input
                 type="text" name="titulo"
                 class="form-control"
@@ -28,6 +29,7 @@
             </div>
             <div class="form-group">
               <div class="form-group">
+                <label for="mensaje">Mensaje</label>
                 <textarea
                   class="form-control"
                   name="mensaje" rows="3"

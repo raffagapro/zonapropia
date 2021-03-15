@@ -37,7 +37,22 @@
                     <a
                       href="javascript:void(0);"
                       class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'noticeDestroy'.$notice->id }}').submit();"
+                      onclick="
+                        event.preventDefault();
+                        swal.fire({
+                          text: '¿Deseas eliminar el anuncio?',
+                          showCancelButton: true,
+                          cancelButtonText: `Cancelar`,
+                          cancelButtonColor:'#62A4C0',
+                          confirmButtonColor:'red',
+                          confirmButtonText:'Eliminar',
+                          icon:'error',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            document.getElementById('{{ 'noticeDestroy'.$notice->id }}').submit();
+                          }
+                        });
+                      "
                       data-toggle="tooltip" data-placement="top" title="Borrar Anuncio">
                       <i class="fas fa-trash"></i>
                     </a>

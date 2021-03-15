@@ -16,6 +16,7 @@ class CreateDestacadosTable extends Migration
         Schema::create('destacados', function (Blueprint $table) {
             $table->id();
             $table->integer('proyecto_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->integer('orden');
             $table->timestamps();
         });
     }
