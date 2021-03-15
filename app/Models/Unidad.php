@@ -34,6 +34,6 @@ class Unidad extends Model
     }
     public function tipologias()
     {
-      return $this->hasMany(Tipologia::class);
+      return $this->belongsToMany(Tipologia::class);
     }
 }

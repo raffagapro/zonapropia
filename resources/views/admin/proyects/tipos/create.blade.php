@@ -8,12 +8,7 @@
       {{-- Title --}}
       <div class="row align-items-center">
         <h2 class="card-title mb-section-card-title">Agregar Tipologia&nbsp</h2>
-        <a
-          href="{{ route('unidad.edit', $unidad->proyecto->id) }}"
-          class="border-left mt-3 td-none"
-          >
-          &nbsp Regresar a Unidad - {{$unidad->modelo }}.
-        </a>
+        <a href="{{ route('tipo.index') }}" class="border-left mt-3 td-none">&nbsp Regresar a Tipologias.</a>
       </div>
 
       {{-- General info form --}}
@@ -24,7 +19,6 @@
         <div class="container">
           <form action="{{ route('tipo.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="unidad" value="{{ $unidad->id }}">
             {{-- titulo --}}
             <div class="form-group">
               <label for="titulo">Titulo</label>
@@ -34,6 +28,33 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+            {{-- Proyecto / Unidad --}}
+            <div class="form-group row">
+              {{-- Proyecto --}}
+              <div class="col-6">
+                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                <label for="region">Proyecto</label>
+                <select class="form-control" name="proyecto" id="proyecto">
+                  @php $proyectos = App\Models\Proyecto::all(); @endphp
+                  @foreach ($proyectos as $proyecto)
+                    <option value="{{ $proyecto->id }}">{{ $proyecto->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              {{-- Unidad --}}
+              <div class="col-6">
+                <label for="provincia">Unidad</label>
+                <select class="form-control" name="unidad" id="unidad">
+                  <option value='z'>Sin unidad</option>
+                  @forelse ($proyectos[0]->unidades as $unidad)
+                    <option value="{{ $unidad->id }}">{{ $unidad->modelo }}</option> 
+                  @empty
+                    <option>No hay unidades en el proyecto</option>
+                  @endforelse
+                </select>
+              </div>
+
             </div>
             {{-- Media --}}
             <div class="form-group">
@@ -61,7 +82,7 @@
   @endif
 @endsection
 
-{{-- @section('scripts')
+@section('scripts')
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
-  <script src="{{ asset('js/ajax/regionSwitcherCreate.js') }}" ></script>
-@endsection --}}
+  <script src="{{ asset('js/ajax/proyectSwitcherCreate.js') }}" ></script>
+@endsection

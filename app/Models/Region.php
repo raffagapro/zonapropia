@@ -30,4 +30,13 @@ class Region extends Model
     {
       $this->attributes['name'] = mb_strtolower($name);
     }
+    public function getComunas(){
+      $comunas = [];
+      foreach ($this->provincias as $provincia) {
+        foreach ($provincia->comunas as $comuna) {
+          array_push($comunas, $comuna);
+        }
+      }
+      return $comunas;
+    }
 }

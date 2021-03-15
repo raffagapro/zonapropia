@@ -39,10 +39,10 @@
                   </span>
               @enderror
             </div>
-            {{-- Reg/Comuna/ciudad --}}
+            {{-- Reg/Comuna --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-4">
+              <div class="col-6">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
@@ -52,17 +52,8 @@
                   @endforeach
                 </select>
               </div>
-              {{-- Provincia --}}
-              <div class="col-4">
-                <label for="provincia">Provincia</label>
-                <select class="form-control" name="provincia" id="provincia">
-                  @foreach ($regions[0]->provincias as $provincia)
-                    <option value="{{ $provincia->id }}">{{ $provincia->name }}</option>
-                  @endforeach
-                </select>
-              </div>
               {{-- Comuna --}}
-              <div class="col-4">
+              <div class="col-6">
                 <label for="comuna">Comuna</label>
                 <select class="form-control" name="comuna" id="comuna">
                   @foreach ($regions[0]->provincias[0]->comunas as $comuna)

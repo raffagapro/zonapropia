@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
+use App\Models\Unidad;
+use App\Models\Tipologia;
 
 
 class ProyectController extends Controller
@@ -50,6 +52,19 @@ class ProyectController extends Controller
       $proyect = Proyecto::findOrFail($id);
       return view('proyect.index')
        ->with(compact('proyect'));
+    }
+
+    public function unitSwitcher(Request $request)
+    {
+        $unidad = Unidad::findOrFail($request->unidadId);
+        $tipologias = $unidad->tipologias;
+        return $tipologias;
+    }
+
+    public function tipoSwitcher(Request $request)
+    {
+        $tipologia = Tipologia::findOrFail($request->tipoId);
+        return $tipologia;
     }
 
     /**

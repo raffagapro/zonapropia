@@ -13,8 +13,8 @@ class Tipologia extends Model
         'media',
       ];
 
-    public function unidad()
+    public function unidades()
     {
-    return $this->belongsTo(Unidad::class);
+    return $this->belongsToMany(Unidad::class);
     }
 }

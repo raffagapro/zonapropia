@@ -22,7 +22,7 @@
     <!-- Panel 4 -->
     <div class="col-md-4 text-center">
       <h1 class="mb-datos-num">{{ count($proyect->unidades) }}</h1>
-      <h5 class="mb-datos-text">Tipologias</h5>
+      <h5 class="mb-datos-text">Unidades</h5>
     </div>
 
   </div>

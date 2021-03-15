@@ -10914,6 +10914,18 @@ a.text-dark:focus {
   /*URL to font*/
 }
 
+.select2-selection__rendered {
+  line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 35px !important;
+}
+
+.select2-selection__arrow {
+  height: 34px !important;
+}
+
 body {
   font-family: helvetica;
   background-color: white;
@@ -11631,8 +11643,7 @@ body {
 
 .leftbar-cont {
   background-color: #f5f5f5;
-  padding-top: 80px;
-  padding-bottom: 40px;
+  padding: 80px 40px 40px 40px;
 }
 
 .leftbar-cont2 {

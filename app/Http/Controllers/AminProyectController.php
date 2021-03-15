@@ -75,31 +75,22 @@ class AminProyectController extends Controller
         'etapa_venta' => $request->etapa_venta,
         'fecha_entrega' => $request->fecha_entrega,
       ]);
+      
       if ((int)$request->inmo !== 0) {
         $inmo = Inmobiliaria::findOrFail((int)$request->inmo);
         $inmo->proyects()->save($proyect);
       }
       $region = Region::findOrFail((int)$request->region);
       $region->proyects()->save($proyect);
-      $provincia = Provincia::findOrFail((int)$request->provincia);
-      $provincia->proyects()->save($proyect);
       $comuna = Comuna::findOrFail((int)$request->comuna);
       $comuna->proyects()->save($proyect);
-
+      $provincia = Provincia::findOrFail((int)$comuna->provincia->id);
+      $provincia->proyects()->save($proyect);
       $cat= Categoria::findOrFail((int)$request->cat);
       $cat->proyects()->save($proyect);
-      $vendedores = User::whereHas(
-        'roles', function($q){
-            $q->where('name', 'vendedor');
-        }
-      )->get();
+      // dd($proyect);
       $status = 'El proyecto ha sido creado exitosamente.';
-      return view('admin.proyects.edit')
-        ->with(compact(
-          'proyect',
-          'status',
-          'vendedores'
-        ));
+      return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
     }
 
     /**
@@ -303,19 +294,6 @@ class AminProyectController extends Controller
         'proyects',
         'searched',
       ));
-    }
-
-    public function provinsiaGrabber(Request $request){
-      $region = Region::findOrFail($request->region);
-      $provincias = $region->provincias;
-      $comunas = $provincias[0]->comunas;
-      return [$provincias, $comunas];
-    }
-
-    public function comunaGrabber(Request $request){
-      $provincia = Provincia::findOrFail($request->provincia);
-      $comunas = $provincia->comunas;
-      return [$comunas];
     }
 
     /**

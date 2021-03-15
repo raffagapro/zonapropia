@@ -7,7 +7,12 @@
           <!-- item -->
           <div class="row mt-4 align-items-center">
             <div class="col-5">
-              <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" class="mini-card-img">
+              @if ($proyect->media->where('name', 'main')->first() === null)
+                <img src="{{ asset('assets/images/main_default.png') }}" class="mini-card-img">
+              @else 
+                <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" class="mini-card-img">
+              @endif
+              
             </div>
             <div class="col-7">
               <h6 class="mb-0">{{ $proyect->name }}</h6>

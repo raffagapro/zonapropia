@@ -2,7 +2,9 @@
   <div class="container">
     {{-- Main Logo --}}
     <a class="navbar-brand mt-2 mb-2" href="{{ route('home')}}">
-      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy">
+      {{-- <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo.png') }}" alt="" loading="lazy"> --}}
+      <img class="nav-bar-logo" src="{{ asset('assets/images/logos/zp_logo2.png') }}" alt="" loading="lazy">
+
     </a>
     {{-- Responsive BTNs --}}
     <div>
@@ -64,6 +66,14 @@
           <a class="nav-link active" href="{{ route('aProyect.index')}}">
             <span class="nav-link-text">
               Proyectos
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ route('tipo.index')}}">
+            <span class="nav-link-text">
+              Tipologias
             </span>
           </a>
         </li>

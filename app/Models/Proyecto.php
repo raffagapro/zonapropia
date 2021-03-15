@@ -87,6 +87,10 @@ class Proyecto extends Model
     {
       return $this->belongsTo(Comuna::class);
     }
+    public function proyects()
+    {
+        return $this->hasMany(Proyecto::class);
+    }
     public function media()
     {
       return $this->hasMany(Media::class);
@@ -175,7 +179,23 @@ class Proyecto extends Model
           }
         }
       }
-
       return $models;
+    }
+
+    public function getPisos(){
+      $pisos = [];
+      $go = true;
+      foreach ($this->unidades as $unidad) {
+        foreach ($pisos as $p) {
+          if ($unidad->piso === $p) {
+            $go = false;
+          }
+        }
+        if ($go) {
+          array_push($pisos, $unidad->piso);
+          $go = true;
+        }
+      }
+      return $pisos;
     }
 }

@@ -39,12 +39,13 @@ class MessageBar extends Component
           $newSBIF->dollar = $dollar['Dolares'][0]['Valor'];
         }else {
           $preDate = date('Y-m-d');
-          $date = date('Y-m-d', strtotime('-3 day', strtotime($preDate)));
+          $date = date('Y-m-d', strtotime('-4 day', strtotime($preDate)));
           $date = explode("-", $date);
           $tempUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/dolar/'.$date[0].'/'.$date[1].'/dias/'.$date[2].'?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json';
           $dollar = Http::get($tempUrl);
           $dollar = $dollar->json();
-          $newSBIF->dollar = $dollar['Dolares'][0]['Valor'];
+          // $newSBIF->dollar = $dollar['Dolares'][0]['Valor'];
+          $newSBIF->dollar = 55;
         }
         // UF
         $ul = Http::get('https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json');
@@ -58,7 +59,8 @@ class MessageBar extends Component
           $tempUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/uf/'.$date[0].'/'.$date[1].'/dias/'.$date[2].'?apikey=c9f835953f1058e283e62737bbece61e7f2c7961&formato=json';
           $ul = Http::get($tempUrl);
           $ul = $ul->json();
-          $newSBIF->uf = $ul['UFs'][0]['Valor'];
+          // $newSBIF->uf = $ul['UFs'][0]['Valor'];
+          $newSBIF->uf = 300;
         }
         $newSBIF->save();
       }

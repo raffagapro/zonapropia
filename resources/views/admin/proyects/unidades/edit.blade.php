@@ -231,13 +231,23 @@
         {{-- Title --}}
         <h4 class="card-title mb-section-card-title mt-1">
           Tipologias
-          <a href="{{ route('tipo.create', $unidad->id)}}" class="td-none">
-            <i class="fas fa-plus-circle main-color"
-              data-toggle="tooltip" data-placement="top" title="Agregar Tipologia">
-            </i>
-          </a>
         </h4>
         <div class="container">
+          {{-- unidades form  --}}
+          <form action="{{ route('tipo.addUnid', $unidad->id) }}" method="POST">
+            @csrf
+            {{-- Proyecto / Unidad --}}
+            <div class="form-group">
+              {{-- Proyecto --}}
+              <label for="tipologias">Tipologias</label>
+              <select class="form-control" name="tipologia">
+                @foreach (App\Models\Tipologia::all() as $tipo)
+                  <option value="{{ $tipo->id }}">{{ $tipo->titulo }}</option>
+                @endforeach
+              </select>
+            </div>
+            <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar a Tipologia</button>
+          </form>
           {{-- Table --}}
           <table class="table table-hover mt-4 table-responsive-sm">
             <thead>

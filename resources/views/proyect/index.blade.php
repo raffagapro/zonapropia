@@ -42,7 +42,8 @@
   </div>
 @endsection
 
-{{-- @section('scripts')
-
-<script src="{{ asset('js/calendar.js') }}" defer></script>
-@endsection --}}
+@section('scripts')
+  <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+  <script src="{{ asset('js/ajax/proyect.js') }}" ></script>
+  {{-- <script src="{{ asset('js/calendar.js') }}" defer></script> --}}
+@endsection

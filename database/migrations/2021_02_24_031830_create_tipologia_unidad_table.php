@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipologiasTable extends Migration
+class CreateTipologiaUnidadTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTipologiasTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipologias', function (Blueprint $table) {
+        Schema::create('tipologia_unidad', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo')->nullable();
-            $table->text('media')->nullable();
+            $table->integer('tipologia_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->integer('unidad_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTipologiasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipologias');
+        Schema::dropIfExists('tipologia_unidad');
     }
 }

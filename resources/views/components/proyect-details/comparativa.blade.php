@@ -31,7 +31,7 @@
         <!-- Tipologia Lista -->
         <div class="col-12 mt-5">
           <div class="row">
-            @forelse ($proyect->getTipologias() as $tipo)
+            @forelse ($proyect->unidades() as $tipo)
               <!-- Item List -->
               <div class="col-12 mb-4">
                 <div class="row align-items-center">
@@ -47,7 +47,7 @@
                         <div class="row">
                           <!-- Title -->
                           <div class="col-md-6 col-lg-3">
-                            <h4>Unidad: {{ $tipo->unidad->modelo }} Tipología: {{ $tipo->titulo }}</h4>
+                            <h4>Unidad: unidades Tipología: {{ $tipo->titulo }}</h4>
                           </div>
                           <div class="col-lg-1 cl-placeholder-ts"></div>
                           <div class="col-lg-2 cl-placeholder-ts"></div>

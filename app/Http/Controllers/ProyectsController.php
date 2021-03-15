@@ -1,10 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 use App\Models\Proyecto;
 use App\Models\User;
+use App\Models\Region;
+use App\Models\Provincia;
+use App\Models\Comuna;
+use App\Models\Taggable;
+use App\Models\Categoria;
+
 
 class ProyectsController extends Controller
 {
@@ -26,6 +33,49 @@ class ProyectsController extends Controller
       // dd($proyectos);
       return view('proyects.index')
         ->with(compact('proyectos', 'g'));
+    }
+
+    public function search(Request $request){
+        // dd($request->all());
+        $tag = ($request->tag) ? Taggable::findOrFail((int)$request->tag) : null;
+        $cat = ($request->cat) ? Categoria::findOrFail((int)$request->cat) : null;
+        $comuna = ($request->comuna) && ($request->comuna !== "z") ? Comuna::findOrFail((int)$request->comuna) : null;
+        $region = ($request->region) && ($request->region !== "z") ? Region::findOrFail((int)$request->region) : null;
+
+        $proyectos = Proyecto::when($region, function($q, $region){
+            return $q->whereHas(
+                'region', function($q) use ($region){
+                    $q->where('region_id', $region->id);
+                }
+            );
+        })->when($comuna, function($q, $comuna){
+            return $q->whereHas(
+                'comuna', function($q) use ($comuna){
+                    $q->where('comuna_id', $comuna->id);
+                }
+            );
+        })->when($tag, function($q, $tag){
+            return $q->whereHas(
+                'tags', function($q) use ($tag){
+                    $q->where('taggable_id', $tag->id);
+                }
+            );
+        })->when($cat, function($q, $cat){
+            return $q->whereHas(
+                'categoria', function($q) use ($cat){
+                    $q->where('categoria_id', $cat->id);
+                }
+            );
+        })->paginate(25);
+        // dd($proyectos->first()->getUF());
+        return view('proyects.index')
+        ->with(compact('proyectos', 'tag', 'cat', 'comuna', 'region'));
+    }
+
+    public function comunaGrabber(Request $request){
+        $region = Region::findOrFail($request->region);
+        $comunas = $region->getComunas();
+        return $comunas;
     }
 
     /**

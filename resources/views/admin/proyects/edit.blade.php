@@ -49,7 +49,7 @@
             {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-4">
+              <div class="col-6">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
                 <select class="form-control" name="region" id="region">
@@ -63,21 +63,8 @@
                   @endforeach
                 </select>
               </div>
-              {{-- Provincia --}}
-              <div class="col-4">
-                <label for="region">Provincia</label>
-                <select class="form-control" name="provincia" id="provincia">
-                  @foreach ($proyect->region->provincias as $provincia)
-                    @if ((int)$proyect->provincia->id === (int)$provincia->id)
-                      <option value="{{ $provincia->id }}" selected>{{ $provincia->name }}</option>
-                    @else
-                      <option value="{{ $provincia->id }}">{{ $provincia->name }}</option>
-                    @endif
-                  @endforeach
-                </select>
-              </div>
               {{-- Comuna --}}
-              <div class="col-4">
+              <div class="col-6">
                 <label for="comuna">Comuna</label>
                 <select class="form-control" name="comuna" id="comuna">
                   @foreach ($proyect->provincia->comunas as $comuna)

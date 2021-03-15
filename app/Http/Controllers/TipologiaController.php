@@ -6,18 +6,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Unidad;
 use App\Models\Tipologia;
+use App\Models\Proyecto;
 
 class TipologiaController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(){
+      $tipologias = Tipologia::paginate(25);
+      return view('admin.proyects.tipos.index')->with(compact('tipologias'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id){
-        $unidad = Unidad::findOrFail($id);
-        return view('admin.proyects.tipos.create')
-          ->with(compact('unidad'));
+    public function create(){
+        return view('admin.proyects.tipos.create');
     }
 
     /**
@@ -27,11 +36,14 @@ class TipologiaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        $unidad = Unidad::findOrFail($request->unidad);
+        // dd($request->unidad);
         $tipologia = Tipologia::create([
           'titulo' => $request->titulo,
         ]);
-        $unidad->tipologias()->save($tipologia);
+        if ($request->unidad !== 'z') {
+          $unidad = Unidad::findOrFail($request->unidad);
+          $unidad->tipologias()->attach($tipologia);
+        }
         if ($request->hasFile('media')) {
           if ($request->file('media')->isValid()) {
             $validated = $request->validate([
@@ -45,10 +57,8 @@ class TipologiaController extends Controller
           }
         }
         $status = 'La tipologia ha sido agregada exitosamente.';
-        $proyecto = $unidad->proyecto;
-        // dd($unidad->proyecto);
-        return view('admin.proyects.unidades.edit')
-          ->with(compact('unidad', 'proyecto'));
+        $tipologias = Tipologia::paginate(25);
+        return view('admin.proyects.tipos.index')->with(compact('tipologias', 'status'));
     }
 
     /**
@@ -59,7 +69,6 @@ class TipologiaController extends Controller
      */
     public function edit($id){
         $tipo = Tipologia::findOrFail($id);
-        // dd($unidad->proyecto);
         return view('admin.proyects.tipos.edit')
           ->with(compact('tipo'));
     }
@@ -110,11 +119,41 @@ class TipologiaController extends Controller
         // dd($proyecto);
         $delTipo = str_replace('/storage/', "",$tipo->tipologia);
         Storage::delete('public/'.$delTipo);
+        $unidades = $tipo->unidades;
+        foreach ($unidades as $unidad) {
+          $unidad->tipologias()->detach($tipo);
+        }
         $tipo->delete();
-        $unidad = $tipo->unidad;
-        $proyecto = $unidad->proyecto;
         $status = 'La tipologia ha sido eliminada exitosamente.';
-        return view('admin.proyects.unidades.edit')
-            ->with(compact('proyecto', 'unidad', 'status'));
+        $tipologias = Tipologia::paginate(25);
+        return view('admin.proyects.tipos.index')->with(compact('tipologias', 'status'));
+    }
+
+    public function proyectSwitcher(Request $request){
+      $proyect = Proyecto::findOrFail($request->proyecto);
+      $unidades = $proyect->unidades;
+      return $unidades;
+    }
+
+    public function addUnid(Request $request, $id)
+    {
+      $tipologia = Tipologia::findOrFail($id);
+      $unidad = Unidad::findOrFail($request->unidad);
+      // dd($tipologia->id, $unidad->id, $unidad->tipologias->where('id', $tipologia->id)->first());
+      if (!$unidad->tipologias->where('id', $tipologia->id)->first()) {
+        $unidad->tipologias()->attach($tipologia);
+      }
+      $tipo = Tipologia::findOrFail($id);
+      $status = 'La tipologia ha sido agregada a la unidad.';
+      return back()->with(compact('status', 'tipo'));
+    }
+
+    public function rmUnid($unidadId, $tipologiaId)
+    {
+      $unidad = Unidad::findOrFail($unidadId);
+      $tipo = Tipologia::findOrFail($tipologiaId);
+      $unidad->tipologias()->detach($tipo);
+      $status = 'La unidad has sido removida.';
+      return back()->with(compact('status', 'tipo'));
     }
 }

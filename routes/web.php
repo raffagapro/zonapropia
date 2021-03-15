@@ -36,9 +36,14 @@ use App\Http\Controllers\ContactFromController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('contactForm', ContactFromController::class);
-Route::resource('proyects', ProyectsController::class);
+Route::resource('proyects', ProyectsController::class, ['except'=>['store']]);
 Route::post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
+Route::post('proyects', [ProyectsController::class, 'search'])->name('proyects.search');
+Route::post('proyects/comuna', [ProyectsController::class, 'comunaGrabber']);
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
+Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
+Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);
+
 
 Auth::routes();
 
@@ -66,20 +71,16 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('aProyect', AminProyectController::class, ['except'=>['show']]);
         Route::post('aProyect/{proyect}/addTag', [AminProyectController::class, 'addTag'])->name('aProyect.addTag');
         Route::get('aProyect/{proyect}/{tag}/rmTag', [AminProyectController::class, 'rmTag'])->name('aProyect.rmTag');
-
         Route::post('aProyect/{proyect}/addvendedor', [AminProyectController::class, 'addVendedor'])->name('aProyect.addVendedor');
         Route::get('aProyect/{proyect}/{vendedor}/rmvendedor', [AminProyectController::class, 'rmVendedor'])->name('aProyect.rmVendedor');
-
-
         Route::post('aProyect/{proyect}/addCar', [AminProyectController::class, 'addCar'])->name('aProyect.addCar');
         Route::get('aProyect/{proyect}/{car}/rmCar', [AminProyectController::class, 'rmCar'])->name('aProyect.rmCar');
         Route::post('aProyect/{proyect}/highlight', [AminProyectController::class, 'highlight'])->name('aProyect.highlight');
         Route::post('aProyect/{proyect}/deHighlight', [AminProyectController::class, 'deHighlight'])->name('aProyect.deHighlight');
         Route::post('aProyect/{proyect}/publicar', [AminProyectController::class, 'publish'])->name('aProyect.publish');
         Route::post('aProyect/{proyect}/borrador', [AminProyectController::class, 'draft'])->name('aProyect.draft');
-        Route::post('aProyect/provincia', [AminProyectController::class, 'provinsiaGrabber'])->name('aProyect.proGrabber');
-        Route::post('aProyect/comuna', [AminProyectController::class, 'comunaGrabber'])->name('aProyect.coGrabber');
         Route::get('aProyect/filter', [AminProyectController::class, 'filter'])->name('aProyect.filter');
+        Route::post('aProyect/filter2', [AminProyectController::class, 'filter2'])->name('aProyect.filter2');
         Route::resource('region', RegionController::class);
         Route::resource('category', CategoriaController::class, ['except'=>['create', 'show']]);
         Route::resource('tag', TagController::class, ['except'=>['create', 'show']]);
@@ -99,8 +100,10 @@ Route::middleware(['auth'])->group(function (){
         Route::resource('caracs', CaracteristicasController::class, ['except'=>['show', 'create']]);
         Route::post('caracs/addMedia', [CaracteristicasController::class, 'addMedia'])->name('caracs.addMedia');
         Route::get('caracs/rmMedia/{media}', [CaracteristicasController::class, 'rmMedia'])->name('caracs.rmMedia');
-        Route::resource('tipo', TipologiaController::class, ['except'=>['index, create']]);
-        Route::get('tipo/create/{proyect}', [TipologiaController::class, 'create'])->name('tipo.create');
+        Route::resource('tipo', TipologiaController::class);
+        Route::post('tipo/proyectSwitcher', [TipologiaController::class, 'proyectSwitcher']);
+        Route::post('tipo/{unidad}/addUnid', [TipologiaController::class, 'addUnid'])->name('tipo.addUnid');
+        Route::get('tipo/{unidad}/{tipologia}/rmUnid', [TipologiaController::class, 'rmUnid'])->name('tipo.rmUnid');
 
 
 
