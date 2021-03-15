@@ -12,49 +12,52 @@
   <div class=" pt-1 pb-80">
     <h3 class="text-center mini-title">Formulario de contacto</h3>
     <hr class="divider">
-    <form>
+    <form action="{{ route('contactForm.store') }}" method="POST">
+      @csrf
       <!-- nombre / apellido / email -->
       <div class="form-row main-from-row">
         <div class="form-group col-md-4">
-          <label for="inputEmail4">Nombre</label>
-          <input type="text" class="form-control main-form" id="name" placeholder="Nombre">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control main-form" name="name" placeholder="Nombre">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputPassword4">Apellido</label>
-          <input type="text" class="form-control main-form" id="inputPassword4" placeholder="Apellido">
+          <label for="last_name">Apellido</label>
+          <input type="text" class="form-control main-form" name="last_name" placeholder="Apellido">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputPassword4">Mail</label>
-          <input type="email" class="form-control  main-form" id="inputPassword4" placeholder="Mail">
+          <label for="mail">Mail</label>
+          <input type="email" class="form-control  main-form" name="mail" placeholder="Mail">
         </div>
       </div>
       <!-- telefono / tipo prop / price -->
       <div class="form-row main-from-row">
         <div class="form-group col-md-4">
-          <label for="inputEmail4">Teléfono</label>
-          <input type="text" class="form-control main-form" id="inputEmail4" placeholder="+56 9">
+          <label for="phone">Teléfono</label>
+          <input type="text" class="form-control main-form" name="phone" placeholder="+56 9">
         </div>
         <div class="form-group col-md-4">
-          <label for="inputPassword4">Tipo de propiedad</label>
-          <select id="inputState" class="form-control main-form">
-            <option selected>Proyecto</option>
-            <option>...</option>
+          <label for="category">Tipo de propiedad</label>
+          <select name="category" class="form-control main-form">
+            @foreach ($cats as $cat)
+            <option value="{{ $cat->id }}">{{ $cat->name }}</option> 
+            @endforeach
           </select>
         </div>
         <div class="form-group col-md-4">
-          <label for="inputPassword4">Rango de precio</label>
-          <select id="inputState" class="form-control main-form">
-            <option selected>Desde 2.000 UF</option>
-            <option>...</option>
+          <label for="priceRange">Rango de precio</label>
+          <select name="priceRange" class="form-control main-form">
+            <option value="1000">0 -  1000 UF</option>
+            <option value="2000">1001 -  2000 UF</option>
+            <option value="2000+">2001+ UF</option>
           </select>
         </div>
       </div>
       <!-- Message -->
       <div class="form-group main-from-row">
-        <label for="inputAddress">Mensaje (Requerido)</label>
-        <textarea class="form-control main-form" id="exampleFormControlTextarea1" rows="6"></textarea>
+        <label for="message">Mensaje (Requerido)</label>
+        <textarea class="form-control main-form" name="message" rows="6"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary main-form-btn">Enviar email</button>
+      <button type="submit" class="btn btn-primary main-form-btn">Enviar mensaje</button>
     </form>
   </div>
 </div>

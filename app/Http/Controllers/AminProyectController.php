@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Proyecto;
 use App\Models\Region;
+use App\Models\Provincia;
+use App\Models\Comuna;
 use App\Models\Inmobiliaria;
 use App\Models\Categoria;
 use App\Models\Taggable;
+use App\Models\Caracteristica;
+use App\Models\User;
+use App\Models\Role;
 
 
 
@@ -30,11 +35,7 @@ class AminProyectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      return view('admin.proyects.create')
-        ->with(compact('regions', 'inmos', 'cats'));
+      return view('admin.proyects.create');
     }
 
     /**
@@ -53,8 +54,6 @@ class AminProyectController extends Controller
       $proyect = Proyecto::create([
         'name' => $request->nombre,
         'direccion' => $request->direccion,
-        'comuna' => $request->comuna,
-        'ciudad' => $request->ciudad,
         'descripcion' => $request->descripcion,
         'latitud' => $request->latitud,
         'longitud' => $request->longitud,
@@ -72,22 +71,26 @@ class AminProyectController extends Controller
         'maxBathrooms' => $request->maxBath,
         'minMC' => $request->minMC,
         'maxMC' => $request->maxMC,
+        'seguridad' => $request->seguridad,
+        'etapa_venta' => $request->etapa_venta,
+        'fecha_entrega' => $request->fecha_entrega,
       ]);
+      
       if ((int)$request->inmo !== 0) {
         $inmo = Inmobiliaria::findOrFail((int)$request->inmo);
         $inmo->proyects()->save($proyect);
       }
       $region = Region::findOrFail((int)$request->region);
       $region->proyects()->save($proyect);
+      $comuna = Comuna::findOrFail((int)$request->comuna);
+      $comuna->proyects()->save($proyect);
+      $provincia = Provincia::findOrFail((int)$comuna->provincia->id);
+      $provincia->proyects()->save($proyect);
       $cat= Categoria::findOrFail((int)$request->cat);
       $cat->proyects()->save($proyect);
-      $regions = Region::all();
-      $inmos = Inmobiliaria::all();
-      $cats = Categoria::all();
-      $tags = Taggable::all();
+      // dd($proyect);
       $status = 'El proyecto ha sido creado exitosamente.';
-      return view('admin.proyects.edit')
-        ->with(compact('proyect', 'status', 'regions', 'inmos', 'cats', 'tags'));
+      return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
     }
 
     /**
@@ -98,12 +101,16 @@ class AminProyectController extends Controller
      */
     public function edit($id){
       $proyect = Proyecto::findOrFail($id);
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      $tags = Taggable::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       return view('admin.proyects.edit')
-        ->with(compact('proyect', 'cats', 'inmos', 'regions', 'tags'));
+        ->with(compact(
+          'proyect',
+          'vendedores'
+        ));
     }
 
     public function addTag(Request $request, $id){
@@ -115,23 +122,118 @@ class AminProyectController extends Controller
       }else {
         $status = 'El Tag ya se esta asociado con el proyecto.';
       }
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      return back()->with(compact('status', 'proyect', 'cats', 'inmos', 'regions', 'tags'));
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
     }
 
     public function rmTag($id, $tag_id){
       $proyect = Proyecto::findOrFail($id);
       $tag = Taggable::findOrFail($tag_id);
       $proyect->tags()->detach($tag);
-      $tags = Taggable::all();
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'El tag ha sido eliminado.';
-      return back()->with(compact('status', 'proyect', 'cats', 'inmos', 'regions', 'tags'));
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
+    }
+
+    public function addVendedor(Request $request, $id){
+      $proyect = Proyecto::findOrFail($id);
+      $user = User::findOrFail($request->vendor);
+      if (!$proyect->users()->where('user_id', $user->id)->first()) {
+        // dd('no se encontro nada chavo');
+        $proyect->users()->attach($user);
+        $status = 'El vendedor ha sido agregado.';
+      }else {
+        $status = 'El vendedor ya se esta asociado con el proyecto.';
+      }
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      return view('admin.proyects.edit')->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
+    }
+
+    public function rmVendedor($id, $user_id){
+      $proyect = Proyecto::findOrFail($id);
+      $user = Taggable::findOrFail($user_id);
+      $proyect->users()->detach($user);
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      $status = 'El vendedor ha sido eliminado.';
+      return view('admin.proyects.edit')->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
+    }
+
+    public function addCar(Request $request, $id){
+      $proyect = Proyecto::findOrFail($id);
+      $car = Caracteristica::findOrFail($request->car);
+      if (!$proyect->caracteristicas()->where('name', $car->name)->first()) {
+        $proyect->caracteristicas()->attach($car);
+        $status = 'La caracteristica ha sido agregada.';
+      }else {
+        $status = 'La caracteristica ya esta asociada con el proyecto.';
+      }
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
+    }
+
+    public function rmCar($id, $car_id){
+      $proyect = Proyecto::findOrFail($id);
+      $car = Caracteristica::findOrFail($car_id);
+      $mcs = $proyect->getMediaCara($car_id);
+      // erases media sociated to characteristic
+      foreach ($mcs as $mc) {
+        $delMedia = str_replace('/storage/', "",$mc->loc);
+        Storage::delete('public/'.$delMedia);
+        //erase record from DB
+        $mc->delete();
+      }
+      $proyect->caracteristicas()->detach($car);
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
+      $status = 'La caracteristica ha sido eliminada.';
+      return back()->with(compact(
+        'status',
+        'proyect',
+        'vendedores'
+      ));
     }
 
     public function highlight(Request $request, $id){
@@ -194,7 +296,6 @@ class AminProyectController extends Controller
       ));
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -204,11 +305,10 @@ class AminProyectController extends Controller
      */
     public function update(Request $request, $id){
       // dd($request->destacar);
+      // dd($request->all());
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
       $proyect->direccion = $request->direccion;
-      $proyect->comuna = $request->comuna;
-      $proyect->ciudad = $request->ciudad;
       $proyect->descripcion = $request->descripcion;
       $proyect->latitud = $request->latitud;
       $proyect->longitud = $request->longitud;
@@ -230,6 +330,9 @@ class AminProyectController extends Controller
       $proyect->maxBathrooms = $request->maxBath;
       $proyect->minMC = $request->minMC;
       $proyect->maxMC = $request->maxMC;
+      $proyect->seguridad = $request->seguridad;
+      $proyect->etapa_venta = $request->etapa_venta;
+      $proyect->fecha_entrega = $request->fecha_entrega;
       if ((int)$request->inmo === 0) {
         $proyect->inmobiliaria()->dissociate();
       }
@@ -247,18 +350,33 @@ class AminProyectController extends Controller
         $region = Region::findOrFail((int)$request->region);
         $region->proyects()->save($proyect);
       }
+      if ($request->provincia !== $proyect->provincia->id) {
+        $proyect->provincia()->dissociate();
+        $provincia = Provincia::findOrFail((int)$request->provincia);
+        $provincia->proyects()->save($proyect);
+      }
+      if ($request->comuna !== $proyect->comuna->id) {
+        $proyect->comuna()->dissociate();
+        $comuna = Comuna::findOrFail((int)$request->comuna);
+        $comuna->proyects()->save($proyect);
+      }
       if ($request->cat !== $proyect->categoria->id) {
         $proyect->categoria()->dissociate();
         $cat= Categoria::findOrFail((int)$request->cat);
         $cat->proyects()->save($proyect);
       }
       $proyect->save();
-
-      $cats = Categoria::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
+      $vendedores = User::whereHas(
+        'roles', function($q){
+            $q->where('name', 'vendedor');
+        }
+      )->get();
       $status = 'El proyecto ha sido actualizado exitosamente.';
-      return back()->with(compact('proyect', 'status', 'cats', 'inmos', 'regions'));
+      return back()->with(compact(
+        'proyect',
+        'status',
+        'vendedores'
+      ));
     }
 
     /**
@@ -282,6 +400,23 @@ class AminProyectController extends Controller
         foreach ($proyect->tags as $tag) {
           $proyect->tags()->detach($tag);
         }
+      }
+      //chars
+      foreach ($proyect->caracteristicas as $car) {
+        //media associated with the char
+        foreach ($proyect->getMediaCara($car->id) as $mc) {
+          $delMedia = str_replace('/storage/', "",$mc->loc);
+          Storage::delete('public/'.$delMedia);
+          //erase record from DB
+          $mc->delete();
+        }
+        $proyect->caracteristicas()->detach($car);
+      }
+      //units
+      foreach ($proyect->unidades as $unidad) {
+        $delUni = str_replace('/storage/', "",$unidad->tipologia);
+        Storage::delete('public/'.$delUni);
+        $unidad->delete();
       }
       $proyect->delete();
       $proyects = Proyecto::paginate(25);

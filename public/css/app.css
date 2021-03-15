@@ -10914,6 +10914,18 @@ a.text-dark:focus {
   /*URL to font*/
 }
 
+.select2-selection__rendered {
+  line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 35px !important;
+}
+
+.select2-selection__arrow {
+  height: 34px !important;
+}
+
 body {
   font-family: helvetica;
   background-color: white;
@@ -10929,9 +10941,24 @@ body {
   width: auto;
 }
 
+.test {
+  margin-left: -25px;
+  margin-top: 60px;
+}
+
+.mediaProyect2 {
+  height: 100px;
+  width: auto;
+}
+
 .main-color {
-  color: #62A4C0;
-  border-color: #62A4C0;
+  color: #f946a8;
+  border-color: #f946a8;
+}
+
+.second-color {
+  color: #bcd7d1;
+  border-color: #bcd7d1;
 }
 
 .td-none:hover {
@@ -10943,7 +10970,8 @@ body {
 }
 
 .bg-main-color {
-  background-color: #62A4C0;
+  background-color: #f946a8;
+  border-color: #f946a8;
 }
 
 /* NAV BAR */
@@ -10953,30 +10981,43 @@ body {
 }
 
 .nav-bar-logo {
-  height: 40px;
+  height: 80px;
 }
 
-.nbtis {
-  /* margin-bottom: 1rem;
-  padding: .5rem; */
+.newProfileBtn {
+  border: 1px solid #62A4C0;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+}
+
+.tipoImg {
+  height: 200px;
 }
 
 .nbnlg-btn {
   display: none;
 }
 
+.logoutLink:hover {
+  text-decoration: none;
+}
+
 .navBar-btn {
   margin-right: 5px;
-  border-color: #62A4C0;
+  border-color: #f946a8;
   border-radius: 6px;
 }
 
 .navBar-btn:hover,
 .navBar-btn:focus,
 .navBar-btn:active {
-  background-color: #47798F;
-  border-color: #47798F;
-  box-shadow: 0 0 0 0.2rem rgba(71, 121, 143, 0.5);
+  background-color: #ca3687;
+  border-color: #ca3687;
+  box-shadow: 0 0 0 0.2rem rgba(143, 71, 137, 0.5);
 }
 
 .navBar-btn-outline {
@@ -11021,11 +11062,11 @@ body {
 }
 
 .nav-link-text {
-  color: #62A4C0;
+  color: #f946a8;
 }
 
 .nav-link-text:hover {
-  color: #47798F;
+  color: #ca3687;
 }
 
 /* Login Modal */
@@ -11109,6 +11150,7 @@ body {
 }
 
 .r-currency-Bar {
+  background-color: #bcd7d1;
   box-shadow: inset 0 0 5px #00000014;
   padding: 6px;
   height: 30px;
@@ -11152,6 +11194,12 @@ body {
 
 .hide-tablet {
   display: none;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #47798F;
+  color: white;
 }
 
 /* Main Carrousel */
@@ -11218,12 +11266,12 @@ body {
 }
 
 .carrousel-st {
-  color: red;
+  color: #f946a8;
   font-family: "Helvetic Neue";
 }
 
 .carrousel-title {
-  color: #5A5A5A;
+  color: #bcd7d1;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
@@ -11259,7 +11307,7 @@ body {
 }
 
 .general-btn {
-  border-color: #62A4C0;
+  border-color: #f946a8;
   border-radius: 6px;
   color: white;
   width: 100%;
@@ -11272,8 +11320,8 @@ body {
 }
 
 .general-btn:hover {
-  background-color: #47798F;
-  border-color: #47798F;
+  background-color: #ca3687;
+  border-color: #ca3687;
   color: white;
 }
 
@@ -11282,7 +11330,7 @@ body {
 }
 
 .custom-range::-webkit-slider-thumb {
-  background: #62A4C0;
+  background: #f946a8;
 }
 
 /* Logo Bar */
@@ -11346,21 +11394,21 @@ body {
 .main-form-btn {
   width: 100%;
   background-color: white;
-  color: #62A4C0;
-  border-color: #62A4C0;
+  color: #f946a8;
+  border-color: #f946a8;
   border-radius: 6px;
   font-family: "Helvetic Neue Bold";
   margin-top: 20px;
 }
 
 .main-form-btn:hover {
-  background-color: #62A4C0;
-  border-color: #62A4C0;
+  background-color: #ca3687;
+  border-color: #ca3687;
   color: white;
 }
 
 .section-title-cont .section-title {
-  color: #5A5A5A;
+  color: #bcd7d1;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
@@ -11394,7 +11442,7 @@ body {
 }
 
 .ventajas-item h6 {
-  color: #5A5A5A;
+  color: #bcd7d1;
   font-family: "Roboto", sans-serif;
   font-size: 20px;
   line-height: 1;
@@ -11595,6 +11643,11 @@ body {
 
 .leftbar-cont {
   background-color: #f5f5f5;
+  padding: 80px 40px 40px 40px;
+}
+
+.leftbar-cont2 {
+  background-color: #f5f5f5;
   padding-top: 80px;
   padding-bottom: 40px;
 }
@@ -11602,6 +11655,11 @@ body {
 /* Main body Right Panel */
 
 .rightpanel {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.rightpanel2 {
   padding-top: 50px;
   padding-bottom: 50px;
 }
@@ -12057,8 +12115,6 @@ body {
 
   .leftbar-cont {
     padding-top: 75px;
-    padding-left: 5%;
-    padding-right: 5%;
   }
 
   .rightpanel {

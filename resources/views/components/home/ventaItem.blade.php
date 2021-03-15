@@ -1,10 +1,14 @@
 @props([
   'proyect' => $proyect,
 ])
-
-<div class="slider-cont-cards">
+<a href="{{ route('proyect.show', $proyect->id )}}" class="text-light">
+  <div class="slider-cont-cards">
   <div class="card text-white singlePanelSlider section-slide1"
-    style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
+    @if ($proyect->media->where('name', 'main')->first() === null)
+      style="background-image:url({{ asset('assets/images/main_default.png') }})"
+    @else 
+      style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
+    @endif
   >
     <div class="card-body">
       <!-- Badges -->
@@ -15,12 +19,16 @@
       </div>
       <!-- Body -->
       <div class="slide-body">
-        <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna }}</small>
+        <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna->name }}</small>
         <h6>{{ $proyect->name }}</h6>
-        <h4>Desde UF 1.200</h4>
+        @if ($proyect->getUF())
+          <h4>{{ $proyect->getUF() }}</h4>
+        @else
+          <h4>Próximamente</h4>
+        @endif
         <small>
           @if ((int)$proyect->maxRooms !== 0)
-            {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorms |
+            {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorm |
           @endif
           @if ((int)$proyect->maxBathrooms !== 0)
             {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} Baños |
@@ -30,3 +38,4 @@
     </div>
   </div>
 </div>
+</a>

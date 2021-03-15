@@ -25,42 +25,42 @@ class UserTableSeederDev extends Seeder
       $user1 = new User();
       $user1->name = 'cami';
       $user1->email = 'cami@gmail.com';
-      $user1->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user1->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user1->save();
       $user1->roles()->attach($user_role);
 
       $user2 = new User();
       $user2->name = 'bran';
       $user2->email = 'bran@gmail.com';
-      $user2->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user2->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user2->save();
       $user2->roles()->attach($user_role);
 
       $user3 = new User();
       $user3->name = 'juan';
       $user3->email = 'juan@gmail.com';
-      $user3->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user3->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user3->save();
       $user3->roles()->attach($user_role);
 
       $user4 = new User();
       $user4->name = 'karla';
       $user4->email = 'karla@gmail.com';
-      $user4->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user4->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user4->save();
       $user4->roles()->attach($user_role);
 
       $user5 = new User();
       $user5->name = 'gloria';
       $user5->email = 'gloria@gmail.com';
-      $user5->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user5->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user5->save();
       $user5->roles()->attach($user_role);
 
       $user6 = new User();
       $user6->name = 'alessa';
       $user6->email = 'alessa@gmail.com';
-      $user6->password = '$2y$10$qiY2g.heQwFEgcirI/hG8enLIPl6aEXEZdSeEEOfvVXm52E8N46pW';
+      $user6->password = '$2y$10$.S01CBGHskwB3Tb7ke/m8OXyz8jbWO7zwd6FYv9ENQP5zRPtLM/gC';
       $user6->save();
       $user6->roles()->attach($user_role);
 

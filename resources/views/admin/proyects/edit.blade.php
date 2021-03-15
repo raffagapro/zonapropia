@@ -22,6 +22,7 @@
             @method('PUT')
             {{-- Nombre --}}
             <div class="form-group">
+              <label for="nombre">Nombre</label>
               <input type="text" name="nombre"
                 class="form-control @error('nombre') is-invalid @enderror"
                 placeholder="Nombre" value="{{ $proyect->name }}"
@@ -34,6 +35,7 @@
             </div>
             {{-- Direccion --}}
             <div class="form-group">
+              <label for="direccion">Direccion</label>
               <input type="text" name="direccion"
                 class="form-control @error('direccion') is-invalid @enderror"
                 placeholder="Dirección" value="{{ $proyect->direccion }}"
@@ -47,8 +49,11 @@
             {{-- Reg/Comuna/ciudad --}}
             <div class="form-group row">
               {{-- Region --}}
-              <div class="col-4">
-                <select class="form-control" name="region">
+              <div class="col-6">
+                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                <label for="region">Region</label>
+                <select class="form-control" name="region" id="region">
+                  @php $regions = App\Models\Region::all(); @endphp
                   @foreach ($regions as $region)
                     @if ((int)$proyect->region->id === (int)$region->id)
                       <option value="{{ $region->id }}" selected>{{ $region->name }}</option>
@@ -59,34 +64,24 @@
                 </select>
               </div>
               {{-- Comuna --}}
-              <div class="col-4">
-                <input type="text" name="comuna"
-                  class="form-control @error('comuna') is-invalid @enderror"
-                  placeholder="Comuna" value="{{ $proyect->comuna }}"
-                >
-                @error('comuna')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-              </div>
-              {{-- Ciudad --}}
-              <div class="col-4">
-                <input type="text" name="ciudad"
-                  class="form-control @error('ciudad') is-invalid @enderror"
-                  placeholder="Ciudad" value="{{ $proyect->ciudad }}"
-                >
-                @error('ciudad')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+              <div class="col-6">
+                <label for="comuna">Comuna</label>
+                <select class="form-control" name="comuna" id="comuna">
+                  @foreach ($proyect->provincia->comunas as $comuna)
+                    @if ((int)$proyect->comuna->id === (int)$comuna->id)
+                      <option value="{{ $comuna->id }}" selected>{{ $comuna->name }}</option>
+                    @else
+                      <option value="{{ $comuna->id }}">{{ $comuna->name }}</option>
+                    @endif
+                  @endforeach
+                </select>
               </div>
             </div>
             {{-- long/lat/inmo --}}
             <div class="form-group row">
               {{-- Latitud --}}
               <div class="col-4">
+                <label for="latitud">Latitud</label>
                 <input type="text" name="latitud"
                   class="form-control @error('latitud') is-invalid @enderror"
                   placeholder="Latitud" value="{{ $proyect->latitud }}"
@@ -99,6 +94,7 @@
               </div>
               {{-- Longitud --}}
               <div class="col-4">
+                <label for="longitud">Longitud</label>
                 <input type="text" name="longitud"
                   class="form-control @error('longitud') is-invalid @enderror"
                   placeholder="Longitud" value="{{ $proyect->longitud }}"
@@ -111,9 +107,10 @@
               </div>
               {{-- Inmobiliarias --}}
               <div class="col-4">
+                <label for="inmo">Inmobiliarias</label>
                 <select class="form-control" name="inmo">
                   <option  value=0 >Sin Inmobiliaria</option>
-                  @foreach ($inmos as $inmo)
+                  @foreach (App\Models\Inmobiliaria::all() as $inmo)
                     @if ($proyect->inmobiliaria !== null)
                       @if ((int)$proyect->inmobiliaria->id === (int)$inmo->id)
                         <option value="{{ $inmo->id }}" selected>{{ $inmo->name }}</option>
@@ -131,8 +128,9 @@
             <div class="form-group row">
               {{-- Categories --}}
               <div class="col-4">
+                <label for="cat">Categoria</label>
                 <select class="form-control" name="cat">
-                  @foreach ($cats as $cat)
+                  @foreach (App\Models\Categoria::all() as $cat)
                     @if ((int)$proyect->categoria->id === (int)$cat->id)
                       <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
                     @else
@@ -143,6 +141,7 @@
               </div>
               {{-- Cuota Monto --}}
               <div class="col-4">
+                <label for="cuotaMonto">Monto Cuota</label>
                 <input type="text" name="cuotaMonto"
                   class="form-control @error('cuotaMonto') is-invalid @enderror"
                   placeholder="Cuota Monto" value="{{ $proyect->cuota_monto }}"
@@ -155,6 +154,7 @@
               </div>
               {{-- Bono Pie Monto --}}
               <div class="col-4">
+                <label for="bonoPieMonto">Bono Pie Monto</label>
                 <input type="text" name="bonoPieMonto"
                   class="form-control @error('bonoPieMonto') is-invalid @enderror"
                   placeholder="Bono Pie Monto" value="{{ $proyect->bono_pie_monto }}"
@@ -166,34 +166,11 @@
                 @enderror
               </div>
             </div>
-            {{-- descripcion --}}
-            <div class="form-group">
-              <textarea class="form-control" name="descripcion" rows="3"
-                placeholder="Descripcion del proyecto"
-              >{{ $proyect->descripcion }}</textarea>
-            </div>
-            {{-- texto descatado --}}
-            <div class="form-group">
-              <textarea class="form-control" name="textoDestacado" rows="3"
-                placeholder="Texto destacado"
-              >{{ $proyect->texto_destacado }}</textarea>
-            </div>
-            {{-- Texto Proyecto --}}
-            <div class="form-group">
-              <textarea class="form-control" name="textoProyecto" rows="3"
-                placeholder="Texto del proyecto"
-                >{{ $proyect->texto_proyecto }}</textarea>
-            </div>
-            {{-- terms --}}
-            <div class="form-group">
-              <textarea class="form-control" name="terminos" rows="3"
-                placeholder="Terminos"
-                >{{ $proyect->terminos }}</textarea>
-            </div>
             {{-- date/estado/destacado--}}
             <div class="form-group row">
               {{-- fecha limite --}}
               <div class="col-4">
+                <label for="fechaLimite">Fecha Limite</label>
                 <input
                   type="text"
                   name="fechaLimite"
@@ -210,6 +187,7 @@
               </div>
               {{-- Status --}}
               <div class="col-4">
+                <label for="status">Status</label>
                 <select class="form-control" name="status">
                   <option disabled>Status</option>
                   <option value=0 @if ((int)$proyect->estado_id === 0) selected @endif>Borrador</option>
@@ -218,6 +196,7 @@
               </div>
               {{-- Destacado --}}
               <div class="col-4">
+                <label for="destacar">Destacar</label>
                 <select class="form-control" name="destacar">
                   <option disabled>Destacar</option>
                   <option value=0 @if ((int)$proyect->destacado === 0) selected @endif>No</option>
@@ -225,10 +204,49 @@
                 </select>
               </div>
             </div>
+            {{-- fecha_entrega/etapa_venta/seguridad--}}
+            <div class="form-group row">
+              {{-- fecha_entrega --}}
+              <div class="col-4">
+                <label for="fecha_entrega">Fecha Entrega</label>
+                <input
+                  type="text"
+                  name="fecha_entrega"
+                  class="form-control @error('fecha_entrega') is-invalid @enderror"
+                  value="{{ $proyect->fecha_entrega }}"
+                  onfocus="(this.type='date')"
+                  onblur="(this.type='text')"
+                >
+                @error('fecha_entrega')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- etapa_venta --}}
+              <div class="col-4">
+                <label for="etapa_venta">Etapa de Venta</label>
+                <select class="form-control" name="etapa_venta">
+                  <option value=1 @if ((int)$proyect->etapa_venta === 1) selected @endif>Etapa 1</option>
+                  <option value=2 @if ((int)$proyect->etapa_venta === 2) selected @endif>Etapa 2</option>
+                  <option value=3 @if ((int)$proyect->etapa_venta === 3) selected @endif>Etapa 3</option>
+                </select>
+              </div>
+              {{-- seguridad --}}
+              <div class="col-4">
+                <label for="seguridad">Seguridad</label>
+                <select class="form-control" name="seguridad">
+                  <option value=0 @if ((int)$proyect->seguridad === 0) selected @endif>Baja</option>
+                  <option value=1 @if ((int)$proyect->seguridad === 1) selected @endif>Media</option>
+                  <option value=2 @if ((int)$proyect->seguridad === 2) selected @endif>Alta</option>
+                </select>
+              </div>
+            </div>
             {{-- rooms/bath/MC--}}
             <div class="form-group row">
               {{-- Room Min --}}
               <div class="col-2">
+                <label for="minRoom">Dorms Min.</label>
                 <input
                   type="number"
                   name="minRoom"
@@ -244,6 +262,7 @@
               </div>
               {{-- Room Max --}}
               <div class="col-2">
+                <label for="maxRoom">Dorms Max.</label>
                 <input
                   type="number"
                   name="maxRoom"
@@ -259,6 +278,7 @@
               </div>
               {{-- Bath Min --}}
               <div class="col-2">
+                <label for="minBath">Baño Min.</label>
                 <input
                   type="number"
                   name="minBath"
@@ -274,6 +294,7 @@
               </div>
               {{-- Bath Max --}}
               <div class="col-2">
+                <label for="maxBath">Baño Max.</label>
                 <input
                   type="number"
                   name="maxBath"
@@ -289,6 +310,7 @@
               </div>
               {{-- MC Min --}}
               <div class="col-2">
+                <label for="minMC">m² Min.</label>
                 <input
                   type="number"
                   name="minMC"
@@ -304,6 +326,7 @@
               </div>
               {{-- MC Max --}}
               <div class="col-2">
+                <label for="maxMC">m² Max.</label>
                 <input
                   type="number"
                   name="maxMC"
@@ -318,7 +341,70 @@
                 @enderror
               </div>
             </div>
+            {{-- descripcion --}}
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <textarea class="form-control" name="descripcion" rows="3"
+                placeholder="Descripción del proyecto"
+              >{{ $proyect->descripcion }}</textarea>
+            </div>
+            {{-- texto descatado --}}
+            <div class="form-group">
+              <label for="textoDestacado">Texto Destacado</label>
+              <textarea class="form-control" name="textoDestacado" rows="3"
+                placeholder="Texto destacado"
+              >{{ $proyect->texto_destacado }}</textarea>
+            </div>
+            {{-- Texto Proyecto --}}
+            <div class="form-group">
+              <label for="textoProyecto">Texto Proyecto</label>
+              <textarea class="form-control" name="textoProyecto" rows="3"
+                placeholder="Texto del proyecto"
+                >{{ $proyect->texto_proyecto }}</textarea>
+            </div>
+            {{-- terms --}}
+            <div class="form-group">
+              <label for="terminos">Terminos</label>
+              <textarea class="form-control" name="terminos" rows="3"
+                placeholder="Terminos"
+                >{{ $proyect->terminos }}</textarea>
+            </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
+          </form>
+        </div>
+      </div>
+
+      {{-- Sales Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Vendedores</h4>
+        {{-- Sales Form --}}
+        <div class="container">
+          <form action="{{ route('aProyect.addVendedor', $proyect->id) }}" method="POST">
+            @csrf
+            <div class="row">
+              <div class="col-md-8 col-lg-10">
+                <select class="form-control" name="vendor">
+                  <option selected disabled>Seleccionar Vendedor</option>
+                  @forelse ($vendedores as $v)
+                    <option value="{{ $v->id }}">{{ $v->name }}</option>
+                  @empty
+                  <option selected disabled>Sin vendedores</option>
+                  @endforelse
+                </select>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar Vendedor</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              @foreach ($proyect->users as $user)
+                <span class="badge badge-primary">
+                  <a href="{{ route('aProyect.rmVendedor', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                  {{ $user->name }}
+                </span>
+              @endforeach
+            </div>
           </form>
         </div>
       </div>
@@ -335,7 +421,7 @@
               <div class="col-md-8 col-lg-10">
                 <select class="form-control" name="tag">
                   <option selected disabled>Seleccionar Tag</option>
-                  @foreach ($tags as $tag)
+                  @foreach (App\Models\Taggable::all() as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                   @endforeach
                 </select>
@@ -356,6 +442,67 @@
         </div>
       </div>
 
+      {{-- Caracteristicas Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Caracteristicas</h4>
+        {{-- Caracteristicas Form --}}
+        <div class="container">
+          <form action="{{ route('aProyect.addCar', $proyect->id) }}" method="POST">
+            @csrf
+            <div class="row">
+              <div class="col-md-8 col-lg-10">
+                <select class="form-control" name="car">
+                  <option selected disabled>Seleccionar Caracteristica</option>
+                  @foreach (App\Models\Caracteristica::all() as $car)
+                    <option value="{{ $car->id }}">{{ $car->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              @foreach ($proyect->caracteristicas as $cari)
+                <div class="row align-items-center">
+                  <div class="col-2 char-icon-con">
+                    <div class="circle-cont-icon">
+                      <i class="{{ $cari->icono }} circle-icon fa-2x text-light"></i>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <h5>{{ $cari->name }}</h5>
+                    <a
+                      id="{{ $cari->id }}"
+                      class="btn bg-main-color navBar-btn text-light charImgBtn"
+                      data-toggle="modal" data-target="#charImgModal"
+                      href="javascript:void(0);">
+                      <i class="fas fa-camera"></i>
+                    </a>
+                    <a
+                      class="btn btn-danger"
+                      href="{{ route('aProyect.rmCar', [$proyect->id, $cari->id]) }}">
+                      <i class="fas fa-times"></i>
+                    </a>
+                  </div>
+                  <div class="col">
+                    @forelse ($proyect->getMediaCara($cari->id) as $mc)
+                      <img src="{{ asset($mc->loc) }}" class="mediaProyect2 mb-2">
+                      <a href="{{ route('caracs.rmMedia', $mc->id) }}" class="btn btn-sm btn-danger test"><i class="fas fa-times"></i></a>
+                    @empty
+                      <p>Sin imagenes.</p>
+                    @endforelse
+                  </div>
+                </div>
+                <hr>
+
+              @endforeach
+            </div>
+          </form>
+        </div>
+      </div>
+
       {{-- Images --}}
       <div class="card mb-section-card">
         {{-- Title --}}
@@ -369,9 +516,9 @@
             enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-              <label for="banner">Banner (1920 × 927px, 3MB max, jpeg, png)</label><br>
+              <label for="banner">Banner (1920 × 927px, 2MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('banner'))
-                <img src="{{ $proyect->media->where('name', 'banner')->first()->loc }}" class="mediaProyect mb-2">
+                <img src="{{ asset($proyect->media->where('name', 'banner')->first()->loc) }}" class="mediaProyect mb-2">
                 {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
               @endif
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -379,7 +526,6 @@
               <input
                 type="file"
                 class="form-control-file @error('banner') is-invalid @enderror"
-                data-default-file="url_of_your_file"
                 name="banner"/>
               @error('banner')
                   <span class="invalid-feedback" role="alert">
@@ -401,8 +547,7 @@
             <div class="form-group">
               <label for="image">Principal (400 × 550px, 1MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('main'))
-                <img src="{{ $proyect->media->where('name', 'main')->first()->loc }}" class="mediaProyect mb-2">
-                {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
+                <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" class="mediaProyect mb-2">
               @endif
               <input type="hidden" name="name" value="main">
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -437,7 +582,7 @@
                   </a>
                   {{ str_replace('/storage/media/', "",$media->loc) }}
                   <br>
-                  <img src="{{ $media->loc }}" class="mediaProyect mb-2">
+                  <img src="{{ asset($media->loc) }}" class="mediaProyect mb-2">
                 </div>
                 <br>
               @endforeach
@@ -465,12 +610,53 @@
 
     </div>
   </div>
+
+  <!-- Modal caracteristic image -->
+  <div class="modal fade" id="charImgModal" tabindex="-1" role="dialog" aria-labelledby="charImgModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Imagen</h5>
+        </div>
+        <div class="modal-body">
+          <form
+            action="{{ route('caracs.addMedia') }}"
+            method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="charImg">Imagen (1920 × 927px, 3MB max, jpeg, png)</label><br>
+              <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
+              <input type="hidden" name="char_id" id="char_id" value="">
+              <input
+                type="file"
+                class="form-control-file @error('charImg') is-invalid @enderror"
+                data-default-file="url_of_your_file"
+                name="charImg"/>
+              @error('charImg')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn bg-main-color navBar-btn text-light">Agregar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   @if(session('status'))
     <x-sweet-alert-admin :message="session('status')"/>
   @endif
+  @isset($status)
+    <x-sweet-alert-admin :message="$status"/>
+  @endisset
 @endsection
 
-{{-- @section('scripts')
-
-<script src="{{ asset('js/calendar.js') }}" defer></script>
-@endsection --}}
+@section('scripts')
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script src="{{ asset('js/ajax/regionSwitcherEdit.js') }}" ></script>
+@endsection

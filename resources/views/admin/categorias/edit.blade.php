@@ -21,6 +21,7 @@
             @csrf
             @method('PUT')
             <div class="form-group">
+              <label for="nombre">Nombre</label>
               <input
                 type="text" name="nombre"
                 class="form-control"

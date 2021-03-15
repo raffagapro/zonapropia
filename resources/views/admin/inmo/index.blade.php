@@ -68,19 +68,6 @@
                     <img src="{{ asset($inmo->logo) }}" alt="" class="inmoTb">
                   </td>
                   <td>
-                    <a
-                      href="javascript:void(0);"
-                      class="btn btn-sm btn-danger"
-                      onclick="event.preventDefault(); document.getElementById('{{ 'inmoDestroy'.$inmo->id }}').submit();"
-                      data-toggle="tooltip" data-placement="top" title="Borrar Inmobiliaria">
-                      <i class="fas fa-trash"></i>
-                    </a>
-                    <form id="{{ 'inmoDestroy'.$inmo->id }}"
-                      action="{{ route('inmo.destroy', $inmo->id) }}"
-                      method="POST"
-                      style="display: none;"
-                      >@method('DELETE') @csrf
-                    </form>
                     @if ( (int)$inmo->destacar === 1 )
                       <a
                         href="javascript:void(0);"
@@ -110,6 +97,34 @@
                         >@method('PUT') @csrf
                       </form>
                     @endif
+                    <a
+                      href="javascript:void(0);"
+                      class="btn btn-sm btn-danger"
+                      onclick="
+                        event.preventDefault();
+                        swal.fire({
+                          text: '¿Deseas eliminar la inmobiliaria?',
+                          showCancelButton: true,
+                          cancelButtonText: `Cancelar`,
+                          cancelButtonColor:'#62A4C0',
+                          confirmButtonColor:'red',
+                          confirmButtonText:'Eliminar',
+                          icon:'error',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            document.getElementById('{{ 'inmoDestroy'.$inmo->id }}').submit();
+                          }
+                        });
+                      "
+                      data-toggle="tooltip" data-placement="top" title="Borrar Inmobiliaria">
+                      <i class="fas fa-trash"></i>
+                    </a>
+                    <form id="{{ 'inmoDestroy'.$inmo->id }}"
+                      action="{{ route('inmo.destroy', $inmo->id) }}"
+                      method="POST"
+                      style="display: none;"
+                      >@method('DELETE') @csrf
+                    </form>
                   </td>
                 </tr>
               @empty
