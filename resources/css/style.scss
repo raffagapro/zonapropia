@@ -40,6 +40,24 @@ body {
   width: auto;
 }
 
+.page-title{
+  color: #5A5A5A;
+  font-family: 'Helvetic Neue Bold';
+  font-weight: bolder;
+  font-size: 50px;
+}
+
+.page-body{
+  color: #5A5A5A;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+}
+
+.page-text{
+  color: #5A5A5A;
+  font-family: 'Roboto', sans-serif;
+}
+
 .main-color {
   color: #f946a8;
   border-color: #f946a8;
@@ -278,6 +296,15 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+.post-slider-cont{
+  min-height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../public/assets/images/placeholders/postBannerPlaceholder1.png");
+}
+
 .banner-cont{
   min-height: 300px;
   display: flex;

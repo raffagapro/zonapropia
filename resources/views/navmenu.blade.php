@@ -69,7 +69,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('home').'#ventajas'}}">
+          <a class="nav-link" href="{{ route('Invertir.index')}}">
             <span class="nav-link-text">
               Por qué invertir
             </span>

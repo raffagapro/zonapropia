@@ -19,6 +19,10 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\CaracteristicasController;
 use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\ContactFromController;
+use App\Http\Controllers\InvertirPageController;
+use App\Http\Controllers\InvertirPostController;
+
+
 
 
 /*
@@ -43,6 +47,10 @@ Route::post('proyects/comuna', [ProyectsController::class, 'comunaGrabber']);
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
 Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);
+
+Route::resource('Invertir', InvertirPageController::class);
+Route::resource('InvertirPost', InvertirPostController::class);
+
 
 
 Auth::routes();
