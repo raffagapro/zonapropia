@@ -11648,8 +11648,20 @@ body {
 
 .leftbar-cont2 {
   background-color: #f5f5f5;
-  padding-top: 80px;
+  padding-top: 40px;
   padding-bottom: 40px;
+}
+
+.leftbar-nav-link{
+  color: black;
+}
+
+.leftbar-nav-link.active{
+  color: #f946a8 !important;
+  background-color: white !important;
+  margin-left: -15px;
+  margin-right: -15px;
+  border-radius: 0%;
 }
 
 /* Main body Right Panel */
