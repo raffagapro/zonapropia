@@ -2,7 +2,7 @@
 @section('title', 'Perfil del Usuario')
 
 @section('content')
-  <div style="background-color:#f5f5f5;">
+  <div>
     <div class="row m-0 pl-0 pr-0">
       <!-- Left Bar -->
       @include('auth.userProfile.leftSideBar')
