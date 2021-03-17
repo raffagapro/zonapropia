@@ -21,8 +21,8 @@ use App\Http\Controllers\TipologiaController;
 use App\Http\Controllers\ContactFromController;
 use App\Http\Controllers\InvertirPageController;
 use App\Http\Controllers\InvertirPostController;
-
-
+use App\Http\Controllers\FinanciamientoController;
+use App\Http\Controllers\RespaldoController;
 
 
 /*
@@ -50,6 +50,10 @@ Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);
 
 Route::resource('Invertir', InvertirPageController::class);
 Route::resource('InvertirPost', InvertirPostController::class);
+Route::resource('Financiamiento', FinanciamientoController::class);
+Route::resource('Respaldo', RespaldoController::class);
+
+
 
 
 

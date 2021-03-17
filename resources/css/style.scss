@@ -58,6 +58,25 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.card-main{
+  background-color: #f946a8;
+  color: white;
+}
+
+.card-alt{
+  background-color: #BCD7D1;
+  color: white;
+}
+
+.card-title-alt{
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+}
+
+.card-text-alt{
+  font-family: 'Roboto', sans-serif;
+}
+
 .main-color {
   color: #f946a8;
   border-color: #f946a8;
@@ -295,6 +314,14 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.respaldo-slider-cont{
+  min-height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../public/assets/images/placeholders/respaldoBannerPlaceholder1.png");
 }
 
 .post-slider-cont{

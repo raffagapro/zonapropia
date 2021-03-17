@@ -76,9 +76,16 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ route('Financiamiento.index')}}">
             <span class="nav-link-text">
               Financiamiento
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('Respaldo.index')}}">
+            <span class="nav-link-text">
+              Respaldo
             </span>
           </a>
         </li>
