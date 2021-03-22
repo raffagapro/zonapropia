@@ -73,7 +73,7 @@
         <li class="nav-item">
           <a class="nav-link active" href="{{ route('tipo.index')}}">
             <span class="nav-link-text">
-              Tipologias
+              Blog
             </span>
           </a>
         </li>
@@ -90,6 +90,7 @@
             <a class="dropdown-item main-color" href="{{ route('category.index')}}">Categorias</a>
             <a class="dropdown-item main-color" href="{{ route('caracs.index')}}">Caracteristicas</a>
             <a class="dropdown-item main-color" href="{{ route('tag.index')}}">Tags</a>
+            <a class="dropdown-item main-color" href="{{ route('tipo.index') }}">Tipologias</a>
           </div>
         </li>
 
