@@ -1,4 +1,4 @@
-<footer style="background-color:#bcd7d1;" class="text-light">
+<footer>
   <hr class="divider">
   <div class="container">
     <div class="footer row m-0 pb-4">
