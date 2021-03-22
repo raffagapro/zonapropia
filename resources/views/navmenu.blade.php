@@ -101,13 +101,13 @@
         @endguest
         @auth
           @if (auth()->user()->hasRoles('super admin'))
-            <a href="{{ route('adminPanel.index')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Admin">
+            <a href="{{ route('adminPanel.index')}}" class="newProfileBtn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Admin">
               <i class="fas fa-user-cog"></i>
             </a>
           @endif
           <a 
             href="{{ route('userProfile.index')}}"
-            class="newProfileBtn main-color"
+            class="newProfileBtn bg-main-color text-light"
             data-toggle="tooltip" data-placement="top" title="{{ auth()-> user()->name }}">
             <i class="fas fa-user" class="main-color"></i>
           </a>
