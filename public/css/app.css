@@ -11111,7 +11111,7 @@ body {
 }
 
 .nav-link-text {
-  color: #f946a8;
+  color: black;
 }
 
 .nav-link-text:hover {
@@ -11193,13 +11193,14 @@ body {
 /* Currency Bar */
 
 .l-currency-Bar {
+  background-color: #BCD7D1;
+  color: white;
   box-shadow: inset 0 0 5px #00000014;
   padding: 6px;
   width: 100%;
 }
 
 .r-currency-Bar {
-  background-color: #bcd7d1;
   box-shadow: inset 0 0 5px #00000014;
   padding: 6px;
   height: 30px;
@@ -11336,7 +11337,7 @@ body {
 }
 
 .carrousel-title {
-  color: #bcd7d1;
+  color: #5A5A5A;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
