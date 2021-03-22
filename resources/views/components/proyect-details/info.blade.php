@@ -3,6 +3,10 @@
 ])
 
 <div class="row">
+  <script src="https://hipotecario.bci.cl/nuevaWeb/fe-ecochip-widget/bci-widget.js" defer>
+  </script>
+  <bci-widget api-key="F9qaGRRZ-FVOu-KPUw-H8fk-0BO6NTKzsGlc">
+  </bci-widget>
   <!-- Left Panel -->
   <div class="col-lg-8">
     <!-- Proyect Info -->
@@ -177,7 +181,7 @@
         <!-- Financiamiento -->
         <div class="col-12 mt-4">
           <h5 class="">Financiamiento</h5>
-          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Aprobación</button>
+          <button type="button" class="btn btn-block bg-main-color general-btn mt-4">OBTÉN TU PRE APROBACIÓN EN LÍNEA <img src="/assets/images/logos/bci-logo.png" style="height: 2rem;"></button>
         </div>
       </div>
     </div>
