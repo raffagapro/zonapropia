@@ -17,6 +17,7 @@ class CreateTaggablesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('color');
+            $table->integer('visibility');
             $table->timestamps();
         });
     }

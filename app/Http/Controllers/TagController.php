@@ -30,6 +30,7 @@ class TagController extends Controller
       Taggable::create([
         'name' => $request->nombre,
         'color' => $request->color,
+        'visibility' => $request->vis,
       ]);
       $status = 'El tag ha sido guardado exitosamente.';
       $tags = Taggable::paginate(25);
@@ -60,6 +61,7 @@ class TagController extends Controller
       $tag = Taggable::findOrFail($id);
       $tag->name = $request->nombre;
       $tag->color = $request->color;
+      $tag->visibility = $request->vis;
       $tag->save();
       $status = 'El tag ha sido actualizado exitosamente.';
       return back()->with(compact('tag', 'status'));

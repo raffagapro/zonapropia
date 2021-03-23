@@ -15,6 +15,8 @@ class CreatePostTaggableTable extends Migration
     {
         Schema::create('post_taggable', function (Blueprint $table) {
             $table->id();
+            $table->integer('post_id')->unsigned()->nullable()->onDelete('cascade');
+            $table->integer('taggable_id')->unsigned()->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }
