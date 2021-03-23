@@ -18,7 +18,7 @@
   [slider] > div > [inverse-left] {
     position: absolute;
     left: 0;
-    height: 12px;
+    height: 4px;
     border-radius: 10px;
     background-color: #CCC;
   }
@@ -26,7 +26,7 @@
   [slider] > div > [inverse-right] {
     position: absolute;
     right: 0;
-    height: 12px;
+    height: 4px;
     border-radius: 10px;
     background-color: #CCC;
   }
@@ -34,22 +34,22 @@
   [slider] > div > [range] {
     position: absolute;
     left: 0;
-    height: 12px;
+    height: 4px;
     border-radius: 14px;
     background-color: #f946a8;
   }
    
   [slider] > div > [thumb] {
     position: absolute;
-    top: -7px;
+    top: -5px;
     z-index: 2;
-    height: 24px;
-    width: 24px;
+    height: 14px;
+    width: 14px;
     text-align: left;
     margin-left: -11px;
     cursor: pointer;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-    background-color: #bcd7d1;
+    background-color: #f946a8;
     border-radius: 50%;
     outline: none;
   }
