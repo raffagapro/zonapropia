@@ -6,12 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Proyecto;
 use App\Models\Media;
-use App\Models\Region;
-use App\Models\Inmobiliaria;
-use App\Models\Categoria;
-use App\Models\Taggable;
 use App\Models\User;
-use App\Models\Caracteristica;
 
 
 class MediaController extends Controller
@@ -90,7 +85,7 @@ class MediaController extends Controller
       if ($request->hasFile('main')) {
         if ($request->file('main')->isValid()) {
           $validated = $request->validate([
-            'banner'=>'mimes:jpeg,png|max:1000',
+            'main'=>'mimes:jpeg,png|max:1000',
           ]);
           $extension = $request->main->extension();
           $request->main->storeAs('/public/media', $request->name.'_'.$proyect->id.".".$extension);

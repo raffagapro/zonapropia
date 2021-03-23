@@ -13,7 +13,6 @@ use App\Models\Categoria;
 use App\Models\Taggable;
 use App\Models\Caracteristica;
 use App\Models\User;
-use App\Models\Role;
 
 
 

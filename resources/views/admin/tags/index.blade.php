@@ -19,6 +19,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Visibilidad</th>
                 <th scope="col">Color</th>
                 <th scope="col">Control</th>
               </tr>
@@ -31,6 +32,20 @@
                     <a href="{{ route('tag.edit', $tag->id) }}">
                       {{ $tag->name }}
                     </a>
+                  </td>
+                  <td>
+                    @switch($tag->visibility)
+                        @case(0)
+                            Ambos
+                            @break
+                        @case(1)
+                            Proyectos
+                            @break
+                        @case(2)
+                            Posts
+                            @break
+                        @default
+                    @endswitch
                   </td>
                   <td>
                     <span class="badge badge-{{ $tag->color }}"> Tag </span>
@@ -91,51 +106,65 @@
               <div class="form-group">
                 <input type="text" name="nombre" class="form-control" placeholder="Nombre">
               </div>
-              {{-- Color --}}
-              <div class="form-group">
-                <h5>Seleccionar Color</h5>
-                {{-- verde --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="success">
-                  <label class="form-check-label" for="inlineRadio1">
-                    <span class="badge badge-success">Tag</span>
-                  </label>
+              {{-- Color/Visibility --}}
+              <div class="row">
+
+                <div class="form-group col-6">
+                  <h5>Seleccionar Color</h5>
+                  {{-- verde --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="success">
+                    <label class="form-check-label" for="inlineRadio1">
+                      <span class="badge badge-success">Tag</span>
+                    </label>
+                  </div>
+                  {{-- rojo --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="danger">
+                    <label class="form-check-label text-danger" for="inlineRadio1">
+                      <span class="badge badge-danger">Tag</span>
+                    </label>
+                  </div>
+                  {{-- azul claro --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="info">
+                    <label class="form-check-label text-info" for="inlineRadio1">
+                      <span class="badge badge-info">Tag</span>
+                    </label>
+                  </div>
+                  {{-- gris --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="secondary">
+                    <label class="form-check-label text-info" for="inlineRadio1">
+                      <span class="badge badge-secondary">Tag</span>
+                    </label>
+                  </div>
+                  {{-- azul --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="primary">
+                    <label class="form-check-label text-info" for="inlineRadio1">
+                      <span class="badge badge-primary">Tag</span>
+                    </label>
+                  </div>
+                  {{-- amarillo --}}
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="color" value="warning">
+                    <label class="form-check-label text-info" for="inlineRadio1">
+                      <span class="badge badge-warning">Tag</span>
+                    </label>
+                  </div>
                 </div>
-                {{-- rojo --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="danger">
-                  <label class="form-check-label text-danger" for="inlineRadio1">
-                    <span class="badge badge-danger">Tag</span>
-                  </label>
+
+                <div class="form-group col-6">
+                  <h5>Visibilidad</h5>
+                  {{-- verde --}}
+                  <select class="form-control" name="vis">
+                    <option value=0>Ambos</option>
+                    <option value=1>Proyectos</option>
+                    <option value=2>Posts</option>
+                  </select>
                 </div>
-                {{-- azul claro --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="info">
-                  <label class="form-check-label text-info" for="inlineRadio1">
-                    <span class="badge badge-info">Tag</span>
-                  </label>
-                </div>
-                {{-- gris --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="secondary">
-                  <label class="form-check-label text-info" for="inlineRadio1">
-                    <span class="badge badge-secondary">Tag</span>
-                  </label>
-                </div>
-                {{-- azul --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="primary">
-                  <label class="form-check-label text-info" for="inlineRadio1">
-                    <span class="badge badge-primary">Tag</span>
-                  </label>
-                </div>
-                {{-- amarillo --}}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="color" value="warning">
-                  <label class="form-check-label text-info" for="inlineRadio1">
-                    <span class="badge badge-warning">Tag</span>
-                  </label>
-                </div>
+
               </div>
               <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Guardar</button>
             </form>

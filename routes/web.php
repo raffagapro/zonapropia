@@ -23,6 +23,7 @@ use App\Http\Controllers\InvertirPageController;
 use App\Http\Controllers\InvertirPostController;
 use App\Http\Controllers\FinanciamientoController;
 use App\Http\Controllers\RespaldoController;
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -49,7 +50,8 @@ Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
 Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);
 
 Route::resource('Invertir', InvertirPageController::class);
-Route::resource('InvertirPost', InvertirPostController::class);
+Route::resource('InvertirPost', InvertirPostController::class, ['except'=> ['index']]);
+Route::get('InvertirPost/post/{post_id}', [InvertirPostController::class, 'index'])->name('InvertirPost.indez');
 Route::resource('Financiamiento', FinanciamientoController::class);
 Route::resource('Respaldo', RespaldoController::class);
 
@@ -116,8 +118,11 @@ Route::middleware(['auth'])->group(function (){
         Route::post('tipo/proyectSwitcher', [TipologiaController::class, 'proyectSwitcher']);
         Route::post('tipo/{unidad}/addUnid', [TipologiaController::class, 'addUnid'])->name('tipo.addUnid');
         Route::get('tipo/{unidad}/{tipologia}/rmUnid', [TipologiaController::class, 'rmUnid'])->name('tipo.rmUnid');
-
-
+        Route::resource('post', PostController::class);
+        Route::post('post/{post}/addTag', [PostController::class, 'addTag'])->name('post.addTag');
+        Route::get('post/{post}/{tag}/rmTag', [PostController::class, 'rmTag'])->name('post.rmTag');
+        Route::post('post/bannerImgStore', [PostController::class, 'storeBanner'])->name('post.storeBanner');
+        Route::post('post/principalImgStore', [PostController::class, 'storePrincipal'])->name('post.storeMain');
 
       });
     });

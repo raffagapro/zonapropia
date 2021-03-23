@@ -422,7 +422,9 @@
                 <select class="form-control" name="tag">
                   <option selected disabled>Seleccionar Tag</option>
                   @foreach (App\Models\Taggable::all() as $tag)
-                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                    @if ($tag->visibility !== 2)
+                      <option value="{{ $tag->id }}">{{ $tag->name }}</option> 
+                    @endif
                   @endforeach
                 </select>
               </div>
