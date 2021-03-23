@@ -71,7 +71,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link active" href="{{ route('tipo.index')}}">
+          <a class="nav-link active" href="{{ route('post.index')}}">
             <span class="nav-link-text">
               Blog
             </span>

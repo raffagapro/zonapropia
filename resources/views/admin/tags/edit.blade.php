@@ -27,69 +27,87 @@
                 class="form-control"
                 placeholder="Nombre" value="{{ $tag->name }}">
             </div>
-            {{-- Color --}}
-            <div class="form-group">
-              <h5>Seleccionar Color</h5>
-              {{-- verde --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="success" @if ($tag->color === "success") checked @endif
-                >
-                <label class="form-check-label" for="inlineRadio1">
-                  <span class="badge badge-success">Tag</span>
-                </label>
+            {{-- Color/Visibility  --}}
+            <div class="row">
+              <div class="form-group col-6">
+                <h5>Seleccionar Color</h5>
+                {{-- verde --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="success" @if ($tag->color === "success") checked @endif
+                  >
+                  <label class="form-check-label" for="inlineRadio1">
+                    <span class="badge badge-success">Tag</span>
+                  </label>
+                </div>
+                {{-- rojo --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="danger" @if ($tag->color === "danger") checked @endif
+                  >
+                  <label class="form-check-label text-danger" for="inlineRadio1">
+                    <span class="badge badge-danger">Tag</span>
+                  </label>
+                </div>
+                {{-- azul claro --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="info" @if ($tag->color === "info") checked @endif
+                  >
+                  <label class="form-check-label text-info" for="inlineRadio1">
+                    <span class="badge badge-info">Tag</span>
+                  </label>
+                </div>
+                {{-- gris --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="secondary" @if ($tag->color === "secondary") checked @endif
+                  >
+                  <label class="form-check-label text-info" for="inlineRadio1">
+                    <span class="badge badge-secondary">Tag</span>
+                  </label>
+                </div>
+                {{-- azul --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="primary" @if ($tag->color === "primary") checked @endif
+                  >
+                  <label class="form-check-label text-info" for="inlineRadio1">
+                    <span class="badge badge-primary">Tag</span>
+                  </label>
+                </div>
+                {{-- amarillo --}}
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input" type="radio" name="color"
+                    value="warning" @if ($tag->color === "warning") checked @endif
+                  >
+                  <label class="form-check-label text-info" for="inlineRadio1">
+                    <span class="badge badge-warning">Tag</span>
+                  </label>
+                </div>
               </div>
-              {{-- rojo --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="danger" @if ($tag->color === "danger") checked @endif
-                >
-                <label class="form-check-label text-danger" for="inlineRadio1">
-                  <span class="badge badge-danger">Tag</span>
-                </label>
+
+              <div class="form-group col-6">
+                <h5>Visibilidad</h5>
+                {{-- verde --}}
+                <select class="form-control" name="vis">
+                  <option value=0 @if ((int)$tag->visibility === 0) selected @endif>Ambos</option>
+                  <option value=1 @if ((int)$tag->visibility === 1) selected @endif>Proyectos</option>
+                  <option value=2 @if ((int)$tag->visibility === 2) selected @endif>Posts</option>
+                </select>
               </div>
-              {{-- azul claro --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="info" @if ($tag->color === "info") checked @endif
-                >
-                <label class="form-check-label text-info" for="inlineRadio1">
-                  <span class="badge badge-info">Tag</span>
-                </label>
-              </div>
-              {{-- gris --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="secondary" @if ($tag->color === "secondary") checked @endif
-                >
-                <label class="form-check-label text-info" for="inlineRadio1">
-                  <span class="badge badge-secondary">Tag</span>
-                </label>
-              </div>
-              {{-- azul --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="primary" @if ($tag->color === "primary") checked @endif
-                >
-                <label class="form-check-label text-info" for="inlineRadio1">
-                  <span class="badge badge-primary">Tag</span>
-                </label>
-              </div>
-              {{-- amarillo --}}
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input" type="radio" name="color"
-                  value="warning" @if ($tag->color === "warning") checked @endif
-                >
-                <label class="form-check-label text-info" for="inlineRadio1">
-                  <span class="badge badge-warning">Tag</span>
-                </label>
-              </div>
+            </div>
+
+             <div class="row">
+
+              
+
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
           </form>

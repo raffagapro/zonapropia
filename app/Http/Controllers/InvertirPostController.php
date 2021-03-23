@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class InvertirPostController extends Controller
 {
@@ -11,9 +12,12 @@ class InvertirPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('invertirPage.posts.index');
+    public function index($id)
+    {  
+        // dd($id);
+        $post = Post::findOrFail($id);
+        return view('invertirPage.posts.index')
+        ->with(compact('post'));
     }
 
     /**
