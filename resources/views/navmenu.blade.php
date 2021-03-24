@@ -92,7 +92,9 @@
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
-        <a href="{{ route('home').'#vendeForm'}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light">Vende con nosotros</a>
+        <a href="{{ route('home').'#vendeForm' }}" class="newProfileBtn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Vende con nosotros">
+          <i class="fas fa-envelope"></i>
+        </a>
         @guest
           <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
             <span>Iniciar sesión</span>

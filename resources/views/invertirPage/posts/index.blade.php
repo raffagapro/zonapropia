@@ -10,70 +10,64 @@
       <div class="col-6 mx-auto">
         <h1 class="page-title">{{ $post->title }}</h1>
         <p class="page-body">{{ $post->subtitle }}</p>
+        <!-- Badges -->
+        @foreach ($post->tags as $tag)
+          <span class="badge badge-primary mr-1">{{ $tag->name }}</span>
+        @endforeach
       </div>
-
     </div>
-
+    
     <div class="row mt-4 py-2">
       <div class="col-10 mx-auto">
         @php
-            $body = explode('~', $post->body )
+            $body = explode('[p]', $post->body );
+            $bCounter = 0;
+            $bTotal = count($body);
+            $ytURL = explode('/', $post->video );
         @endphp
+        
         @foreach ($body as $b)
-          <p class="page-body">{{ $b}}</p>
+          @php
+              $bCounter++;
+          @endphp
+          <p class="page-body">{{ $b }}</p>
+          @if ($bCounter === 1 && $post->media1)
+            <img class="my-5 post-img" src="{{ asset($post->media1) }}" alt="">
+          @endif
+          @if ($bCounter === ($bTotal - 1) && $post->video)
+            <div class="embed-responsive embed-responsive-16by9 post-img">
+              <iframe
+                src="https://www.youtube.com/embed/{{ $ytURL[3] }}"
+                class="post-img"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <br>
+          @endif
         @endforeach
       </div>
 
     </div>
 
     <div class="mt-5 text-center">
-      <h3 class="page-text">Lorem Ipsum</h3>
+      <h3 class="page-text">Artículos Similares</h3>
     </div>
     <div class="row my-4  py-2">
-      <div class="col-4 p-1">
-        <div class="card">
-          <img src="assets/images/placeholders/cardTopPlaceholder4.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h4 class="card-title">Lorem Ipsum</h4>
-            <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna…
-            </p>
-            <a class="card-link text-dark" href="">Leer más <i class="fas fa-arrow-right main-color"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-4 p-1">
-        <div class="card">
-          <img src="assets/images/placeholders/cardTopPlaceholder5.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h4 class="card-title">Lorem Ipsum</h4>
-            <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna…
-            </p>
-            <a class="card-link text-dark" href="">Leer más <i class="fas fa-arrow-right main-color"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-4 p-1">
-        <div class="card">
-          <img src="assets/images/placeholders/cardTopPlaceholder6.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h4 class="card-title">Lorem Ipsum</h4>
-            <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna…
-            </p>
-            <a class="card-link text-dark" href="">Leer más <i class="fas fa-arrow-right main-color"></i></a>
-          </div>
-        </div>
-      </div>
-
+      @forelse ($relatedPosts as $p)
+        @if ($p->id !== $post->id)
+          <x-blog.relateditem :post="$p"/>
+        @endif
+      @empty
+          No hay articulos similares.
+      @endforelse
     </div>
 
     <div class="row mb-5 text-center">
       <div class="col-4 mx-auto">
-        paginate here
+        {{ $relatedPosts->links() }}
       </div>
 
     </div>

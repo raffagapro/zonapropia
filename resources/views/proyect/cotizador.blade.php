@@ -59,7 +59,7 @@
                 </div>
             @endif --}}
             <div class="col-12 mt-4 text-center" id="tipoImgCont">
-                <img src="{{ asset($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
+                <img class="cotizador-img" src="{{ asset($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
             </div>
 
             {{-- from --}}

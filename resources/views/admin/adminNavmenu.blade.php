@@ -97,12 +97,12 @@
       </ul>
       {{-- Login BTNS --}}
       <div class="form-inline my-2 my-lg-0">
-        <a href="{{ route('home')}}" class="nbnlg-btn btn navBar-btn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Sitio Principal">
+        <a href="{{ route('home')}}" class="newProfileBtn bg-main-color text-light" data-toggle="tooltip" data-placement="top" title="Sitio Principal">
           <i class="fas fa-home"></i>
         </a>
-        <a 
+        <a
           href="{{ route('userProfile.index')}}"
-          class="newProfileBtn main-color"
+          class="newProfileBtn bg-main-color text-light"
           data-toggle="tooltip" data-placement="top" title="{{ auth()-> user()->name }}">
           <i class="fas fa-user" class="main-color"></i>
         </a>

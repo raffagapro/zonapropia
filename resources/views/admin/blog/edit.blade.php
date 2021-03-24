@@ -61,8 +61,9 @@
             </div>
             {{-- Texto --}}
             <div class="form-group">
-              <label for="body">Texto</label>
-              <textarea class="form-control" name="body" rows="3"
+              <label for="body">Texto </label>
+              <small>( [p] = Párrafo )</small>
+              <textarea class="form-control" name="body" rows="8"
                 placeholder="Descripción del proyecto"
               >{{ $post->body }}</textarea>
             </div>

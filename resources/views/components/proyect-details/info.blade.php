@@ -181,7 +181,10 @@
         <!-- Financiamiento -->
         <div class="col-12 mt-4">
           <h5 class="">Financiamiento</h5>
-          <button type="button" class="btn btn-block bg-main-color general-btn mt-4">OBTÉN TU PRE APROBACIÓN EN LÍNEA <img src="/assets/images/logos/bci-logo.png" style="height: 2rem;"></button>
+          <button type="button" class="btn btn-block bg-main-color general-btn mt-4">
+            OBTÉN TU PRE APROBACIÓN EN LÍNEA
+            <img src="/assets/images/logos/bci-logo.png" style="height: 2rem;">
+          </button>
         </div>
       </div>
     </div>

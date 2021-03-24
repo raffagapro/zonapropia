@@ -16,8 +16,15 @@ class InvertirPostController extends Controller
     {  
         // dd($id);
         $post = Post::findOrFail($id);
+        $tag = $post->tags->first();
+        $relatedPosts = Post::whereHas(
+            'tags', function($q) use($tag) {
+                $q->where('name', $tag->name);
+            }
+        )->paginate(3);
+        // dd($relatedPosts);
         return view('invertirPage.posts.index')
-        ->with(compact('post'));
+        ->with(compact('post', 'relatedPosts'));
     }
 
     /**

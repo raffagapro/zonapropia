@@ -11271,6 +11271,11 @@ body {
   background-image: url(/images/respaldoBannerPlaceholder1.png?0541cb089861c08bd935a61f55377110);
 }
 
+.cotizador-img {
+  height: auto;
+  width: 300px;
+}
+
 .post-slider-cont {
   min-height: 600px;
   background-repeat: no-repeat;
@@ -11765,6 +11770,15 @@ body {
 
 .minibar {
   margin-bottom: 35px;
+}
+
+.post-img {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  width: 500px;
 }
 
 .minibar-filter-btn-hidden-sm {

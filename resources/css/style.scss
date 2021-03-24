@@ -337,6 +337,10 @@ body {
   background-position: center;
   background-image: url("../../public/assets/images/placeholders/respaldoBannerPlaceholder1.png");
 }
+.cotizador-img{
+  height: auto;
+  width: 300px;
+}
 
 .post-slider-cont{
   min-height: 600px;
@@ -794,6 +798,15 @@ body {
 }
 .minibar{
   margin-bottom: 35px;
+}
+
+.post-img{
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  width: 500px;
 }
 
 .minibar-filter-btn-hidden-sm{

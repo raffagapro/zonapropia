@@ -52,7 +52,7 @@
             {{-- Body --}}
             <div class="form-group">
               <label for="body">Texto</label>
-              <textarea class="form-control" name="body" rows="3"></textarea>
+              <textarea class="form-control" name="body" rows="8"></textarea>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar Post</button>
           </form>
