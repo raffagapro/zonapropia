@@ -137,10 +137,16 @@ class PostController extends Controller
                 $url = Storage::url('posts/'.$request->name.'_'.$post->id.".".$extension);
                 $post->banner = $url;
                 $post->save();
+            }else{
+                dd('no es valido carnal');
             }
             //call proyect again with new image
             $post = Post::findOrFail($request->post_id);
             $status = 'La imagen ha sido guardada exitosamente.';
+            return redirect()->route('post.edit', $post->id)->with(compact('status'));
+        }else{
+            $post = Post::findOrFail($request->post_id);
+            $status = 'La imagen no es valida.';
             return redirect()->route('post.edit', $post->id)->with(compact('status'));
         }
     }

@@ -3,10 +3,10 @@
 ])
 
 <div class="row">
-  <script src="https://hipotecario.bci.cl/nuevaWeb/fe-ecochip-widget/bci-widget.js" defer>
+  {{-- <script src="https://hipotecario.bci.cl/nuevaWeb/fe-ecochip-widget/bci-widget.js" defer>
   </script>
   <bci-widget api-key="F9qaGRRZ-FVOu-KPUw-H8fk-0BO6NTKzsGlc">
-  </bci-widget>
+  </bci-widget> --}}
   <!-- Left Panel -->
   <div class="col-lg-8">
     <!-- Proyect Info -->
