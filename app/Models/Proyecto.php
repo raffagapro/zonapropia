@@ -170,6 +170,7 @@ class Proyecto extends Model
         return false;
       }
     }
+
     public function getTipologias(){
       $models = [];
       foreach ($this->unidades as $unidad) {
@@ -198,4 +199,33 @@ class Proyecto extends Model
       }
       return $pisos;
     }
+
+    public function getTipologias2(){
+      $tipos = [];
+      foreach ($this->unidades as $unidad) {
+        $construtedTipo = '';
+        if ($unidad->dormitorios === 1) {
+          $construtedTipo = $unidad->dormitorios.' Dorm ';
+        }else{
+          $construtedTipo = $unidad->dormitorios.' Dorms ';
+        }
+        if ($unidad->banos === 1) {
+          $construtedTipo .= $unidad->banos.' Baño';
+        } else {
+          $construtedTipo .= $unidad->banos.' Baños';
+        }
+        $goT = true;
+        foreach ($tipos as $t) {
+          if ($t === $construtedTipo) {
+            $goT = false;
+            break;
+          }
+        }
+        if ($goT) {
+          array_push($tipos, [$construtedTipo, [$unidad->dormitorios, $unidad->banos]]);
+        }
+      }
+      return $tipos;
+    }
+
 }

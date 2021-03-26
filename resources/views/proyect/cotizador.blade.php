@@ -59,7 +59,7 @@
                 </div>
             @endif --}}
             <div class="col-12 mt-4 text-center" id="tipoImgCont">
-                <img class="cotizador-img" src="{{ asset($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
+                <img src="{{ asset($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
             </div>
 
             {{-- from --}}
@@ -70,12 +70,9 @@
                         <div class="col-md-6 mb-3">
                             <select class="form-control" name="tipologia" id="tipologia">
                                 <option selected disabled>Tipologias</option> 
-                                @foreach ($proyect->unidades[0]->tipologias as $tipoz)
-                                    <option value="{{ $tipoz->id }}">{{ $tipoz->titulo }}</option> 
+                                @foreach ($proyect->getTipologias2() as $t2)
+                                    <option value="{{ $t2[1][0].','.$t2[1][1] }}">{{ $t2[0] }}</option> 
                                 @endforeach
-                                {{-- @foreach ($proyect->unidades as $unidad)
-                                    <option value="{{ $unidad->id }}">{{ $unidad->dormitorios }} Drom. - {{ $unidad->banos }} Baños</option> 
-                                @endforeach --}}
                             </select>
                         </div>
 
@@ -91,34 +88,52 @@
 
                         {{-- orientacion --}}
                         <div class="col-md-6 mb-3">
-                        <select class="form-control" name="orientacion">
-                            <option selected disabled>Orientacion</option> 
-                            <option value=0 >Sin Orientación</option>
-                            <option value=1 >Sur Poniente</option>
-                            <option value=1 >Nor Oriente</option>
-                        </select>
+                            <select class="form-control" id="orientacion" name="orientacion">
+                                <option selected disabled>Orientacion</option> 
+                                <option value=0 >Sin Orientación</option>
+                                <option value=1 >Sur Poniente</option>
+                                <option value=2 >Nor Oriente</option>
+                            </select>
                         </div>
                         
+                        {{-- Piso --}}
                         <div class="col-md-6 mb-3">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option selected disabled>Piso</option>
-                            @foreach ($proyect->getPisos() as $p)
-                                <option>{{ $p }}</option> 
-                            @endforeach
-                        </select>
+                            <select class="form-control" id="piso" name="piso">
+                                <option selected disabled>Piso</option>
+                                @foreach ($proyect->getPisos() as $p)
+                                    <option value="{{ $p }}">{{ $p }}</option> 
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Bodega</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+
+                        {{-- Rut --}}
+                        <div class="col-md-6 mb-3" id="rutCont" style="display: none">
+                            <input type="text" class="form-control mb-contact-from-input" name="rut" placeholder="¿Cuál es tu rut?">
                         </div>
-                        <div class="col-md-6"></div>
+
+                        {{-- Nombre Completo --}}
+                        <div class="col-md-6 mb-3" id="nameCont" style="display: none">
+                            <input type="text" class="form-control mb-contact-from-input" name="nombre" placeholder="Nombre completo">
+                        </div>
+
+                        {{-- telefono --}}
+                        <div class="col-md-6 mb-3" id="phoneCont" style="display: none">
+                            <input type="text" class="form-control mb-contact-from-input" name="phone" placeholder="Teléfono">
+                        </div>
+
+                        {{-- telefono --}}
+                        <div class="col-md-6 mb-3" id="emailCont" style="display: none">
+                            <input type="text" class="form-control mb-contact-from-input" name="email" placeholder="¿Cuál es tu email?">
+                        </div>
+
                         <div class="col">
-                        <button type="submit" class="btn btn-block bg-main-color general-btn">Continuar</button>
+                            <div class="text-center mb-2" id="errorCont" style="display: none">
+                                <i class="fas fa-exclamation-circle text-danger"></i>
+                                <small class="text-danger text-center">¡Necesitas seleccionar un modelo!</small>
+                            </div>
+                            <input type="hidden" id="unidadId">
+                            <button id="contBtn" class="btn btn-block bg-main-color general-btn">Continuar</button>
+                            <button type="submit" id="sendCotBtn" class="btn btn-block bg-main-color general-btn" style="display: none">Enviar Cotizacion</button>
                         </div>
                     </div>
                 </form>

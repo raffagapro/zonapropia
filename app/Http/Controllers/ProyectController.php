@@ -58,13 +58,30 @@ class ProyectController extends Controller
     {
         $unidad = Unidad::findOrFail($request->unidadId);
         $tipologias = $unidad->tipologias;
-        return $tipologias;
+        return [$tipologias, $unidad];
     }
 
     public function tipoSwitcher(Request $request)
     {
-        $tipologia = Tipologia::findOrFail($request->tipoId);
-        return $tipologia;
+        $tipoSelected = explode(',', $request->tipoSelected);
+        $selectedUnits = Unidad::where('dormitorios', $tipoSelected[0])
+          ->Where('banos', 'LIKE', $tipoSelected[1])
+          ->get();
+        return $selectedUnits;
+    }
+
+    public function oriSwitcher(Request $request)
+    {
+        $oriSelected = $request->ori;
+        $selectedUnits = Unidad::where('orientacion', $oriSelected)->get();
+        return $selectedUnits;
+    }
+
+    public function pisoSwitcher(Request $request)
+    {
+        $pisoSelected = $request->piso;
+        $selectedUnits = Unidad::where('piso', $pisoSelected)->get();
+        return $selectedUnits;
     }
 
     /**

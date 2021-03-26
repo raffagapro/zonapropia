@@ -48,6 +48,8 @@ Route::post('proyects/comuna', [ProyectsController::class, 'comunaGrabber']);
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
 Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);
+Route::post('proyect/oSwitcher', [ProyectController::class, 'oriSwitcher']);
+Route::post('proyect/pSwitcher', [ProyectController::class, 'pisoSwitcher']);
 
 Route::resource('Invertir', InvertirPageController::class);
 Route::resource('InvertirPost', InvertirPostController::class, ['except'=> ['index']]);
