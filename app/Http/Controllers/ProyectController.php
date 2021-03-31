@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Unidad;
-use App\Models\Tipologia;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProyectController extends Controller
@@ -49,9 +49,11 @@ class ProyectController extends Controller
      */
     public function show($id)
     {
-      $proyect = Proyecto::findOrFail($id);
-      return view('proyect.index')
-       ->with(compact('proyect'));
+        $proyect = Proyecto::findOrFail($id);
+        $similares = Proyecto::where('comuna_id', $proyect->comuna->id)->paginate(3);
+        // dd($similares);
+        return view('proyect.index')
+        ->with(compact('proyect', 'similares'));
     }
 
     public function unitSwitcher(Request $request)

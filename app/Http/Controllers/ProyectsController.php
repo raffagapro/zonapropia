@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\User;
 use App\Models\Region;
-use App\Models\Provincia;
 use App\Models\Comuna;
 use App\Models\Taggable;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProyectsController extends Controller
@@ -21,18 +21,13 @@ class ProyectsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-      $g = true;
-      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
-      // dd($proyectos);
-      return view('proyects.index')
-        ->with(compact('proyectos', 'g'));
-    }
-    public function indexList(){
-      $g = false;
-      $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
-      // dd($proyectos);
-      return view('proyects.index')
-        ->with(compact('proyectos', 'g'));
+        // $aUser = Auth::user();
+        // $aUser = User::findOrFail(1);
+        // dd($aUser->proyects);
+        $proyectos = Proyecto::where('estado_id', 1)->paginate(25);
+        // dd($proyectos);
+        return view('proyects.index')
+            ->with(compact('proyectos'));
     }
 
     public function search(Request $request){
@@ -76,6 +71,22 @@ class ProyectsController extends Controller
         $region = Region::findOrFail($request->region);
         $comunas = $region->getComunas();
         return $comunas;
+    }
+
+    public function likeProyect($pId, $uId){
+        // dd('hola crayola');
+        // dd($pId, $uId);
+        $proyect = Proyecto::findOrFail($pId);
+        $user = User::findOrFail($uId);
+        $proyect->users()->attach($user);
+        return back();
+    }
+  
+    public function unlikeProyect($pId, $uId){
+        $proyect = Proyecto::findOrFail($pId);
+        $user = Taggable::findOrFail($uId);
+        $proyect->users()->detach($user);
+        return back();
     }
 
     /**

@@ -841,6 +841,24 @@ body {
   /* font-family: 'Helvetic Neue Bold';
   font-weight: bolder; */
 }
+.like-icon{
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  color: #D0D0D0;
+}
+.like-icon:hover{
+  color: #f946a8;
+}
+.like-icon2{
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  color: #D0D0D0;
+}
+.like-icon2:hover{
+  color: #f946a8;
+}
 .badge-cont2{
   position: absolute;
   top: 20px;

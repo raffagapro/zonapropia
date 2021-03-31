@@ -11,6 +11,26 @@
     @endif
   >
     <div class="card-body">
+      <!-- LIKED -->
+      @auth
+        @php
+          $fGo = false;
+        @endphp
+        @foreach (Auth::user()->proyects as $p)
+          @if ((int)$p->id === (int)$proyect->id)
+            @php $fGo = true; @endphp
+          @endif
+        @endforeach
+        @if ($fGo)
+          <a href="{{ route('proyects.unlike', [$proyect->id, Auth::user()->id])}}" class="like-icon">
+            <i class="fas fa-heart fa-2x main-color"></i>
+          </a>
+        @else
+          <a href="{{ route('proyects.like', [$proyect->id, Auth::user()->id])}}" class="like-icon">
+            <i class="far fa-heart fa-2x"></i>
+          </a>    
+        @endif
+      @endauth
       <!-- Badges -->
       <div class="text-right">
         @foreach ($proyect->tags as $tag)

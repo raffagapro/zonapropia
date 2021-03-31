@@ -4,20 +4,40 @@
 
 <!-- Grid Item -->
 <div class="col-md-4 mb-4">
-  <a href="{{ route('proyect.show', $proyect->id )}}" class="grid-item-link">
-    <div class="card item-main-grid">
-      @if ($proyect->media->where('name', 'main')->first() === null)
-        <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-grid-img2">
-      @else 
-        <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
+  <div class="card item-main-grid">
+    @if ($proyect->media->where('name', 'main')->first() === null)
+      <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-grid-img2">
+    @else 
+      <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
+    @endif
+    <!-- LIKED -->
+    @auth
+      @php
+        $fGo = false;
+      @endphp
+      @foreach (Auth::user()->proyects as $p)
+        @if ((int)$p->id === (int)$proyect->id)
+          @php $fGo = true; @endphp
+        @endif
+      @endforeach
+      @if ($fGo)
+        <a href="{{ route('proyects.unlike', [$proyect->id, Auth::user()->id])}}" class="like-icon">
+          <i class="fas fa-heart fa-2x main-color"></i>
+        </a>
+      @else
+        <a href="{{ route('proyects.like', [$proyect->id, Auth::user()->id])}}" class="like-icon">
+          <i class="far fa-heart fa-2x"></i>
+        </a>    
       @endif
-      <!-- Badges -->
-      <div class="row badge-cont">
-        @foreach ($proyect->tags as $tag)
-          <span class="badge cust-badges badge-{{ $tag->color }} mr-1">{{ $tag->name }}</span>
-        @endforeach
-      </div>
-      <div class="card-body">
+    @endauth
+    <!-- Badges -->
+    <div class="row badge-cont">
+      @foreach ($proyect->tags as $tag)
+        <span class="badge cust-badges badge-{{ $tag->color }} mr-1">{{ $tag->name }}</span>
+      @endforeach
+    </div>
+    <div class="card-body">
+      <a href="{{ route('proyect.show', $proyect->id )}}" class="grid-item-link">
         <!-- Title & Map Marker -->
         <h5 class="card-title grid-title">{{ $proyect->name }}</h5>
         <small class="subtitle-mapmarker"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }}</small>
@@ -50,7 +70,7 @@
             @endif
           </div>
         </div>
-      </div>
+      </a>
     </div>
-  </a>
+  </div>
 </div>

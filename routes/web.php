@@ -45,6 +45,9 @@ Route::resource('proyects', ProyectsController::class, ['except'=>['store']]);
 Route::post('proyects/list', [ProyectsController::class, 'indexList'])->name('proyects.list');
 Route::post('proyects', [ProyectsController::class, 'search'])->name('proyects.search');
 Route::post('proyects/comuna', [ProyectsController::class, 'comunaGrabber']);
+Route::get('proyects/like/{proyect}/{user}', [ProyectsController::class, 'likeProyect'])->name('proyects.like');
+Route::get('proyects/unlike/{proyect}/{user}', [ProyectsController::class, 'unlikeProyect'])->name('proyects.unlike');
+
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
 Route::post('proyect/tSwitcher', [ProyectController::class, 'tipoSwitcher']);

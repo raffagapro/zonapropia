@@ -399,10 +399,12 @@
             </div>
             <div class="mb-3">
               @foreach ($proyect->users as $user)
-                <span class="badge badge-primary">
-                  <a href="{{ route('aProyect.rmVendedor', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
-                  {{ $user->name }}
-                </span>
+                @if ($user->hasRole('vendedor'))
+                  <span class="badge badge-primary">
+                    <a href="{{ route('aProyect.rmVendedor', [$proyect->id, $user->id]) }}"><i class="fas fa-times text-danger"></i></a>
+                    {{ $user->name }}
+                  </span>
+                @endif
               @endforeach
             </div>
           </form>

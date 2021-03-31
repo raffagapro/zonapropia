@@ -13,6 +13,26 @@
           @else 
             <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-list-img">
           @endif
+          <!-- LIKED -->
+          @auth
+            @php
+              $fGo = false;
+            @endphp
+            @foreach (Auth::user()->proyects as $p)
+              @if ((int)$p->id === (int)$proyect->id)
+                @php $fGo = true; @endphp
+              @endif
+            @endforeach
+            @if ($fGo)
+              <a href="{{ route('proyects.unlike', [$proyect->id, Auth::user()->id])}}" class="like-icon2">
+                <i class="fas fa-heart fa-2x main-color"></i>
+              </a>
+            @else
+              <a href="{{ route('proyects.like', [$proyect->id, Auth::user()->id])}}" class="like-icon2">
+                <i class="far fa-heart fa-2x"></i>
+              </a>    
+            @endif
+          @endauth
           <!-- Badges -->
           <div class="row list-badge-cont">
             @foreach ($proyect->tags as $tag)

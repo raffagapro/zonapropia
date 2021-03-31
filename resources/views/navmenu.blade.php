@@ -61,13 +61,6 @@
             </span>
           </a>
         </li>
-        {{-- <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span class="nav-link-text">
-              Subsidios Habitacionales
-            </span>
-          </a>
-        </li> --}}
         <li class="nav-item">
           <a class="nav-link" href="{{ route('Invertir.index')}}">
             <span class="nav-link-text">
@@ -96,9 +89,9 @@
           <i class="fas fa-envelope"></i>
         </a>
         @guest
-          <button class="nbnlg-btn btn navBar-btn navBar-btn-outline main-color" type="button" data-toggle="modal" data-target="#loginModal">
-            <span>Iniciar sesión</span>
-            <i class="fas fa-user navBar-btn-icon"></i>
+          <button class="newProfileBtn bg-main-color text-light" type="button" data-toggle="modal" data-target="#loginModal">
+            {{-- <i class="fas fa-user"></i> --}}
+            <i class="fas fa-sign-in-alt"></i>
           </button>
         @endguest
         @auth

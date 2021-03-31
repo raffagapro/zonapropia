@@ -1,6 +1,32 @@
 <div class="card mb-section-card">
   <!-- Title -->
-  <h1 class="card-title mb-section-card-title mt-1">{{ $proyect->name }}</h1>
+  <div class="row">
+    <div class="col-6">
+      <h1 class="card-title mb-section-card-title mt-1">{{ $proyect->name }}</h1>
+    </div>
+    <div class="col-6 text-right pt-3 pr-5">
+      <!-- LIKED -->
+      @auth
+        @php
+          $fGo = false;
+        @endphp
+        @foreach (Auth::user()->proyects as $p)
+          @if ((int)$p->id === (int)$proyect->id)
+            @php $fGo = true; @endphp
+          @endif
+        @endforeach
+        @if ($fGo)
+          <a href="{{ route('proyects.unlike', [$proyect->id, Auth::user()->id])}}">
+            <i class="fas fa-heart fa-2x main-color"></i>
+          </a>
+        @else
+          <a href="{{ route('proyects.like', [$proyect->id, Auth::user()->id])}}">
+            <i class="far fa-heart fa-2x main-color"></i>
+          </a>    
+        @endif
+      @endauth
+    </div>
+  </div>
   <div class="card-body row pt-0">
     <div class="col">
       <!-- Specs -->
