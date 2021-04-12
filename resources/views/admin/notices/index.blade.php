@@ -86,10 +86,30 @@
             <form action="{{ route('notice.store') }}" method="POST">
               @csrf
               <div class="form-group">
-                <input type="text" name="titulo" class="form-control" placeholder="Titulo">
+                <input
+                  type="text" 
+                  name="titulo" 
+                  class="form-control @error('titulo') is-invalid @enderror"
+                  placeholder="Titulo"
+                  value="{{ old('titulo') }}"
+                >
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('titulo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="mensaje" rows="3" placeholder="Escriba aquí su anuncio"></textarea>
+                <textarea class="form-control @error('mensaje') is-invalid @enderror" name="mensaje" rows="3" placeholder="Escriba aquí su anuncio">
+                  {{ old('mensaje') }}
+                </textarea>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('mensaje')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
               <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Guardar</button>
             </form>

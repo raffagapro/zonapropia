@@ -38,6 +38,7 @@
               <div class="col-6">
                 <label for="cuotaMonto">Modelo</label>
                 <input type="text" name="modelo" class="form-control @error('modelo') is-invalid @enderror" value="{{ old('modelo') }}">
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
                 @error('modelo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

@@ -45,6 +45,16 @@ class AminProyectController extends Controller
      */
     public function store(Request $request){
       // dd($request->all());
+      $validated = $request->validate([
+        'nombre'=>'required|max:40|unique:proyectos,name',
+        'direccion'=>'required|unique:proyectos,direccion',
+        'latitud'=>'required',
+        'longitud'=>'required',
+        'descripcion'=>'required',
+        'textoDestacado'=>'required',
+        'textoProyecto'=>'required',
+        'terminos'=>'required',
+      ]);
       $destacar = 0;
       if ($request->destacar !== 0) {
         $destacar = 1;
@@ -113,6 +123,9 @@ class AminProyectController extends Controller
     }
 
     public function addTag(Request $request, $id){
+      $validated = $request->validate([
+        'tag'=>'required',
+      ]);
       $proyect = Proyecto::findOrFail($id);
       $tag = Taggable::findOrFail($request->tag);
       if (!$proyect->tags()->where('name', $tag->name)->first()) {
@@ -151,6 +164,9 @@ class AminProyectController extends Controller
     }
 
     public function addVendedor(Request $request, $id){
+      $validated = $request->validate([
+        'vendor'=>'required',
+      ]);
       $proyect = Proyecto::findOrFail($id);
       $user = User::findOrFail($request->vendor);
       if (!$proyect->users()->where('user_id', $user->id)->first()) {
@@ -190,6 +206,9 @@ class AminProyectController extends Controller
     }
 
     public function addCar(Request $request, $id){
+      $validated = $request->validate([
+        'car'=>'required',
+      ]);
       $proyect = Proyecto::findOrFail($id);
       $car = Caracteristica::findOrFail($request->car);
       if (!$proyect->caracteristicas()->where('name', $car->name)->first()) {
@@ -305,6 +324,16 @@ class AminProyectController extends Controller
     public function update(Request $request, $id){
       // dd($request->destacar);
       // dd($request->all());
+      $validated = $request->validate([
+        'nombre'=>'required|max:40|unique:proyectos,name',
+        'direccion'=>'required|unique:proyectos,direccion',
+        'latitud'=>'required',
+        'longitud'=>'required',
+        'descripcion'=>'required',
+        'textoDestacado'=>'required',
+        'textoProyecto'=>'required',
+        'terminos'=>'required',
+      ]);
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
       $proyect->direccion = $request->direccion;

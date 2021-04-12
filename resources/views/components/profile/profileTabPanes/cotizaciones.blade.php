@@ -19,7 +19,7 @@
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td><a class="main-color" href=""><i class="far fa-file-pdf"></i></a></td>
+            <td><a class="main-color" href="{{ route('cotizacion.index', 1) }}"><i class="far fa-file-pdf"></i></a></td>
           </tr>
         </tbody>
       </table>

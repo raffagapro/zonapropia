@@ -19,6 +19,9 @@ class MediaController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function storeBanner(Request $request){
+      $validated = $request->validate([
+        'banner'=>'required',
+      ]);
       // dd($request->all());
       $proyect = Proyecto::findOrFail($request->proyect_id);
       if ($proyect->proyectHasMedia($request->name)) {
@@ -49,19 +52,7 @@ class MediaController extends Controller
         //call proyect again with new image
         $proyect = Proyecto::findOrFail($request->proyect_id);
         $status = 'La imagen ha sido guardada exitosamente.';
-        $vendedores = User::whereHas(
-          'roles', function($q){
-            $q->where('name', 'vendedor');
-          }
-        )->get();
-        return view('admin.proyects.edit')
-          ->with(compact(
-            'proyect',
-            'status',
-            'vendedores',
-          ));
-      }else {
-        dd('bada chavo', $request->all());
+        return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
       }
     }
 
@@ -73,6 +64,9 @@ class MediaController extends Controller
     */
     public function storeMain(Request $request){
       // dd($request->all());
+      $validated = $request->validate([
+        'main'=>'required',
+      ]);
       $proyect = Proyecto::findOrFail($request->proyect_id);
       if ($proyect->proyectHasMedia($request->name)) {
         //erases previos image
@@ -98,17 +92,7 @@ class MediaController extends Controller
         //call proyect again with new image
         $proyect = Proyecto::findOrFail($request->proyect_id);
         $status = 'La imagen ha sido guardada exitosamente.';
-        $vendedores = User::whereHas(
-          'roles', function($q){
-            $q->where('name', 'vendedor');
-          }
-        )->get();
-        return view('admin.proyects.edit')
-          ->with(compact(
-            'proyect', 
-            'status', 
-            'vendedores', 
-          ));
+        return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
       }
     }
 
@@ -120,39 +104,42 @@ class MediaController extends Controller
     */
     public function storeMedia(Request $request){
      // dd($request->all());
-     $proyect = Proyecto::findOrFail($request->proyect_id);
-     if ($request->hasFile('media')) {
-       if ($request->file('media')->isValid()) {
-         $validated = $request->validate([
-           'media'=>'mimes:jpeg,png|max:1000',
-         ]);
-         // dd($request->file('media')->getClientOriginalName());
-         $extension = $request->media->extension();
-         //grab original name and remove ext
-         $originalName = $request->file('media')->getClientOriginalName();
-         $originalName = str_replace('.'.$extension, "",$originalName);
-         $request->media->storeAs('/public/media', $request->name.'_'.$proyect->id."_".$originalName.".".$extension);
-         $url = Storage::url('media/'.$request->name.'_'.$proyect->id."_".$originalName.".".$extension);
-         $proyect->Media()->save(new Media([
-           'name' => $request->name,
-           'loc' => $url,
-         ]));
-       }
-       //call proyect again with new image
-       $proyect = Proyecto::findOrFail($request->proyect_id);
-       $status = 'La imagen ha sido guardada exitosamente.';
-        $vendedores = User::whereHas(
-          'roles', function($q){
-            $q->where('name', 'vendedor');
-          }
-        )->get();
-       return view('admin.proyects.edit')
-         ->with(compact(
-            'proyect', 
-            'status', 
-            'vendedores', 
-          ));
-     }
+      $validated = $request->validate([
+        'media'=>'required',
+      ]);
+      $proyect = Proyecto::findOrFail($request->proyect_id);
+      if ($request->hasFile('media')) {
+        if ($request->file('media')->isValid()) {
+          $validated = $request->validate([
+            'media'=>'mimes:jpeg,png|max:1000',
+          ]);
+          // dd($request->file('media')->getClientOriginalName());
+          $extension = $request->media->extension();
+          //grab original name and remove ext
+          $originalName = $request->file('media')->getClientOriginalName();
+          $originalName = str_replace('.'.$extension, "",$originalName);
+          $request->media->storeAs('/public/media', $request->name.'_'.$proyect->id."_".$originalName.".".$extension);
+          $url = Storage::url('media/'.$request->name.'_'.$proyect->id."_".$originalName.".".$extension);
+          $proyect->Media()->save(new Media([
+            'name' => $request->name,
+            'loc' => $url,
+          ]));
+        }
+        //call proyect again with new image
+        $proyect = Proyecto::findOrFail($request->proyect_id);
+        $status = 'La imagen ha sido guardada exitosamente.';
+          $vendedores = User::whereHas(
+            'roles', function($q){
+              $q->where('name', 'vendedor');
+            }
+          )->get();
+        return view('admin.proyects.edit')
+          ->with(compact(
+              'proyect', 
+              'status', 
+              'vendedores', 
+            ));
+      }
    }
 
     public function delMedia($media_id, $proyect_id)

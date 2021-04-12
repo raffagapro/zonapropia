@@ -36,4 +36,8 @@ class Unidad extends Model
     {
       return $this->belongsToMany(Tipologia::class);
     }
+    public function estacionamientos()
+    {
+        return $this->hasMany(Estacionamiento::class);
+    }
 }

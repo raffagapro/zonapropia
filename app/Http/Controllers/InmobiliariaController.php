@@ -36,11 +36,15 @@ class InmobiliariaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+      $validated = $request->validate([
+        'nombre'=>'required',
+        'logo'=>'required',
+      ]);
       if ($request->hasFile('logo')) {
         if ($request->file('logo')->isValid()) {
           $validated = $request->validate([
             'nombre'=>'string|max:40|unique:inmobiliarias,name',
-            'logo'=>'mimes:jpeg,png|max:500',
+            'logo'=>'mimes:jpeg,png|max:5000',
           ]);
           $extension = $request->logo->extension();
           $request->logo->storeAs('/public/inmo_logos', 'logo_'.$request->nombre.".".$extension);
@@ -139,6 +143,10 @@ class InmobiliariaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
+      $validated = $request->validate([
+        'nombre'=>'required',
+        'logo'=>'required',
+      ]);
       $inmo = Inmobiliaria::findOrFail($id);
       $inmo->name = $request->nombre;
       if ($request->has('destacar')) {
@@ -150,7 +158,6 @@ class InmobiliariaController extends Controller
         if ($request->file('logo')->isValid()) {
           $validated = $request->validate([
             'nombre'=>'string|max:40',
-            'logo'=>'mimes:jpeg,png|max:500',
           ]);
           //erases previos logo
           $delInmo = str_replace('/storage/', "",$inmo->logo);

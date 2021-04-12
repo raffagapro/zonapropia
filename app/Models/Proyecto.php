@@ -227,5 +227,9 @@ class Proyecto extends Model
       }
       return $tipos;
     }
+    public function estacionamientos()
+    {
+        return $this->hasMany(Estacionamiento::class);
+    }
 
 }

@@ -21,7 +21,8 @@
             @csrf
             {{-- nombre  --}}
             <div class="form-group">
-              <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Nombre" value="">
+              <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" placeholder="Nombre" value="{{ old('nombre') }}">
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
               @error('nombre')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -30,11 +31,14 @@
             </div>
             <div class="form-group row">
               <div class="col-4">
+                <small id="emailHelp" class="form-text text-muted">( jpeg/png, 500k.)</small>
                 <input
                   type="file"
                   class="form-control-file @error('logo') is-invalid @enderror"
                   data-default-file="url_of_your_file"
-                  name="logo"/>
+                  name="logo"
+                >
+                <small id="emailHelp" class="form-text text-danger">*Requerido.</small>
                 @error('logo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

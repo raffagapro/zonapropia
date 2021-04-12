@@ -28,6 +28,10 @@ class NoticesController extends Controller
     public function store(Request $request)
     {
       // dd($request->all());
+      $validated = $request->validate([
+        'titulo' => 'required|max:255',
+        'mensaje' => 'required',
+      ]);
       Notice::create([
         'title' => $request->titulo,
         'body' => $request->mensaje,
@@ -59,6 +63,10 @@ class NoticesController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $validated = $request->validate([
+        'titulo' => 'required|max:255',
+        'mensaje' => 'required',
+      ]);
       $notice = Notice::findOrFail($id);
       $notice->title = $request->titulo;
       $notice->body = $request->mensaje;

@@ -22,7 +22,8 @@
             {{-- Nombre --}}
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="">
+              <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre') }}">
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
               @error('nombre')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -32,7 +33,8 @@
             {{-- Direccion --}}
             <div class="form-group">
               <label for="direccion">Dirección</label>
-              <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="">
+              <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror" value="{{ old('direccion') }}">
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
               @error('direccion')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -67,7 +69,8 @@
               {{-- Latitud --}}
               <div class="col-4">
                 <label for="latitud">Latitud</label>
-                <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" value="">
+                <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" value="{{ old('latitud') }}">
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
                 @error('latitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -77,7 +80,8 @@
               {{-- Longitud --}}
               <div class="col-4">
                 <label for="longitud">Longitud</label>
-                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" value="">
+                <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" value="{{ old('longitud') }}">
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
                 @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -296,22 +300,46 @@
             {{-- descripcion --}}
             <div class="form-group">
               <label for="descripcion">Descripcion del proyecto</label>
-              <textarea class="form-control" name="descripcion" rows="3"></textarea>
+              <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" rows="3">{{ old('descripcion') }}</textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('descripcion')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- texto descatado --}}
             <div class="form-group">
               <label for="textoDestacado">Texto destacado</label>
-              <textarea class="form-control" name="textoDestacado" rows="3"></textarea>
+              <textarea class="form-control @error('textoDestacado') is-invalid @enderror" name="textoDestacado" rows="3">{{ old('textoDestacado') }}</textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('textoDestacado')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- Texto Proyecto --}}
             <div class="form-group">
               <label for="textoProyecto">Texto del proyecto</label>
-              <textarea class="form-control" name="textoProyecto" rows="3"></textarea>
+              <textarea class="form-control @error('textoProyecto') is-invalid @enderror" name="textoProyecto" rows="3">{{ old('textoProyecto') }}</textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('textoProyecto')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- terms --}}
             <div class="form-group">
               <label for="terminos">Terminos</label>
-              <textarea class="form-control" name="terminos" rows="3"></textarea>
+              <textarea class="form-control @error('terminos') is-invalid @enderror" name="terminos" rows="3">{{ old('terminos') }}</textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('terminos')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Agregar Proyecto</button>
           </form>

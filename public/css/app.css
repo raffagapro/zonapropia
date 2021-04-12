@@ -11125,6 +11125,10 @@ body {
   margin: 60px 40px;
 }
 
+.cotizador-modal-container {
+  margin: 40px;
+}
+
 .login-modal-tab {
   color: #5A5A5A;
   font-family: "Roboto", sans-serif;
@@ -11263,6 +11267,12 @@ body {
   background-position: center;
 }
 
+.slider-cont-cotizacion {
+  min-height: 100px;
+  height: 300px;
+  width: auto;
+}
+
 .respaldo-slider-cont {
   min-height: 600px;
   background-repeat: no-repeat;
@@ -11292,6 +11302,28 @@ body {
 
 .banner-cont-500 {
   min-height: 600px;
+}
+
+.banner-cont-300 {
+  min-height: 275px;
+}
+
+.color-disable {
+  color: #D0D0D0;
+}
+
+.b-border {
+  border-bottom: 1px solid #62A4C0;
+  margin-right: 50%;
+}
+
+.b-border2 {
+  border-bottom: 1px solid #62A4C0;
+}
+
+.bg-disable {
+  border-color: #D0D0D0;
+  background-color: #D0D0D0;
 }
 
 .proyect-info {

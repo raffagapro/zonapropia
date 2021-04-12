@@ -27,6 +27,7 @@
                 class="form-control @error('nombre') is-invalid @enderror"
                 placeholder="Nombre" value="{{ $proyect->name }}"
               >
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
               @error('nombre')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -40,6 +41,7 @@
                 class="form-control @error('direccion') is-invalid @enderror"
                 placeholder="Dirección" value="{{ $proyect->direccion }}"
               >
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
               @error('direccion')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -86,6 +88,7 @@
                   class="form-control @error('latitud') is-invalid @enderror"
                   placeholder="Latitud" value="{{ $proyect->latitud }}"
                 >
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
                 @error('latitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -99,6 +102,7 @@
                   class="form-control @error('longitud') is-invalid @enderror"
                   placeholder="Longitud" value="{{ $proyect->longitud }}"
                 >
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
                 @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -344,30 +348,54 @@
             {{-- descripcion --}}
             <div class="form-group">
               <label for="descripcion">Descripción</label>
-              <textarea class="form-control" name="descripcion" rows="3"
-                placeholder="Descripción del proyecto"
-              >{{ $proyect->descripcion }}</textarea>
+              <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" rows="3"
+                placeholder="Descripción del proyecto">{{ $proyect->descripcion }}
+              </textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('descripcion')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- texto descatado --}}
             <div class="form-group">
               <label for="textoDestacado">Texto Destacado</label>
-              <textarea class="form-control" name="textoDestacado" rows="3"
-                placeholder="Texto destacado"
-              >{{ $proyect->texto_destacado }}</textarea>
+              <textarea class="form-control @error('textoDestacado') is-invalid @enderror" name="textoDestacado" rows="3"
+                placeholder="Texto destacado">{{ $proyect->texto_destacado }}
+              </textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('textoDestacado')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- Texto Proyecto --}}
             <div class="form-group">
               <label for="textoProyecto">Texto Proyecto</label>
-              <textarea class="form-control" name="textoProyecto" rows="3"
-                placeholder="Texto del proyecto"
-                >{{ $proyect->texto_proyecto }}</textarea>
+              <textarea class="form-control @error('textoProyecto') is-invalid @enderror" name="textoProyecto" rows="3"
+                placeholder="Texto del proyecto">{{ $proyect->texto_proyecto }}
+              </textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('textoProyecto')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             {{-- terms --}}
             <div class="form-group">
               <label for="terminos">Terminos</label>
-              <textarea class="form-control" name="terminos" rows="3"
-                placeholder="Terminos"
-                >{{ $proyect->terminos }}</textarea>
+              <textarea class="form-control @error('terminos') is-invalid @enderror" name="terminos" rows="3"
+                placeholder="Terminos">{{ $proyect->terminos }}
+              </textarea>
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('terminos')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
           </form>
@@ -384,7 +412,7 @@
             @csrf
             <div class="row">
               <div class="col-md-8 col-lg-10">
-                <select class="form-control" name="vendor">
+                <select class="form-control @error('vendor') is-invalid @enderror" name="vendor">
                   <option selected disabled>Seleccionar Vendedor</option>
                   @forelse ($vendedores as $v)
                     <option value="{{ $v->id }}">{{ $v->name }}</option>
@@ -392,6 +420,12 @@
                   <option selected disabled>Sin vendedores</option>
                   @endforelse
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('vendor')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
               <div class="col-md-4 col-lg-2">
                 <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar Vendedor</button>
@@ -421,7 +455,7 @@
             @csrf
             <div class="row">
               <div class="col-md-8 col-lg-10">
-                <select class="form-control" name="tag">
+                <select class="form-control @error('tag') is-invalid @enderror" name="tag">
                   <option selected disabled>Seleccionar Tag</option>
                   @foreach (App\Models\Taggable::all() as $tag)
                     @if ($tag->visibility !== 2)
@@ -429,6 +463,12 @@
                     @endif
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('tag')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
               <div class="col-md-4 col-lg-2">
                 <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar Tag</button>
@@ -456,12 +496,18 @@
             @csrf
             <div class="row">
               <div class="col-md-8 col-lg-10">
-                <select class="form-control" name="car">
+                <select class="form-control @error('car') is-invalid @enderror" name="car">
                   <option selected disabled>Seleccionar Caracteristica</option>
                   @foreach (App\Models\Caracteristica::all() as $car)
                     <option value="{{ $car->id }}">{{ $car->name }}</option>
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('car')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
               <div class="col-md-4 col-lg-2">
                 <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar</button>
@@ -507,6 +553,175 @@
         </div>
       </div>
 
+      {{-- Estacionamiento Section --}}
+      <div class="card mb-section-card">
+        {{-- Title --}}
+        <h4 class="card-title mb-section-card-title mt-1 mb-4">Estacionamiento</h4>
+        {{-- Estacionamiento Form --}}
+        <div class="container">
+          <form action="{{ route('estacionamiento.addspot', $proyect->id) }}" method="POST">
+            @csrf
+            {{-- nombre--}}
+            <div class="form-group row">
+              {{-- nombre --}}
+              <div class="col-8">
+                <input
+                  type="text"
+                  name="floorName"
+                  min="0"
+                  class="form-control @error('floorName') is-invalid @enderror"
+                  placeholder="Nombre" value="{{ old('floorName') }}"
+                >
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('floorName')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              {{-- Piso --}}
+              <div class="col-2">
+                <input
+                  type="number"
+                  name="parkingFlo"
+                  min="1"
+                  class="form-control @error('parkingFlo') is-invalid @enderror"
+                  placeholder="Piso" value="{{ old('parkingFlo') }}"
+                >
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('parkingFlo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+              </div>
+              <div class="col-md-4 col-lg-2">
+                <button type="submit" class="btn bg-main-color btn-block navBar-btn text-light mt-3 mt-md-0 mb-3">Agregar</button>
+              </div>
+            </div>
+            @if (count($proyect->estacionamientos) !== 0)
+              <div class="mb-3">
+                <table class="table table-hover mt-4 table-responsive-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Unidad</th>
+                      <th scope="col">Piso</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Control</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @forelse ($proyect->estacionamientos as $parking)
+                      <tr>
+                        {{-- id  --}}
+                        <th scope="row">{{ $parking->id }}</th>
+                        {{-- name  --}}
+                        <td>
+                          <a href="{{ route('estacionamiento.edit', $parking->id) }}">
+                            {{ $parking->name }}
+                          </a>
+                        </td>
+                        {{-- Unidad  --}}
+                        @if ($parking->unidad)
+                          <td>
+                            <a href="{{ route('unidad.edit', $parking->unidad->id) }}">
+                              {{ $parking->unidad->modelo }}
+                            </a>
+                          </td>
+                        @else
+                          <td>Sin Unidad</td>
+                        @endif
+                        {{-- piso  --}}
+                        <td>{{ $parking->piso }}</td>
+                        {{-- tags  --}}
+                        <td>
+                          @if ($parking->status === 0)
+                            <span class="badge badge-danger">Ocupado</span>
+                          @else
+                            <span class="badge badge-success">Disponible</span>
+                          @endif
+                        </td>
+                        {{-- Control  --}}
+                        <td>
+                          {{-- publicado --}}
+                          @if ($parking->status === 1 )
+                            <a
+                              href="javascript:void(0);"
+                              class="btn btn-sm btn-danger"
+                              onclick="event.preventDefault(); document.getElementById('{{ 'parkingStatus'.$parking->id }}').submit();"
+                              data-toggle="tooltip" data-placement="top" title="No disponible">
+                              <i class="fas fa-ban"></i>
+                            </a>
+                            <form action=""></form>
+                            <form id="parkingStatus{{ $parking->id }}"
+                              action="{{ route('estacionamiento.ocupado', $parking->id) }}"
+                              method="POST"
+                              style="display: none;"
+                              >@csrf
+                            </form>
+                          @else
+                            <a
+                              href="javascript:void(0);"
+                              class="btn btn-sm btn-success"
+                              onclick="event.preventDefault(); document.getElementById('parkingStatus{{ $parking->id }}').submit();"
+                              data-toggle="tooltip" data-placement="top" title="Disponible">
+                              <i class="fas fa-check"></i>
+                            </a>
+                            <form action=""></form>
+                            <form id="{{ 'parkingStatus'.$parking->id}}"
+                              action="{{ route('estacionamiento.disponible', $parking->id) }}"
+                              method="POST"
+                              style="display: none;"
+                              >@csrf
+                            </form>
+                          @endif
+      
+                          {{-- delete --}}
+                          <a
+                            href="javascript:void(0);"
+                            class="btn btn-sm btn-danger"
+                            onclick="
+                              event.preventDefault();
+                              swal.fire({
+                                text: '¿Deseas eliminar el estacionamiento?',
+                                showCancelButton: true,
+                                cancelButtonText: `Cancelar`,
+                                cancelButtonColor:'#62A4C0',
+                                confirmButtonColor:'red',
+                                confirmButtonText:'Eliminar',
+                                icon:'error',
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  document.getElementById('{{ 'parkingDestroy'.$parking->id }}').submit();
+                                }
+                              });
+                            "
+                            data-toggle="tooltip" data-placement="top" title="Borrar Estacionamiento">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                          <form id="{{ 'parkingDestroy'.$parking->id }}"
+                            action="{{ route('estacionamiento.destroy', $parking->id) }}"
+                            method="POST"
+                            style="display: none;"
+                            >@method('DELETE') @csrf
+                          </form>
+                        </td>
+                      </tr>
+                    @empty
+                      <tr>
+                        <th class="main-color">No hay estacionamientos asociados al proyecto.</th>
+                      </tr>
+                    @endforelse
+                  </tbody>
+                </table>
+              </div>
+            @endif
+          </form>
+        </div>
+      </div>
+
       {{-- Images --}}
       <div class="card mb-section-card">
         {{-- Title --}}
@@ -531,6 +746,7 @@
                 type="file"
                 class="form-control-file @error('banner') is-invalid @enderror"
                 name="banner"/>
+              <small id="emailHelp" class="form-text text-danger">*Requerido.</small>
               @error('banner')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -560,6 +776,7 @@
                 class="form-control-file @error('main') is-invalid @enderror"
                 data-default-file="url_of_your_file"
                 name="main"/>
+              <small id="emailHelp" class="form-text text-danger">*Requerido.</small>
               @error('main')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -597,6 +814,7 @@
                 class="form-control-file @error('media') is-invalid @enderror"
                 data-default-file="url_of_your_file"
                 name="media"/>
+              <small id="emailHelp" class="form-text text-danger">*Requerido.</small>
               @error('media')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>

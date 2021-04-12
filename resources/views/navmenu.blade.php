@@ -90,8 +90,7 @@
         </a>
         @guest
           <button class="newProfileBtn bg-main-color text-light" type="button" data-toggle="modal" data-target="#loginModal">
-            {{-- <i class="fas fa-user"></i> --}}
-            <i class="fas fa-sign-in-alt"></i>
+            <i class="fas fa-users"></i>
           </button>
         @endguest
         @auth

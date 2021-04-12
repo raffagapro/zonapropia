@@ -24,6 +24,8 @@ use App\Http\Controllers\InvertirPostController;
 use App\Http\Controllers\FinanciamientoController;
 use App\Http\Controllers\RespaldoController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\ParkingController;
 
 
 /*
@@ -70,6 +72,11 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
     Route::resource('userProfile', UserProfile::class);
     Route::put('userProfile/updatePW/{user}', [UserProfile::class, 'updatePW'])->name('userProfile.updatePW');
+    Route::resource('cotizacion', CotizacionController::class, ['except'=>['index']]);
+    Route::get('cotizacion/{id}/index', [CotizacionController::class, 'index'])->name('cotizacion.index');
+    Route::get('cotizacion/online/reserva', [CotizacionController::class, 'reserva'])->name('cotizacion.reserva');
+
+
     Route::prefix('admin')->group(function(){
       Route::middleware(['apa'])->group(function () {
         // Route::resource('roles', RoleController::class);
@@ -128,6 +135,10 @@ Route::middleware(['auth'])->group(function (){
         Route::get('post/{post}/{tag}/rmTag', [PostController::class, 'rmTag'])->name('post.rmTag');
         Route::post('post/bannerImgStore', [PostController::class, 'storeBanner'])->name('post.storeBanner');
         Route::post('post/principalImgStore', [PostController::class, 'storePrincipal'])->name('post.storeMain');
+        Route::resource('estacionamiento', ParkingController::class, ['except'=>['index', 'create', 'show', 'store']]);
+        Route::post('estacionamiento/crear/{proyecto_id}', [ParkingController::class, 'store'])->name('estacionamiento.addspot');
+        Route::post('estacionamiento/ocupado/{parking_id}', [ParkingController::class, 'parkingOcupado'])->name('estacionamiento.ocupado');
+        Route::post('estacionamiento/disponible/{parking_id}', [ParkingController::class, 'parkingDisponible'])->name('estacionamiento.disponible');
 
       });
     });

@@ -24,16 +24,30 @@
               <label for="titulo">Titulo</label>
               <input
                 type="text" name="titulo"
-                class="form-control"
-                placeholder="Titulo" value="{{ $notice->title }}">
+                class="form-control @error('titulo') is-invalid @enderror"
+                placeholder="Titulo" value="{{ $notice->title }}"
+              >
+              <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+              @error('titulo')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
             </div>
             <div class="form-group">
               <div class="form-group">
                 <label for="mensaje">Mensaje</label>
                 <textarea
-                  class="form-control"
+                  class="form-control @error('mensaje') is-invalid @enderror"
                   name="mensaje" rows="3"
-                  placeholder="Escriba aquí su anuncio">{{ $notice->body }}</textarea>
+                  placeholder="Escriba aquí su anuncio">{{ $notice->body }}
+                </textarea>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('mensaje')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>

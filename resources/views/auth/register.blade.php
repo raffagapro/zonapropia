@@ -62,7 +62,7 @@
 
   <button type="submit" class="btn bg-main-color general-btn mt-2">Registrarse</button>
 </form>
-<div class="mt-4">
+{{-- <div class="mt-4">
   <h6>Ingresar Con:</h6>
   <a href="#" class="sm-login-icons">
     <i class="fab fa-instagram-square insta"></i>
@@ -73,4 +73,4 @@
   <a href="#" class="sm-login-icons">
     <i class="fab fa-linkedin lnkd"></i>
   </a>
-</div>
+</div> --}}
