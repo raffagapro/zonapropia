@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+use App\Models\Cotizacion;
+use App\Models\Unidad;
+use App\Models\User;
+use App\Models\Proyecto;
+use App\Models\Estacionamiento;
+use App\Mail\ContizacionMail;
 
 class CotizacionController extends Controller
 {
@@ -14,7 +23,8 @@ class CotizacionController extends Controller
     public function index($id)
     {
         // dd($id);
-        return view('cotizacion.index');
+        $cotizacion = Cotizacion::findOrFail($id);
+        return view('cotizacion.index')->with(compact('cotizacion'));
     }
 
     public function reserva()
@@ -41,7 +51,31 @@ class CotizacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        $status = 0;
+        $cotizacion = Cotizacion::create([
+            'rut' => $request->rut,
+            'phone' => $request->phone,
+            'status' => $status,
+            'email' => $request->email,
+            'name' => $request->nombre,
+        ]);
+        $user = User::findOrFail(Auth::id());
+        $user->cotizaciones()->save($cotizacion);
+        $unid = Unidad::findOrFail($request->model);
+        $unid->cotizaciones()->save($cotizacion);
+        $proyect = Proyecto::findOrFail($unid->proyecto->id);
+        $proyect->cotizaciones()->save($cotizacion);
+        $parking = Estacionamiento::findOrFail($request->estacionamiento);
+        $parking->cotizaciones()->save($cotizacion);
+        Mail::to($request->email)->send(new ContizacionMail($cotizacion));
+        return redirect()->route('cotizacion.exitosa');
+    }
+
+    public function success()
+    {
+        return view('cotizacion.success');
     }
 
     /**

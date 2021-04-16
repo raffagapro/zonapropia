@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('cotizacion', CotizacionController::class, ['except'=>['index']]);
     Route::get('cotizacion/{id}/index', [CotizacionController::class, 'index'])->name('cotizacion.index');
     Route::get('cotizacion/online/reserva', [CotizacionController::class, 'reserva'])->name('cotizacion.reserva');
+    Route::get('cotizacion/online/exitosa', [CotizacionController::class, 'success'])->name('cotizacion.exitosa');
 
 
     Route::prefix('admin')->group(function(){

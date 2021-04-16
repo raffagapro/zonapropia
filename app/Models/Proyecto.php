@@ -231,5 +231,9 @@ class Proyecto extends Model
     {
         return $this->hasMany(Estacionamiento::class);
     }
+    public function cotizaciones()
+    {
+        return $this->hasMany(Cotizacion::class);
+    }
 
 }

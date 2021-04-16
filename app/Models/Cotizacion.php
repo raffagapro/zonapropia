@@ -5,14 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Estacionamiento extends Model
+class Cotizacion extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'piso',
+        'rut',
+        'phone',
         'status',
+        'email',
+        'name',
     ];
+    public function user()
+    {
+      return $this->belongsTo(User::class);
+    }
     public function proyecto()
     {
       return $this->belongsTo(Proyecto::class);
@@ -21,8 +27,8 @@ class Estacionamiento extends Model
     {
       return $this->belongsTo(Unidad::class);
     }
-    public function cotizaciones()
+    public function estacionamiento()
     {
-        return $this->hasMany(Cotizacion::class);
+      return $this->belongsTo(Estacionamiento::class);
     }
 }

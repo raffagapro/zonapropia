@@ -6,26 +6,30 @@
           <tr>
             <th>Fecha creación</th>
             <th>Proyecto</th>
-            <th>Unidad Principal</th>
-            <th>Unidad Adicionales</th>
+            <th>Unidad</th>
+            <th>Estacionamiento</th>
             <th>Acciones</th>
-            <th><i class="far fa-file-pdf"></i></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td><a class="main-color" href="{{ route('cotizacion.index', 1) }}"><i class="far fa-file-pdf"></i></a></td>
-          </tr>
+          @forelse (App\Models\Cotizacion::where('user_id', auth()->user()->id)->get() as $cot)
+            <tr>
+              <td>{{ $cot->created_at->diffForHumans() }}</td>
+              <td>{{ $cot->proyecto->name }}</td>
+              <td>{{ $cot->unidad->modelo }}</td>
+              <td>{{ $cot->estacionamiento->name }}</td>
+              <td><a class="main-color" href="{{ route('cotizacion.index', $cot->id) }}"><i class="far fa-file-pdf"></i></a></td>
+            </tr>
+          @empty
+            <tr>
+              <th class="main-color">No tienes cotizaciones.</th>
+            </tr>
+          @endforelse
         </tbody>
       </table>
-      <hr>
+      {{--  <hr>
       <div class="text-right">
         pagination here
-      </div>
+      </div>  --}}
     </div>
   </div>

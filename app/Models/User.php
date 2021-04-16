@@ -81,6 +81,10 @@ class User extends Authenticatable
     {
       return $this->belongsToMany(Proyecto::class);
     }
+    public function cotizaciones()
+    {
+        return $this->hasMany(Cotizacion::class);
+    }
 }
 
 // $utest = User::whereHas(

@@ -64,7 +64,8 @@
 
             {{-- from --}}
             <div class="col-12 mt-4">
-                <form>
+                <form action="{{ route('cotizacion.store') }}" method="POST">
+                    @csrf
                     <div class="form-row">
                         {{-- Tipologias  --}}
                         <div class="col-md-6 mb-3">
@@ -121,9 +122,21 @@
                             <input type="text" class="form-control mb-contact-from-input" name="phone" placeholder="Teléfono">
                         </div>
 
-                        {{-- telefono --}}
+                        {{-- email --}}
                         <div class="col-md-6 mb-3" id="emailCont" style="display: none">
                             <input type="text" class="form-control mb-contact-from-input" name="email" placeholder="¿Cuál es tu email?">
+                        </div>
+
+                        {{-- estacionamiento --}}
+                        <div class="col-md-6 mb-3">
+                            <select class="form-control" id="estacionamiento" name="estacionamiento">
+                                <option selected disabled>Estacionamiento</option>
+                                @foreach ($proyect->estacionamientos()->get() as $e)
+                                    @if ($e->status === 1)
+                                        <option value="{{ $e->id }}">{{ $e->name.' (Piso'.$e->piso.')' }}</option> 
+                                    @endif
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col">

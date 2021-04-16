@@ -188,6 +188,7 @@ $(function() {
       $('#piso').hide();
       $('#tipologia').hide();
       $('#contBtn').hide();
+      $('#estacionamiento').hide();
       $('#sendCotBtn').show();
       $('#rutCont').show();
       $('#nameCont').show();

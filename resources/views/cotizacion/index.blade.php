@@ -56,7 +56,7 @@
               <h5 style="margin-bottom: 0"><b>Unidad</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">CDM Departamento 152, conjunto quintero ediﬁcio B etapa 1</p>
+              <p class="text-right" style="margin-bottom: 0">{{ $cotizacion->proyecto->name.", Unidad:".$cotizacion->unidad->modelo }}</p>
             </div>
           </div>
           <hr style="margin: 0">
@@ -67,7 +67,16 @@
               <h5 style="margin-bottom: 0"><b>Orientación</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">Nor- Oriente</p>
+              @switch($cotizacion->unidad->orientacion)
+                  @case(1)
+                    <p class="text-right" style="margin-bottom: 0">Sur Poniente</p>
+                    @break
+                  @case(2)
+                    <p class="text-right" style="margin-bottom: 0">Nor Oriente</p>
+                    @break
+                  @default
+                    <p class="text-right" style="margin-bottom: 0">Sin Orientacion</p>
+              @endswitch
             </div>
           </div>
           <hr style="margin: 0">
@@ -78,7 +87,7 @@
               <h5 style="margin-bottom: 0"><b>Dormitorios</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">3</p>
+              <p class="text-right" style="margin-bottom: 0">{{ $cotizacion->unidad->dormitorios }}</p>
             </div>
           </div>
           <hr style="margin: 0">
@@ -89,7 +98,7 @@
               <h5 style="margin-bottom: 0"><b>Baños</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">2</p>
+              <p class="text-right" style="margin-bottom: 0">{{ $cotizacion->unidad->banos }}</p>
             </div>
           </div>
           <hr style="margin: 0">
@@ -100,7 +109,7 @@
               <h5 style="margin-bottom: 0"><b>M. municipal</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">54mts2</p>
+              <p class="text-right" style="margin-bottom: 0">{{ $cotizacion->unidad->superficie_municipal }}m<sup>2</sup></p>
             </div>
           </div>
           <hr style="margin: 0">
@@ -111,7 +120,7 @@
               <h5 style="margin-bottom: 0"><b>M.totales</b></h5>
             </div>
             <div class="col-6 text-right">
-              <p class="text-right" style="margin-bottom: 0">51mts2</p>
+              <p class="text-right" style="margin-bottom: 0">{{ $cotizacion->unidad->superficie_total }}m<sup>2</sup></p>
             </div>
           </div>
           <hr style="margin: 0">
@@ -126,7 +135,7 @@
           <h5>Precio desde</h5>
         </div>
         <div class="col-6 text-right">
-          <h5 class="main-color">UF 2010</h5>
+          <h5 class="main-color">UF {{ $cotizacion->unidad->precio_venta }}</h5>
         </div>
       </div>
       <hr style="margin: 0">
