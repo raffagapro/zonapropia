@@ -1,0 +1,6 @@
+npm i
+composer update
+npm run watch
+npm run watch (again)
+php artisan migrate
+php artisan db:seed
