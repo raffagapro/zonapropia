@@ -8,7 +8,7 @@
           $title='Propiedades';
           $par='Encuentra una propiedad a tu medida, del resto nos encargamos nosotros. Te ayudamos brindándote toda la información de manera sencilla y transparente para que tomes la mejor decisión.'
         @endphp
-        <x-triTitle :subtitle="$subtitle" :title="$title" :par="$par"/>
+        <x-triTitle-white :subtitle="$subtitle" :title="$title" :par="$par"/>
       </div>
 
       {{-- Right Panel --}}
@@ -18,7 +18,7 @@
             <form class="mainSearchPanel" action="{{ route('proyects.search') }}" method="POST">
               @csrf
               <div class="form-group">
-                <h3 class="second-color">Buscador</h3>
+                <h3>Buscador</h3>
               </div>
 
               <div class="form-group">
@@ -60,7 +60,7 @@
               </div>
               
               <div class="form-group">
-                <label for="formControlRange" class="second-color">Precio: UF <span id="ufmin">0</span> - UF <span id="ufmax">10000</span></label>
+                <label for="formControlRange">Precio: UF <span id="ufmin">0</span> - UF <span id="ufmax">10000</span></label>
                 <div slider id="slider-distance">
                   <div>
                     <div inverse-left style="width:00%;"></div>

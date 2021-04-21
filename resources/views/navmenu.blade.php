@@ -54,28 +54,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {{-- Main Links --}}
       <ul class="navbar-nav ml-auto mr-1">
-        <li class="nav-item">
+        <li class="nav-item mr-5">
           <a class="nav-link active" href="{{ route('proyects.index')}}">
             <span class="nav-link-text">
               Proyectos
             </span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mr-5">
           <a class="nav-link" href="{{ route('Invertir.index')}}">
             <span class="nav-link-text">
               Por qué invertir
             </span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mr-5">
           <a class="nav-link" href="{{ route('Financiamiento.index')}}">
             <span class="nav-link-text">
               Financiamiento
             </span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mr-5">
           <a class="nav-link" href="{{ route('Respaldo.index')}}">
             <span class="nav-link-text">
               Respaldo
@@ -136,10 +136,10 @@
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-body">
-          <div class="row login-modal-container">
+        <div class="modal-body modal-body-cont">
+          <div class="row align-items-center login-modal-container">
             {{-- Left Panel --}}
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding: 0px 40px;">
               <ul class="nav nav-pills mb-4" id="loginTabs" role="tablist">
                 {{-- Tabs --}}
                 <li class="nav-item mr-3" role="presentation">
@@ -163,7 +163,7 @@
               </div>
             </div>
             {{-- Right Panel --}}
-            <div class="col-md-6">
+            <div class="col-md-6 align-self-end" style="padding-right: 0">
               <img src="{{ asset('assets/images/login-modal-img.png') }}" width="100%">
             </div>
           </div>

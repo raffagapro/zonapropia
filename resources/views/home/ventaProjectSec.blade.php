@@ -7,7 +7,7 @@
         :title="'Venta de proyectos'"
         :par="'Contamos con proyectos privados y de subsidio. Encuentra el que se adapte mejor a tus necesidades, según tamaño, ubicación y tipo de propiedad.'"
       />
-      <button type="submit" class="btn bg-main-color general-btn" >Más proyectos</button>
+      <button type="submit" class="btn general-btn-sec bg-sec-color" >Más proyectos</button>
     </div>
   </div>
   <!-- Right Panel -->

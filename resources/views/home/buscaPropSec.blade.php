@@ -51,7 +51,7 @@
     {{-- ultimas unidades  --}}
     <div class="col-md-6 col-lg-4 pir0">
       <a href="#" class="noLink" onclick="event.preventDefault(); document.getElementById('ultimaBtn').submit();">
-        <div class="panel-icon panel-icon-ventas">
+        <div class="panel-icon panel-icon-unidades">
         <div>
           <i class="fas fa-tags pi-size"></i>
           <h4>Últimas Unidades</h4>

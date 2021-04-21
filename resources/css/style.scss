@@ -114,6 +114,12 @@ body {
   // background-color: #62A4C0;
 }
 
+.bg-sec-color {
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
+  // background-color: #62A4C0;
+}
+
 /* NAV BAR */
 .navbar-bg{
   background-color: #ffffff;
@@ -189,18 +195,35 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(71, 121, 143, 0.5);
 }
 
+.general-btn-outline2:hover {
+  color: white;
+  background-color: #BCD7D1;
+}
+.general-btn-outline2:focus {
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
+  box-shadow: 0 0 0 0.2rem rgba(188, 215, 209, 0.5);
+}
+
+.general-btn-outline2:active {
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
+  box-shadow: 0 0 0 0.2rem rgba(188, 215, 209, 0.5);
+}
+
 .navBar-btn-icon {
   margin-left: 4px;
 }
 
-.main-navbar-link {
-  padding-left: .5vw;
-  padding-right: .5vw;
-}
+// .main-navbar-link {
+//   padding-left: .5vw;
+//   padding-right: .5vw;
+// }
 
 .nav-link-text {
   // color: #62A4C0;
-  color: black;
+  font-size: 14px;
+  color: #5a5a5a;
 }
 
 .nav-link-text:hover {
@@ -209,7 +232,7 @@ body {
 }
 /* Login Modal */
 .login-modal-container{
-  margin: 60px 40px;
+  margin: 0;
 }
 .cotizador-modal-container{
   margin: 40px;
@@ -217,13 +240,17 @@ body {
 .login-modal-tab{
   color: #5A5A5A;
   font-family: 'Roboto', sans-serif;
+  font-weight: bold;
   font-size: 18px;
 }
 .login-modal-tab.active{
-  color: #62A4C0;
+  color: #F846A8;
+}
+.modal-body-cont{
+  padding: 0;
 }
 .login-modal-tab:hover{
-  color: #62A4C0;
+  color: #F846A8;
   text-decoration: none;
 }
 .login-modal-container input{
@@ -327,7 +354,15 @@ body {
 /* Main Carrousel */
 .slider-cont {
   min-height: 600px;
-  background-image: url("../../public/assets/images/slider-bg.jpg");
+  background-image: url("../../public/assets/images/slider-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.slider-cont-pro {
+  min-height: 600px;
+  background-image: url("../../public/assets/images/slider-bg-pro.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -358,11 +393,16 @@ body {
   background-position: center;
   background-image: url("../../public/assets/images/placeholders/postBannerPlaceholder1.png");
 }
+.yg-btn{
+  color: #BCD7D1;
+  border-color: #BCD7D1;
+}
 
 .banner-cont{
   min-height: 300px;
   display: flex;
   align-items:center;
+  background-position: bottom;
 }
 .banner-cont-500{
   min-height: 600px;
@@ -426,21 +466,36 @@ body {
 }
 
 .carrousel-st {
-  color: #f946a8;
+  color: #F846A8;
+  // color: red;
+  font-family: 'Helvetic Neue';
+}
+.carrousel-st-white {
+  color: white;
   // color: red;
   font-family: 'Helvetic Neue';
 }
 
 .carrousel-title{
   color: #5A5A5A;
-  // color: #5A5A5A;
+  font-family: 'Helvetic Neue Bold';
+  font-weight: bolder;
+}
+
+.carrousel-title-white{
+  color: white;
   font-family: 'Helvetic Neue Bold';
   font-weight: bolder;
 }
 
 .carrousel-text {
-  // color: #bcd7d1;
   color: #5A5A5A;
+  font-family: 'Roboto', sans-serif;
+}
+
+.carrousel-text-white {
+  // color: #bcd7d1;
+  color: white;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -477,6 +532,14 @@ body {
   width: 100%;
 }
 
+.general-btn-sec {
+  border-color: #BCD7D1;
+  // border-color: #62A4C0;
+  border-radius: 6px;
+  color: white;
+  width: 100%;
+}
+
 .btn-white {
   border-color: white;
   background-color: white;
@@ -488,6 +551,12 @@ body {
   border-color: #ca3687;
   // background-color: #47798F;
   // border-color: #47798F;
+  color: white;
+}
+
+.general-btn-sec:hover {
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
   color: white;
 }
 
@@ -568,7 +637,7 @@ body {
 }
 .section-title-cont .section-title{
   // color: #5A5A5A;
-  color:#bcd7d1;
+  color:#5A5A5A;
   font-family: 'Helvetic Neue Bold';
   font-weight: bolder;
 }
@@ -595,7 +664,7 @@ body {
   margin-bottom: 25px;
 }
 .ventajas-item h6{
-  color: #bcd7d1;
+  color: #5A5A5A;
   // color: #5A5A5A;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
@@ -727,6 +796,13 @@ body {
 }
 .panel-icon-sustentables {
   background-image: url("../../public/assets/images/panel-sustentables.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow:inset 0 0 0 2000px rgba(0, 0, 0, 0.2);
+}
+.panel-icon-unidades {
+  background-image: url("../../public/assets/images/panel-unidades.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -899,7 +975,7 @@ body {
 .item-main-grid .grid-title{
   font-family: 'Helvetic Neue Bold';
   font-weight: bolder;
-  font-size: 22px;
+  font-size: 18px;
   margin-bottom: 0;
 }
 .item-main-grid .subtitle-mapmarker{

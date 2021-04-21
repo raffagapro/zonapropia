@@ -4,9 +4,8 @@
       {{-- grid btn  --}}
       <a
         id="listBtn"
-        style="display:none"
         href="javascript:void(0);"
-        class="btn btn-outline-primary main-color general-btn-outline minibar-filter-btn-hidden-sm"
+        class="btn yg-btn general-btn-outline2 minibar-filter-btn-hidden-sm"
         data-toggle="tooltip" data-placement="top" title="Cuadricula">
         <i class="fas fa-th"></i>
       </a>
@@ -14,7 +13,7 @@
       <a
         id="gridBtn"
         href="javascript:void(0);"
-        class="btn btn-outline-primary main-color general-btn-outline minibar-filter-btn-hidden-sm"
+        class="btn yg-btn general-btn-outline2 minibar-filter-btn-hidden-sm"
         data-toggle="tooltip" data-placement="top" title="Lista">
         <i class="fas fa-list"></i>
       </a>
@@ -28,7 +27,7 @@
       </div>
     </div>
     <div class="col-md-5 display-wrapper">
-      <p class="page-display">Mostrando <span class="main-color">{{$proyectos->count()}} - {{$proyectos->total()}}</span> proyectos</p>
+      <p class="page-display">Mostrando <span class="second-color ">{{$proyectos->count()}} - {{$proyectos->total()}}</span> proyectos</p>
     </div>
   </div>
 </div>
