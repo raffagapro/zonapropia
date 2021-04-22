@@ -347,7 +347,7 @@ body {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
-  background-color: #47798F;
+  background-color: #BCD7D1;
   color: white;
 }
 
@@ -549,6 +549,14 @@ body {
 .general-btn:hover {
   background-color: #ca3687;
   border-color: #ca3687;
+  // background-color: #47798F;
+  // border-color: #47798F;
+  color: white;
+}
+
+.general-tab:hover {
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
   // background-color: #47798F;
   // border-color: #47798F;
   color: white;
@@ -1078,13 +1086,19 @@ body {
 }
 .mb-section-card-title{
   font-family: 'Helvetic Neue Bold';
-  font-weight: bolder;
+  font-weight: bold;
   margin-bottom: 0;
   padding-left: 15px;
   padding-top: 20px;
+  color: #5A5A5A;
 }
 .mb-section-card-item{
   font-size: 14px;
+  color: #5A5A5A;
+}
+.proyect-desc{
+  color: #5a5a5a;
+  font-family: 'Roboto', sans-serif;
 }
 .mb-btn-text{
   font-family: 'Helvetic Neue Bold';

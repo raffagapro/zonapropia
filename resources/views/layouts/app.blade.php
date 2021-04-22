@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" size="16x16" href="{{ asset('assets/images/favicon.ico') }}">
 
-        <title>Zonepropia - @yield('title')</title>
+        <title>Zonapropia - @yield('title')</title>
 
         {{-- Styles --}}
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">

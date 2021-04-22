@@ -14,9 +14,22 @@
             :par="$proyect->texto_destacado"
           />
         </div>
+        <div class="row">
+          <div class="col-4">
+            <button class="btn btn-block text-light bg-main-color">Cotizar</button>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-block text-light bg-main-color">Reserva Online</button>
+          </div>
+        </div>
       </div>
       {{-- Right Panel --}}
       <div class="col-sm-6 col-lg-5 banner-rpanel">
+        <div class="mb-3">
+          @foreach ($proyect->tags as $tag)
+            <span class="badge cust-badges badge-{{ $tag->color }} mr-1">{{ $tag->name }}</span>
+          @endforeach
+        </div>
         <div>
           @if ($proyect->getUF())
             <h1 class="banner-rtitle"><span class="banner-pretitle">Desde </span>{{ $proyect->getUF() }}</h1>
