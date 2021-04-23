@@ -60,7 +60,7 @@
                 </label>
               </div>
               <div class="col">
-                <img src="{{ $inmo->logo) }}" alt="">
+                <img src="{{ $inmo->logo }}" alt="">
               </div>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>
