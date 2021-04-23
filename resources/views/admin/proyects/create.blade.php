@@ -47,21 +47,33 @@
               <div class="col-6">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
-                <select class="form-control" name="region" id="region">
+                <select class="form-control @error('region') is-invalid @enderror" name="region" id="region">
                   @php $regions = App\Models\Region::all(); @endphp
                   @foreach ($regions as $region)
                     <option value="{{ $region->id }}">{{ $region->name }}</option>
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('region')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
               {{-- Comuna --}}
               <div class="col-6">
                 <label for="comuna">Comuna</label>
-                <select class="form-control" name="comuna" id="comuna">
+                <select class="form-control @error('comuna') is-invalid @enderror" name="comuna" id="comuna">
                   @foreach ($regions[0]->provincias[0]->comunas as $comuna)
                     <option value="{{ $comuna->id }}">{{ $comuna->name }}</option>
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('comuna')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
             </div>
             {{-- long/lat/inmo --}}
@@ -70,7 +82,7 @@
               <div class="col-4">
                 <label for="latitud">Latitud</label>
                 <input type="text" name="latitud" class="form-control @error('latitud') is-invalid @enderror" value="{{ old('latitud') }}">
-                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                {{--  <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>  --}}
                 @error('latitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -81,7 +93,7 @@
               <div class="col-4">
                 <label for="longitud">Longitud</label>
                 <input type="text" name="longitud" class="form-control @error('longitud') is-invalid @enderror" value="{{ old('longitud') }}">
-                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                {{--  <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>  --}}
                 @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

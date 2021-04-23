@@ -48,12 +48,15 @@ class AminProyectController extends Controller
       $validated = $request->validate([
         'nombre'=>'required|max:40|unique:proyectos,name',
         'direccion'=>'required|unique:proyectos,direccion',
-        'latitud'=>'required',
-        'longitud'=>'required',
+        // 'latitud'=>'required',
+        // 'longitud'=>'required',
         'descripcion'=>'required',
         'textoDestacado'=>'required',
         'textoProyecto'=>'required',
         'terminos'=>'required',
+        'region'=>'required',
+        'comuna'=>'required',
+        'cat'=>'required',
       ]);
       $destacar = 0;
       if ($request->destacar !== 0) {
