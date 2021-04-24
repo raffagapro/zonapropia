@@ -1,13 +1,13 @@
 @props([
   'proyect' => $proyect,
 ])
-<a href="{{ route('proyect.show', $proyect->id )}}" class="text-light">
+
   <div class="slider-cont-cards">
   <div class="card text-white singlePanelSlider section-slide1"
     @if ($proyect->media->where('name', 'main')->first() === null)
       style="background-image:url({{ asset('assets/images/main_default.png') }})"
     @else 
-      style="background-image:url({{ asset($proyect->media->where('name', 'main')->first()->loc) }})"
+      style="background-image:url({{ Storage::url($proyect->media->where('name', 'main')->first()->loc) }})"
     @endif
   >
     <div class="card-body">
@@ -39,23 +39,26 @@
       </div>
       <!-- Body -->
       <div class="slide-body">
-        <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna->name }}</small>
-        <h6>{{ $proyect->name }}</h6>
-        @if ($proyect->getUF())
-          <h4>{{ $proyect->getUF() }}</h4>
-        @else
-          <h4>Próximamente</h4>
-        @endif
-        <small>
-          @if ((int)$proyect->maxRooms !== 0)
-            {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorm |
+        <a href="{{ route('proyect.show', $proyect->id )}}" class="text-light">
+          <small><i class="fas fa-map-marker-alt"></i> {{ $proyect->comuna->name }}</small>
+          <h6>{{ $proyect->name }}</h6>
+          @if ($proyect->getUF())
+            <h6>{{ $proyect->getUF() }}</h6>
+          @else
+            <h6>Próximamente</h6>
           @endif
-          @if ((int)$proyect->maxBathrooms !== 0)
-            {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} Baños |
-          @endif
-          {{ $proyect->minMC }} - {{ $proyect->maxMC }}m<sup>2</sup> </small>
+          <small>
+            @if ((int)$proyect->maxRooms !== 0)
+              {{ $proyect->minRooms }} - {{ $proyect->maxRooms }} Dorm |
+            @endif
+            @if ((int)$proyect->maxBathrooms !== 0)
+              {{ $proyect->minBathrooms }} - {{ $proyect->maxBathrooms }} Baños |
+            @endif
+            {{ $proyect->minMC }} - {{ $proyect->maxMC }}m<sup>2</sup>
+          </small>
+        </a>
       </div>
     </div>
   </div>
 </div>
-</a>
+

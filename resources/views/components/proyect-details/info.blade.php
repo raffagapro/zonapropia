@@ -71,7 +71,7 @@
                 @endphp
                 @forelse ($proyect->media->where('name', 'media')->all() as $media)
                   <div class="carousel-item @if ($go === 0) active @php $go = 1; @endphp @endif">
-                    <img src="{{ $media->loc }}" class="d-block w-100" alt="...">
+                    <img src="{{ Storage::url($media->loc) }}" class="d-block w-100" alt="...">
                   </div>
                 @empty
                   <h3>Sin imagenes</h3>
@@ -121,7 +121,7 @@
     @if ($proyect->inmobiliaria !== null)
       <div class="card mb-section-card mt-0">
         <div class="card-body row align-items-center mt-5 mb-5">
-          <img src="{{ asset($proyect->inmobiliaria->logo) }}" alt="" class="mb-main-logo">
+          <img src="{{ Storage::url($proyect->inmobiliaria->logo) }}" alt="" class="mb-main-logo">
         </div>
       </div>
     @endif

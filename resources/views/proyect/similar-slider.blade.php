@@ -8,7 +8,7 @@
             @if ($sim->media->where('name', 'main')->first() === null)
               <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-grid-img2">
             @else
-              <img src="{{ asset($sim->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
+              <img src="{{ Storage::url($sim->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-grid-img2">
             @endif
             <!-- LIKED -->
             @auth

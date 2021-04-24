@@ -27,8 +27,7 @@ class MediaController extends Controller
       if ($proyect->proyectHasMedia($request->name)) {
         //erases previos image
         $mediaz = $proyect->media->where('name', 'banner')->first();
-        $delInmo = str_replace('/storage/', "",$mediaz->loc);
-        Storage::delete('public/'.$delInmo);
+        Storage::delete('public/'.$mediaz->loc);
         $mediaz->delete();
       }
       // dd($proyect->proyectHasMedia($request->name));
@@ -40,6 +39,7 @@ class MediaController extends Controller
           $extension = $request->banner->extension();
           $request->banner->storeAs('/public/media', $request->name.'_'.$proyect->id.".".$extension);
           $url = Storage::url('media/'.$request->name.'_'.$proyect->id.".".$extension);
+          $url = str_replace('/storage/', "",$url);
           $proyect->Media()->save(new Media([
             'name' => $request->name,
             'loc' => $url,
@@ -71,8 +71,7 @@ class MediaController extends Controller
       if ($proyect->proyectHasMedia($request->name)) {
         //erases previos image
         $mediaz = $proyect->media->where('name', 'main')->first();
-        $delInmo = str_replace('/storage/', "",$mediaz->loc);
-        Storage::delete('public/'.$delInmo);
+        Storage::delete('public/'.$mediaz->loc);
         $mediaz->delete();
       }
       // dd($proyect->proyectHasMedia($request->name));
@@ -84,6 +83,7 @@ class MediaController extends Controller
           $extension = $request->main->extension();
           $request->main->storeAs('/public/media', $request->name.'_'.$proyect->id.".".$extension);
           $url = Storage::url('media/'.$request->name.'_'.$proyect->id.".".$extension);
+          $url = str_replace('/storage/', "",$url);
           $proyect->Media()->save(new Media([
             'name' => $request->name,
             'loc' => $url,
@@ -120,6 +120,7 @@ class MediaController extends Controller
           $originalName = str_replace('.'.$extension, "",$originalName);
           $request->media->storeAs('/public/media', $request->name.'_'.$proyect->id."_".$originalName.".".$extension);
           $url = Storage::url('media/'.$request->name.'_'.$proyect->id."_".$originalName.".".$extension);
+          $url = str_replace('/storage/', "",$url);
           $proyect->Media()->save(new Media([
             'name' => $request->name,
             'loc' => $url,
@@ -147,8 +148,7 @@ class MediaController extends Controller
       $proyect = Proyecto::findOrFail($proyect_id);
       //erase file from store
       $media = $proyect->media->where('id', $media_id)->first();
-      $delInmo = str_replace('/storage/', "",$media->loc);
-      Storage::delete('public/'.$delInmo);
+      Storage::delete('public/'.$media->loc);
       //erase record from DB
       $media->delete();
       //call proyect again with new image

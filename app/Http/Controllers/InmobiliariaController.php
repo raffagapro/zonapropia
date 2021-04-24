@@ -49,6 +49,7 @@ class InmobiliariaController extends Controller
           $extension = $request->logo->extension();
           $request->logo->storeAs('/public/inmo_logos', 'logo_'.$request->nombre.".".$extension);
           $url = Storage::url('inmo_logos/logo_'.$request->nombre.".".$extension);
+          $url = str_replace('/storage/', "",$url);
           $destacar = 0;
           if ($request->has('destacar')) {
             $destacar = 1;
@@ -145,7 +146,6 @@ class InmobiliariaController extends Controller
     public function update(Request $request, $id){
       $validated = $request->validate([
         'nombre'=>'required',
-        'logo'=>'required',
       ]);
       $inmo = Inmobiliaria::findOrFail($id);
       $inmo->name = $request->nombre;
@@ -160,12 +160,12 @@ class InmobiliariaController extends Controller
             'nombre'=>'string|max:40',
           ]);
           //erases previos logo
-          $delInmo = str_replace('/storage/', "",$inmo->logo);
-          Storage::delete('public/'.$delInmo);
+          Storage::delete('public/'.$inmo->logo);
           //saves new one
           $extension = $request->logo->extension();
           $request->logo->storeAs('/public/inmo_logos', 'logo_'.$request->nombre.".".$extension);
           $url = Storage::url('inmo_logos/logo_'.$request->nombre.".".$extension);
+          $url = str_replace('/storage/', "",$url);
           $inmo->logo = $url;
         }
       }
@@ -183,8 +183,7 @@ class InmobiliariaController extends Controller
      */
     public function destroy($id){
       $inmo = Inmobiliaria::findOrFail($id);
-      $delInmo = str_replace('/storage/', "",$inmo->logo);
-      Storage::delete('public/'.$delInmo);
+      Storage::delete('public/'.$inmo->logo);
       $inmo->delete();
       $status = 'La inmobiliaria ha sido eliminada exitosamente.';
       $inmos = Inmobiliaria::paginate(25);

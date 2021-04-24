@@ -84,8 +84,7 @@ class CaracteristicasController extends Controller
       }
       //removes media associated
       foreach ($car->media_cara as $mc) {
-        $delMedia = str_replace('/storage/', "",$mc->loc);
-        Storage::delete('public/'.$delMedia);
+        Storage::delete('public/'.$mc->loc);
         //erase record from DB
         $mc->delete();
       }
@@ -96,9 +95,9 @@ class CaracteristicasController extends Controller
     }
 
     public function addMedia(Request $request){
+      // dd($request->all());
       $car = Caracteristica::findOrFail($request->char_id);
       $proyect = Proyecto::findOrFail($request->proyect_id);
-      // dd($car, $proyect);
       if ($request->hasFile('charImg')) {
         if ($request->file('charImg')->isValid()) {
           $validated = $request->validate([
@@ -112,6 +111,7 @@ class CaracteristicasController extends Controller
           $extension = $request->charImg->extension();
           $request->charImg->storeAs('/public/chars', 'char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id.'.'.$extension);
           $url = Storage::url('chars/char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id.'.'.$extension);
+          $url = str_replace('/storage/', "",$url);
           $mc->name = 'char_'.$car->id.'_pro_'.$proyect->id.'_m_'.$mc->id;
           $mc->loc = $url;
           $mc->save();
@@ -119,21 +119,7 @@ class CaracteristicasController extends Controller
           $proyect->media_cara()->save($mc);
           $car->media_cara()->save($mc);
           $status = 'La imagen ha sido guardada.';
-          $cats = Categoria::all();
-          $caracs = Caracteristica::all();
-          $inmos = Inmobiliaria::all();
-          $regions = Region::all();
-          $tags = Taggable::all();
-          return view('admin.proyects.edit')
-            ->with(compact(
-              'proyect',
-              'cats',
-              'inmos',
-              'regions',
-              'tags',
-              'caracs',
-              'status'
-            ));
+          return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
         }
       }
     }
@@ -142,27 +128,12 @@ class CaracteristicasController extends Controller
       $mc = Media_Cara::findOrFail($id);
       $proyect_id = $mc->proyecto_id;
       //erase file from store
-      $delMedia = str_replace('/storage/', "",$mc->loc);
-      Storage::delete('public/'.$delMedia);
+      Storage::delete('public/'.$mc->loc);
       //erase record from DB
       $mc->delete();
       $proyect = Proyecto::findOrFail($proyect_id);
       // dd($proyect);
       $status = 'La imagen ha sido eliminada.';
-      $cats = Categoria::all();
-      $caracs = Caracteristica::all();
-      $inmos = Inmobiliaria::all();
-      $regions = Region::all();
-      $tags = Taggable::all();
-      return view('admin.proyects.edit')
-        ->with(compact(
-          'proyect',
-          'cats',
-          'inmos',
-          'regions',
-          'tags',
-          'caracs',
-          'status'
-        ));
+      return redirect()->route('aProyect.edit', $proyect->id)->with(compact('status'));
     }
 }

@@ -21,7 +21,13 @@
                   {{ $p->name }}
                 </a>
               </td>
-              <td>{{ $p->inmobiliaria->name }}</td>
+              <td>
+                @if ($p->inmobiliaria)
+                  {{ $p->inmobiliaria->name }}
+                @else
+                    -
+                @endif
+              </td>
               <td>{{ $p->categoria->name }}</td>
               <td>-</td>
               <td>

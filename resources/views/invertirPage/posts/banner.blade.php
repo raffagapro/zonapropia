@@ -1,4 +1,4 @@
-<div class="banner-cont post-slider-cont" style="background-image: url({{ asset($post->banner) }})">
+<div class="banner-cont post-slider-cont" style="background-image: url({{ Storage::url($post->banner) }})">
   <div class="container">
     <div class="row">
       <!-- Left Panel -->

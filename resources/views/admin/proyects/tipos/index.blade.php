@@ -40,7 +40,7 @@
                   </td>
                   {{-- Media --}}
                   <td>
-                    <img src="{{ asset($tipo->media) }}" class="tipoImg">
+                    <img src="{{ Storage::url($tipo->media) }}" class="tipoImg">
                   </td>
                   {{-- Control --}}
                   <td>

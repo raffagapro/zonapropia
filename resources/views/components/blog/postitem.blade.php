@@ -5,7 +5,7 @@
 <div class="col-4 p-1">
     <div class="card">
         @if ($post->media1)
-            <img src="{{ asset($post->media1) }}" class="card-img-top" alt="...">
+            <img src="{{ Storage::url($post->media1) }}" class="card-img-top" alt="...">
         @else
             <img src="{{ asset('assets/images/main_default.png') }}" class="card-img-top" alt="...">
         @endif

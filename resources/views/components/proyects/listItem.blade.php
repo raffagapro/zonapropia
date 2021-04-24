@@ -11,7 +11,7 @@
           @if ($proyect->media->where('name', 'main')->first() === null)
             <img src="{{ asset('assets/images/main_default.png') }}" alt="" class="item-main-list-img">
           @else 
-            <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-list-img">
+            <img src="{{ Storage::url($proyect->media->where('name', 'main')->first()->loc) }}" alt="" class="item-main-list-img">
           @endif
           <!-- LIKED -->
           @auth

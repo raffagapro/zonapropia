@@ -122,7 +122,7 @@
             <div class="form-group">
               <label for="banner">Banner (1920 × 927px, 2MB max, jpeg, png)</label><br>
               @if ($post->banner)
-                <img src="{{ asset($post->banner) }}" class="mediaProyect mb-2">
+                <img src="{{ Storage::url($post->banner) }}" class="mediaProyect mb-2">
                 {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
               @endif
               <input type="hidden" name="post_id" value="{{ $post->id }}">
@@ -151,7 +151,7 @@
             <div class="form-group">
               <label for="image">Principal (600 × 400px, 1MB max, jpeg, png)</label><br>
               @if ($post->media1)
-                <img src="{{ asset($post->media1) }}" class="mediaProyect mb-2">
+                <img src="{{ Storage::url($post->media1) }}" class="mediaProyect mb-2">
               @endif
               <input type="hidden" name="name" value="main">
               <input type="hidden" name="post_id" value="{{ $post->id }}">

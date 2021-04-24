@@ -122,8 +122,7 @@ class PostController extends Controller
         $post = Post::findOrFail($request->post_id);
         if ($post->banner) {
             //erases previos image
-            $delInmo = str_replace('/storage/', "",$post->banner);
-            Storage::delete('public/'.$delInmo);
+            Storage::delete('public/'.$post->banner);
         }
         // dd($proyect->proyectHasMedia($request->name));
         if ($request->hasFile('banner')) {
@@ -135,6 +134,7 @@ class PostController extends Controller
                 $extension = $request->banner->extension();
                 $request->banner->storeAs('/public/posts', $request->name.'_'.$post->id.".".$extension);
                 $url = Storage::url('posts/'.$request->name.'_'.$post->id.".".$extension);
+                $url = str_replace('/storage/', "",$url);
                 $post->banner = $url;
                 $post->save();
             }else{
@@ -157,8 +157,7 @@ class PostController extends Controller
         $post = Post::findOrFail($request->post_id);
         if ($post->media1) {
           //erases previos image
-          $delInmo = str_replace('/storage/', "",$post->media1);
-          Storage::delete('public/'.$delInmo);
+          Storage::delete('public/'.$post->media1);
         }
         // dd($proyect->proyectHasMedia($request->name));
         if ($request->hasFile('main')) {
@@ -169,6 +168,7 @@ class PostController extends Controller
             $extension = $request->main->extension();
             $request->main->storeAs('/public/posts', $request->name.'_'.$post->id.".".$extension);
             $url = Storage::url('posts/'.$request->name.'_'.$post->id.".".$extension);
+            $url = str_replace('/storage/', "",$url);
             $post->media1 = $url;
             $post->save();
 

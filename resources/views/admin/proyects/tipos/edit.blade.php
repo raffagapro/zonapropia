@@ -35,7 +35,7 @@
             <div class="form-group">
               <label for="media">Imagen (552x552px, 1MB max)</label><br>
               @if ($tipo->media !== null)
-                <img src="{{ asset($tipo->media) }}" alt="">
+                <img src="{{ Storage::url($tipo->media) }}" alt="">
               @else
                 <h1>Sin imagen en registro.</h1>
               @endif

@@ -34,7 +34,8 @@ $( document ).ready(function() {
 
   $(".charImgBtn").click(event =>{
     event.preventDefault();
-    let charId = $(this).attr('id');
+    let charId = $(".charImgBtn").attr('id');
+    console.log(charId);
     $("#char_id").val(charId);
   });
 });

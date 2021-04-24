@@ -41,7 +41,6 @@
                   class="form-control-file @error('logo') is-invalid @enderror"
                   data-default-file="url_of_your_file"
                   name="logo"/>
-                <small id="emailHelp" class="form-text text-danger">*Requerido.</small>
                 @error('logo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -60,7 +59,7 @@
                 </label>
               </div>
               <div class="col">
-                <img src="{{ $inmo->logo }}" alt="">
+                <img src="{{ Storage::url($inmo->logo) }}" alt="">
               </div>
             </div>
             <button type="submit" class="btn bg-main-color navBar-btn text-light float-right mb-3">Actualizar</button>

@@ -32,7 +32,7 @@
           @endphp
           <p class="page-body">{{ $b }}</p>
           @if ($bCounter === 1 && $post->media1)
-            <img class="my-5 post-img" src="{{ asset($post->media1) }}" alt="">
+            <img class="my-5 post-img" src="{{ Storage::url($post->media1) }}" alt="">
           @endif
           @if ($bCounter === ($bTotal - 1) && $post->video)
             <div class="embed-responsive embed-responsive-16by9 post-img">

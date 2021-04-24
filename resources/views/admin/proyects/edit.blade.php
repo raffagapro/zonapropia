@@ -48,13 +48,13 @@
                   </span>
               @enderror
             </div>
-            {{-- Reg/Comuna/ciudad --}}
+            {{-- Reg/Comuna --}}
             <div class="form-group row">
               {{-- Region --}}
               <div class="col-6">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                 <label for="region">Region</label>
-                <select class="form-control" name="region" id="region">
+                <select class="form-control @error('region') is-invalid @enderror" name="region" id="region">
                   @php $regions = App\Models\Region::all(); @endphp
                   @foreach ($regions as $region)
                     @if ((int)$proyect->region->id === (int)$region->id)
@@ -64,11 +64,17 @@
                     @endif
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('region')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
               {{-- Comuna --}}
               <div class="col-6">
                 <label for="comuna">Comuna</label>
-                <select class="form-control" name="comuna" id="comuna">
+                <select class="form-control @error('comuna') is-invalid @enderror" name="comuna" id="comuna">
                   @foreach ($proyect->provincia->comunas as $comuna)
                     @if ((int)$proyect->comuna->id === (int)$comuna->id)
                       <option value="{{ $comuna->id }}" selected>{{ $comuna->name }}</option>
@@ -77,6 +83,12 @@
                     @endif
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('comuna')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
             </div>
             {{-- long/lat/inmo --}}
@@ -88,7 +100,7 @@
                   class="form-control @error('latitud') is-invalid @enderror"
                   placeholder="Latitud" value="{{ $proyect->latitud }}"
                 >
-                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                {{--  <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>  --}}
                 @error('latitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -102,7 +114,7 @@
                   class="form-control @error('longitud') is-invalid @enderror"
                   placeholder="Longitud" value="{{ $proyect->longitud }}"
                 >
-                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                {{--  <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>  --}}
                 @error('longitud')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -133,7 +145,7 @@
               {{-- Categories --}}
               <div class="col-4">
                 <label for="cat">Categoria</label>
-                <select class="form-control" name="cat">
+                <select class="form-control @error('cat') is-invalid @enderror" name="cat">
                   @foreach (App\Models\Categoria::all() as $cat)
                     @if ((int)$proyect->categoria->id === (int)$cat->id)
                       <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
@@ -142,6 +154,12 @@
                     @endif
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('cat')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
               {{-- Cuota Monto --}}
               <div class="col-4">
@@ -538,7 +556,7 @@
                   </div>
                   <div class="col">
                     @forelse ($proyect->getMediaCara($cari->id) as $mc)
-                      <img src="{{ asset($mc->loc) }}" class="mediaProyect2 mb-2">
+                      <img src="{{ Storage::url($mc->loc) }}" class="mediaProyect2 mb-2">
                       <a href="{{ route('caracs.rmMedia', $mc->id) }}" class="btn btn-sm btn-danger test"><i class="fas fa-times"></i></a>
                     @empty
                       <p>Sin imagenes.</p>
@@ -737,7 +755,7 @@
             <div class="form-group">
               <label for="banner">Banner (1920 × 927px, 2MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('banner'))
-                <img src="{{ asset($proyect->media->where('name', 'banner')->first()->loc) }}" class="mediaProyect mb-2">
+                <img src="{{ Storage::url($proyect->media->where('name', 'banner')->first()->loc) }}" class="mediaProyect mb-2">
                 {{-- <h1>{{ $proyect->media->where('name', 'banner')->first()->loc }}</h1> --}}
               @endif
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -767,7 +785,7 @@
             <div class="form-group">
               <label for="image">Principal (400 × 550px, 1MB max, jpeg, png)</label><br>
               @if ($proyect->proyectHasMedia('main'))
-                <img src="{{ asset($proyect->media->where('name', 'main')->first()->loc) }}" class="mediaProyect mb-2">
+                <img src="{{ Storage::url($proyect->media->where('name', 'main')->first()->loc) }}" class="mediaProyect mb-2">
               @endif
               <input type="hidden" name="name" value="main">
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
@@ -801,9 +819,9 @@
                   <a href="{{ route('media.delMedia', [$media->id, $proyect->id]) }}" class="imgDelBtn">
                     <i class="fas fa-trash text-danger"></i>
                   </a>
-                  {{ str_replace('/storage/media/', "",$media->loc) }}
+                  {{ str_replace('/media/', "",$media->loc) }}
                   <br>
-                  <img src="{{ asset($media->loc) }}" class="mediaProyect mb-2">
+                  <img src="{{ Storage::url($media->loc) }}" class="mediaProyect mb-2">
                 </div>
                 <br>
               @endforeach
@@ -849,7 +867,7 @@
             <div class="form-group">
               <label for="charImg">Imagen (1920 × 927px, 3MB max, jpeg, png)</label><br>
               <input type="hidden" name="proyect_id" value="{{ $proyect->id }}">
-              <input type="hidden" name="char_id" id="char_id" value="">
+              <input type="hidden" name="char_id" id="char_id" value="caca">
               <input
                 type="file"
                 class="form-control-file @error('charImg') is-invalid @enderror"

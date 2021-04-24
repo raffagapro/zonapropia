@@ -1,4 +1,5 @@
-@if (count($proyect->getTipologias()) !== 0)
+@if (count($proyect->unidades) !== 0)
+{{--  @if (count($proyect->getTipologias()) !== 0)  --}}
     <div class="card mb-section-card mt-0">
         <div class="card-body row mt-5 mb-5">
             <!-- Title -->
@@ -8,7 +9,7 @@
             <div class="col-6 text-right">
                 <h4 class="mb-info-title">
                     Tipologias: 
-                    <span id="tipoTitleCont">{{ $proyect->unidades[0]->tipologias[0]->titulo }}</span>
+                    <span id="tipoTitleCont">{{ $proyect->unidades[0]->modelo }}</span>
                 </h4>
             </div>
             
@@ -58,9 +59,11 @@
                     </div>
                 </div>
             @endif --}}
-            <div class="col-12 mt-4 text-center" id="tipoImgCont">
-                <img src="{{ asset($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
-            </div>
+            @if (count($proyect->unidades[0]->tipologias) !== 0)
+                <div class="col-12 mt-4 text-center" id="tipoImgCont">
+                    <img src="{{ Storage::url($proyect->unidades[0]->tipologias[0]->media) }}" alt="">
+                </div>
+            @endif
 
             {{-- from --}}
             <div class="col-12 mt-4">

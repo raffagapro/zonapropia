@@ -69,7 +69,7 @@
                 @php $d = 0; @endphp
                 @foreach ($proyect->getAllMediaCara() as $mc)
                   <div class="carousel-item @if ($d === 0) active @endif">
-                    <img src="{{ $mc->loc }}" class="d-block w-100" alt="...">
+                    <img src="{{ Storage::url($mc->loc) }}" class="d-block w-100" alt="...">
                   </div>
                   @php $d++; @endphp
                 @endforeach

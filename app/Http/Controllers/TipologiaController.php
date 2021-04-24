@@ -52,13 +52,13 @@ class TipologiaController extends Controller
             $extension = $request->media->extension();
             $request->media->storeAs('/public/tipologias', 'tipologia_'.$tipologia->id.".".$extension);
             $url = Storage::url('tipologias/tipologia_'.$tipologia->id.".".$extension);
+            $url = str_replace('/storage/', "",$url);
             $tipologia->media = $url;
             $tipologia->save();
           }
         }
         $status = 'La tipologia ha sido agregada exitosamente.';
-        $tipologias = Tipologia::paginate(25);
-        return view('admin.proyects.tipos.index')->with(compact('tipologias', 'status'));
+        return redirect()->route('tipo.index')->with(compact('status'));
     }
 
     /**
@@ -68,6 +68,7 @@ class TipologiaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
+        // dd($id);
         $tipo = Tipologia::findOrFail($id);
         return view('admin.proyects.tipos.edit')
           ->with(compact('tipo'));
@@ -89,23 +90,20 @@ class TipologiaController extends Controller
                 'media'=>'mimes:jpeg,png|max:1000',
                 ]);
                 //erases previos img
-                $delTipo = str_replace('/storage/', "",$tipo->media);
-                Storage::delete('public/'.$delTipo);
+                Storage::delete('public/'.$tipo->tipologia);
                 //nueva img
                 $extension = $request->media->extension();
                 $request->media->storeAs('/public/tipologias', 'tipologia_'.$tipo->id.".".$extension);
                 $url = Storage::url('tipologias/tipologia_'.$tipo->id.".".$extension);
+                $url = str_replace('/storage/', "",$url);
                 $tipo->media = $url;
             }
         }
         $tipo->save();
         // dd($unidad->proyecto);
         $status = 'La tipologia ha sido actualizada exitosamente.';
-        $unidad = Unidad::findOrFail((int)$request->unidad);
-        $proyecto = $unidad->proyecto;
         // dd($unidad->proyecto);
-        return view('admin.proyects.unidades.edit')
-            ->with(compact('unidad', 'proyecto'));
+        return redirect()->route('tipo.edit', $tipo->id)->with(compact('status'));
     }
 
     /**
@@ -117,8 +115,7 @@ class TipologiaController extends Controller
     public function destroy($id){
         $tipo = Tipologia::findOrFail($id);
         // dd($proyecto);
-        $delTipo = str_replace('/storage/', "",$tipo->tipologia);
-        Storage::delete('public/'.$delTipo);
+        Storage::delete('public/'.$tipo->tipologia);
         $unidades = $tipo->unidades;
         foreach ($unidades as $unidad) {
           $unidad->tipologias()->detach($tipo);
@@ -126,7 +123,7 @@ class TipologiaController extends Controller
         $tipo->delete();
         $status = 'La tipologia ha sido eliminada exitosamente.';
         $tipologias = Tipologia::paginate(25);
-        return view('admin.proyects.tipos.index')->with(compact('tipologias', 'status'));
+        return redirect()->route('tipo.index')->with(compact('status'));
     }
 
     public function proyectSwitcher(Request $request){

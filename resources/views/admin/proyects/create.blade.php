@@ -116,11 +116,17 @@
               {{-- Categories --}}
               <div class="col-4">
                 <label for="cat">Categoria</label>
-                <select class="form-control" name="cat">
+                <select class="form-control @error('cat') is-invalid @enderror" name="cat">
                   @foreach (App\Models\Categoria::all() as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                   @endforeach
                 </select>
+                <small id="emailHelp" class="form-text text-danger text-right">*Requerido.</small>
+                @error('cat')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
               {{-- Cuota Monto --}}
               <div class="col-4">

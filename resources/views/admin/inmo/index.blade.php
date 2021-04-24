@@ -65,7 +65,7 @@
                     </a>
                   </td>
                   <td>
-                    <img src="{{ $inmo->logo }}" alt="" class="inmoTb">
+                    <img src="{{ Storage::url($inmo->logo) }}" alt="" class="inmoTb">
                   </td>
                   <td>
                     @if ( (int)$inmo->destacar === 1 )

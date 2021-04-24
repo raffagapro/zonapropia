@@ -325,17 +325,19 @@ class AminProyectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-      // dd($request->destacar);
       // dd($request->all());
       $validated = $request->validate([
-        'nombre'=>'required|max:40|unique:proyectos,name',
-        'direccion'=>'required|unique:proyectos,direccion',
-        'latitud'=>'required',
-        'longitud'=>'required',
+        'nombre'=>'required',
+        'direccion'=>'required',
+        // 'latitud'=>'required',
+        // 'longitud'=>'required',
         'descripcion'=>'required',
         'textoDestacado'=>'required',
         'textoProyecto'=>'required',
         'terminos'=>'required',
+        'region'=>'required',
+        'comuna'=>'required',
+        'cat'=>'required',
       ]);
       $proyect = Proyecto::findOrFail($id);
       $proyect->name = $request->nombre;
@@ -381,15 +383,15 @@ class AminProyectController extends Controller
         $region = Region::findOrFail((int)$request->region);
         $region->proyects()->save($proyect);
       }
-      if ($request->provincia !== $proyect->provincia->id) {
-        $proyect->provincia()->dissociate();
-        $provincia = Provincia::findOrFail((int)$request->provincia);
-        $provincia->proyects()->save($proyect);
-      }
       if ($request->comuna !== $proyect->comuna->id) {
         $proyect->comuna()->dissociate();
         $comuna = Comuna::findOrFail((int)$request->comuna);
         $comuna->proyects()->save($proyect);
+        if ($comuna->provincia->id !== $proyect->provincia->id) {
+          $proyect->provincia()->dissociate();
+          $provincia = Provincia::findOrFail((int)$comuna->provincia->id);
+          $provincia->proyects()->save($proyect);
+        }
       }
       if ($request->cat !== $proyect->categoria->id) {
         $proyect->categoria()->dissociate();

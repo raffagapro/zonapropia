@@ -1,6 +1,6 @@
 <div class="slider-cont proyect-info"
-  @if ($proyect->media->where('name', 'bannerf')->first() !== null)
-    style="background-image:url({{ asset($proyect->media->where('name', 'banner')->first()->loc) }})"
+  @if ($proyect->media->where('name', 'banner')->first() !== null)
+    style="background-image:url({{ Storage::url($proyect->media->where('name', 'banner')->first()->loc) }})"
   @endif
 >
   <div class="container">

@@ -21,8 +21,8 @@ class CreateProyectosTable extends Migration
             $table->string('provincia_id')->nullable();
             $table->integer('region_id')->nullable();
             $table->longText('descripcion')->nullable();
-            $table->decimal('latitud', 13, 7)->nullable();
-            $table->decimal('longitud', 13, 7)->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
             $table->integer('destacado')->nullable();
             $table->string('texto_destacado')->nullable();
             $table->tinyInteger('activo')->nullable();
