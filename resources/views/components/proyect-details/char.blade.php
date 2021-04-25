@@ -11,7 +11,7 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Características</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt main-color"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
@@ -34,7 +34,7 @@
         </div>
         <!-- Características -->
         <div class="col-12 mt-4">
-          <h4>Características</h4>
+          <h4 style="color: #5A5A5A;">Características</h4>
         </div>
         @if ((int)$proyect->maxRooms !== 0)
           <div class="col-md-4 mb-char-aleft mt-4">
@@ -94,7 +94,7 @@
         <!-- Title -->
         <div class="col">
           <h2 class="mb-info-title">Características del proyecto</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> San Miguel - Condominio San Nicolás</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt main-color"></i> San Miguel - Condominio San Nicolás</small>
         </div>
 
         <!-- Gallery -->
@@ -110,7 +110,7 @@
                     </div>
                   </div>
                   <div class="col-9">
-                    <h4>{{ $car->name }}</h4>
+                    <h4 style="color: #5A5A5A;">{{ $car->name }}</h4>
                     <p>{{ $car->descripcion }}</p>
                   </div>
                 </div>

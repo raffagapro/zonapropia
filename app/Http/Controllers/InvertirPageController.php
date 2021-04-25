@@ -14,6 +14,11 @@ class InvertirPageController extends Controller
      */
     public function index()
     {
+        return view('invertirPage.preindex');
+    }
+
+    public function indexPost()
+    {
         $posts = Post::orderBy('created_at')->paginate(9);
         return view('invertirPage.index')
         ->with(compact('posts'));

@@ -49,6 +49,9 @@ Route::post('proyects', [ProyectsController::class, 'search'])->name('proyects.s
 Route::post('proyects/comuna', [ProyectsController::class, 'comunaGrabber']);
 Route::get('proyects/like/{proyect}/{user}', [ProyectsController::class, 'likeProyect'])->name('proyects.like');
 Route::get('proyects/unlike/{proyect}/{user}', [ProyectsController::class, 'unlikeProyect'])->name('proyects.unlike');
+Route::get('404', function(){
+  return view('error.index');
+})->name('proyects.unlike');
 
 Route::get('proyect/{proyect_id}', [ProyectController::class, 'show'])->name('proyect.show');
 Route::post('proyect/uSwitcher', [ProyectController::class, 'unitSwitcher']);
@@ -57,6 +60,7 @@ Route::post('proyect/oSwitcher', [ProyectController::class, 'oriSwitcher']);
 Route::post('proyect/pSwitcher', [ProyectController::class, 'pisoSwitcher']);
 
 Route::resource('Invertir', InvertirPageController::class);
+Route::get('Invertir/index/articulos', [InvertirPageController::class, 'indexPost'])->name('post.indexPost');
 Route::resource('InvertirPost', InvertirPostController::class, ['except'=> ['index']]);
 Route::get('InvertirPost/post/{post_id}', [InvertirPostController::class, 'index'])->name('InvertirPost.indez');
 Route::resource('Financiamiento', FinanciamientoController::class);

@@ -148,8 +148,8 @@
                                 <small class="text-danger text-center">¡Necesitas seleccionar un modelo!</small>
                             </div>
                             <input type="hidden" id="unidadId">
-                            <button id="contBtn" class="btn btn-block bg-main-color general-btn">Continuar</button>
-                            <button type="submit" id="sendCotBtn" class="btn btn-block bg-main-color general-btn" style="display: none">Enviar Cotizacion</button>
+                            <button id="contBtn" class="btn btn-block general-btn-gray">Continuar</button>
+                            <button type="submit" id="sendCotBtn" class="btn btn-block general-btn-gray" style="display: none">Enviar Cotizacion</button>
                         </div>
                     </div>
                 </form>

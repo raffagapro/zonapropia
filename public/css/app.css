@@ -10958,10 +10958,20 @@ body {
   font-size: 50px;
 }
 
+.invert-title {
+  font-size: 14px;
+}
+
 .page-body {
   color: #5A5A5A;
   font-family: "Roboto", sans-serif;
   font-size: 15px;
+}
+
+.page-body2 {
+  color: #5A5A5A;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
 }
 
 .page-text {
@@ -11105,6 +11115,30 @@ body {
   background-color: #47798F;
   border-color: #47798F;
   box-shadow: 0 0 0 0.2rem rgba(71, 121, 143, 0.5);
+}
+
+.general-btn-bluishgray {
+  color: white;
+  background-color: #BCD7D1;
+  border-color: #BCD7D1;
+}
+
+.general-btn-bluishgray:hover {
+  color: white;
+  background-color: #a4beb9;
+  border-color: #a4beb9;
+}
+
+.general-btn-gray {
+  color: white;
+  background-color: #D0D0D0;
+  border-color: #D0D0D0;
+}
+
+.general-btn-gray:hover {
+  color: white;
+  background-color: #707070;
+  border-color: #707070;
 }
 
 .general-btn-outline2:hover {
@@ -11290,6 +11324,18 @@ body {
   background-position: center;
 }
 
+.slider-cont-invertpage {
+  background-image: url(/images/invert-banner.png?00c18d15032e6ac23a8e82432ecbc03a);
+}
+
+.slider-cont-postindex {
+  background-image: url(/images/banner-postindex.png?d85712244770e8aa679cbaac0759b5b2);
+}
+
+.slider-cont-financia {
+  background-image: url(/images/banner-financia.png?2b4757e4d015fcc240822261cb9ece93);
+}
+
 .slider-cont-pro {
   min-height: 600px;
   background-image: url(/images/slider-bg-pro.png?977fc6f3d9eb420738dd6d9060c74444);
@@ -11341,6 +11387,12 @@ body {
   min-height: 600px;
 }
 
+.banner-cont-350 {
+  min-height: 350px;
+  align-items: flex-end;
+  padding-bottom: 50px;
+}
+
 .banner-cont-300 {
   min-height: 275px;
 }
@@ -11361,6 +11413,18 @@ body {
 .bg-disable {
   border-color: #D0D0D0;
   background-color: #D0D0D0;
+}
+
+.invp-super-title {
+  color: #F846A8;
+  font-size: 14px;
+}
+
+.invp-title {
+  color: #BCD7D1;
+  font-family: "Helvetic Neue Bold";
+  font-weight: bolder;
+  font-size: 40px;
 }
 
 .proyect-info {
@@ -12125,6 +12189,7 @@ body {
 }
 
 .mb-datos-title {
+  color: #5A5A5A;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
@@ -12141,11 +12206,13 @@ body {
 }
 
 .mb-info-title {
+  color: #5A5A5A;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
 
 .mb-info-rating-title {
+  color: #5A5A5A;
   font-family: "Helvetic Neue Bold";
   font-weight: bolder;
 }
@@ -12200,6 +12267,10 @@ body {
   border-top: 5px solid #5F9B68;
 }
 
+.mb-hr-indicator-pink {
+  border-top: 5px solid #f946a8;
+}
+
 .mb-hr-indicator-red {
   border-top: 5px solid #E63721;
 }
@@ -12219,7 +12290,7 @@ body {
 }
 
 .circle-cont-icon {
-  background-color: #62A4C0;
+  background-color: #f946a8;
   border-radius: 50%;
   width: 90px;
   height: 90px;

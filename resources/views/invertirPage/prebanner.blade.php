@@ -1,4 +1,4 @@
-<div class="slider-cont slider-cont-postindex banner-cont banner-cont-350">
+<div class="slider-cont slider-cont-invertpage banner-cont banner-cont-350">
   <div class="container">
     <div class="row">
       <!-- Left Panel -->

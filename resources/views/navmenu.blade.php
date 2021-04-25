@@ -69,6 +69,13 @@
           </a>
         </li>
         <li class="nav-item mr-5">
+          <a class="nav-link" href="{{ route('post.indexPost')}}">
+            <span class="nav-link-text">
+              Blog
+            </span>
+          </a>
+        </li>
+        <li class="nav-item mr-5">
           <a class="nav-link" href="{{ route('Financiamiento.index')}}">
             <span class="nav-link-text">
               Financiamiento

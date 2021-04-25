@@ -11,7 +11,7 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Comparativa tipologías</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt main-color"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
@@ -49,7 +49,7 @@
                         <div class="row">
                           <!-- Title -->
                           <div class="col-md-6 col-lg-3">
-                            <h4>Unidad: {{ $tipo->modelo }}</h4>
+                            <h4 style="color: #5A5A5A;">Unidad: {{ $tipo->modelo }}</h4>
                           </div>
                           <div class="col-lg-1 cl-placeholder-ts"></div>
                           <div class="col-lg-2 cl-placeholder-ts"></div>

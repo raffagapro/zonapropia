@@ -15,7 +15,7 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Información del proyecto</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt main-color"></i> {{ $proyect->comuna->name }} - {{ $proyect->name }}</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
@@ -38,7 +38,7 @@
         </div>
         <!-- Características -->
         <div class="col-12 mt-4">
-          <h4>Características</h4>
+          <h4 style="color: #5A5A5A;">Características</h4>
         </div>
         @if ((int)$proyect->maxRooms !== 0)
           <div class="col-md-4 mb-char-aleft mt-4">
@@ -135,9 +135,9 @@
           @if ((int)$proyect->etapa_venta === 2) <small>2da etapa </small>@endif
           @if ((int)$proyect->etapa_venta === 3) <small>3er etapa </small>@endif
           <div class="row">
-            <div class="col-4 pr-1"><hr class="mb-hr-indicator-green"></div>
+            <div class="col-4 pr-1"><hr class="mb-hr-indicator-pink"></div>
             @if ((int)$proyect->etapa_venta > 1)
-              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator-green"></div>
+              <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator-pink"></div>
             @else
               <div class="col-4 pr-1 pl-1"><hr class="mb-hr-indicator"></div>
             @endif
@@ -151,7 +151,7 @@
         <!-- Fecha de entrega -->
         <div class="col-12 mt-4">
           <h5 class="">Fecha de Entrega</h5>
-          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> {{ $proyect->fecha_entrega }}</h6>
+          <h6><i class="far fa-calendar-alt main-color"></i> {{ $proyect->fecha_entrega }}</h6>
         </div>
         <!-- Seguridad del sector -->
         <div class="col-12 mt-4">
@@ -176,12 +176,12 @@
         <!-- Fecha de publicación -->
         <div class="col-12 mt-4">
           <h5 class="">Fecha de publicación</h5>
-          <h6><i class="far fa-calendar-alt" style="color:#D0D0D0"></i> {{ $proyect->created_at->diffForHumans() }}</h6>
+          <h6><i class="far fa-calendar-alt  main-color"></i> {{ $proyect->created_at->diffForHumans() }}</h6>
         </div>
         <!-- Financiamiento -->
         <div class="col-12 mt-4">
           <h5 class="">Financiamiento</h5>
-          <button type="button" class="btn btn-block bg-main-color general-btn mt-4">
+          <button type="button" class="btn btn-block general-btn-bluishgray mt-4">
             OBTÉN TU PRE APROBACIÓN EN LÍNEA
             <img src="/assets/images/logos/bci-logo.png" style="height: 2rem;">
           </button>
@@ -217,7 +217,7 @@
             <div class="form-group">
               <textarea class="form-control mb-contact-from-input" name="message" rows="5" placeholder="Comentario"></textarea>
             </div>
-            <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Contactar</button>
+            <button type="submit" class="btn btn-block general-btn-bluishgray mt-4">Contactar</button>
           </form>
         </div>
       </div>
@@ -230,7 +230,7 @@
           <div class="row">
             <div id="datepicker-inline"></div>
           </div>
-          <button type="submit" class="btn btn-block bg-main-color general-btn mt-4">Agenda</button>
+          <button type="submit" class="btn btn-block general-btn-bluishgray mt-4">Agenda</button>
         </div>
       </div>
     </div>

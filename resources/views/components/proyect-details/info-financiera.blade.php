@@ -11,7 +11,7 @@
         <!-- Title -->
         <div class="col-md-6">
           <h2 class="mb-info-title">Información financiera</h2>
-          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt" style="color:red;"></i> San Miguel - Condominio San Nicolás</small>
+          <small class="mb-section-card-item"><i class="fas fa-map-marker-alt main-color"></i> San Miguel - Condominio San Nicolás</small>
         </div>
         <!-- Rating -->
         <div class="col-md-6 mb-pf-rating-align mt-4">
@@ -39,5 +39,105 @@
       </div>
     </div>
 
+  </div>
+
+  {{-- card sections  --}}
+  <div class="col-12">
+    <div class="row mt-5">
+      {{-- title  --}}
+      <div class="col-12 mb-3">
+        <h2 class="mb-info-title">Lorem Ipsum</h2>
+      </div>
+      {{-- cards  --}}
+      <div class="col-12">
+        <div class="row mb-5 pt-3 pb-5">
+          <div class="col-4 p-1">
+            <div class="card card-alt">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title card-title-alt">Seguridad</h4>
+                    <p class="card-text-alt">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna                </p>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-laptop fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-4 p-1">
+            <div class="card">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title card-title-alt">Áreas verdes</h4>
+                    <p class="card-text-alt">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna                </p>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-laptop fa-3x main-color"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-4 p-1">
+            <div class="card card-alt">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title card-title-alt">Seguridad</h4>
+                    <p class="card-text-alt">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna                </p>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-laptop fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-4 p-1">
+            <div class="card">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title card-title-alt">Seguridad</h4>
+                    <p class="card-text-alt">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna                </p>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-laptop fa-3x main-color"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-4 p-1">
+            <div class="card card-alt">
+              <div class="card-body p-4">
+                <div class="row">
+                  <div class="col-9">
+                    <h4 class="card-title card-title-alt">Seguridad</h4>
+                    <p class="card-text-alt">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna                </p>
+                  </div>
+                  <div class="col-3">
+                    <i class="fas fa-laptop fa-3x"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+    </div>
   </div>
 </div>

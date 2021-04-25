@@ -18,11 +18,14 @@
 
     </div>
 
-    <div class="row mb-5 pb-5">
-      <div class="col-11 px-0">
-        <img src="assets/images/main-financiamiento.png" alt="financiamiento-abstract" style="width: 100%;">
+    <div class="row pb-5">
+      <div class="col-7 px-0">
+        <img src="assets/images/main-financiamiento.png" alt="financiamiento-abstract" style="width: auto; height: 75%;">
       </div>
       <div class="col-1"></div>
+      <div class="col-4 px-0">
+        <img src="assets/images/financiamiento2.png" alt="financiamiento-abstract" style="width: auto; height: 75%;">
+      </div>
     </div>
 
     <div class="row mb-5 py-5">
